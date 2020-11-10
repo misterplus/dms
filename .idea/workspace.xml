@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="dms:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c235875d-6256-49b5-9edf-b121496bb0ab" name="Default Changelist" comment="更新模型">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/CleanContest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/DormitoryBuilding.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/DormitoryRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/Fee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/Guest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/Notice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/RepairSheet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/ReplySheet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/plus/misterplus/dms/entity/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Users\MisterPlus\AppData\Local\JetBrains\Toolbox\apps\IDEA-U\ch-0\202.7319.50\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1jST9zeHSEu2rb8Xe22RbD0ZSd7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlserver" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.27701148" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tomcat 7.0.106" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.106" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <deployment>
+        <artifact name="dms:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_dms" />
+        <option name="HTTP_PORT" value="80" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51456" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="dms:war exploded" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c235875d-6256-49b5-9edf-b121496bb0ab" name="Default Changelist" comment="" />
+      <created>1603796346643</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603796346643</updated>
+      <workItem from="1603796347896" duration="4997000" />
+      <workItem from="1604035001660" duration="353000" />
+      <workItem from="1604369447687" duration="682000" />
+      <workItem from="1604399412477" duration="2028000" />
+      <workItem from="1605004073278" duration="1853000" />
+    </task>
+    <task id="LOCAL-00001" summary="加入Test">
+      <created>1603798770349</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603798770349</updated>
+    </task>
+    <task id="LOCAL-00002" summary="更新依赖">
+      <created>1603799907590</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603799907590</updated>
+    </task>
+    <task id="LOCAL-00003" summary="啊草我写错了">
+      <created>1603799943203</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1603799943203</updated>
+    </task>
+    <task id="LOCAL-00004" summary="啊草我写错了">
+      <created>1603802366779</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1603802366779</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add JQuery">
+      <created>1603802613241</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1603802613241</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add JQuery">
+      <created>1604406225477</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1604406225477</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add ER">
+      <created>1604406476631</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1604406476631</updated>
+    </task>
+    <task id="LOCAL-00008" summary="更新模型">
+      <created>1605008597000</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1605008597000</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="加入Test" />
+    <MESSAGE value="更新依赖" />
+    <MESSAGE value="啊草我写错了" />
+    <MESSAGE value="Add JQuery" />
+    <MESSAGE value="Add ER" />
+    <MESSAGE value="更新模型" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新模型" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="421" y="145" key="#BuildArtifactsBeforeRunChooser" timestamp="1603798008060">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="145" key="#BuildArtifactsBeforeRunChooser/0.0.1280.680@0.0.1280.680" timestamp="1603798008060" />
+    <state x="121" y="0" key="#Project_Structure" timestamp="1603798043591">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="121" y="0" key="#Project_Structure/0.0.1280.680@0.0.1280.680" timestamp="1603798043591" />
+    <state x="16" y="279" key="#SQL_Dialects" timestamp="1604399485566">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="16" y="279" key="#SQL_Dialects/0.0.1280.680@0.0.1280.680" timestamp="1604399485566" />
+    <state x="431" y="126" key="#Web_Browsers" timestamp="1603798052271">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="431" y="126" key="#Web_Browsers/0.0.1280.680@0.0.1280.680" timestamp="1603798052271" />
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604399858019">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1604399858019" />
+    <state x="446" y="56" key="#com.intellij.ide.util.MemberChooser" timestamp="1605008553783">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="446" y="56" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1605008553783" />
+    <state x="175" y="0" key="CommitChangelistDialog2" timestamp="1605008677838">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="175" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1605008677838" />
+    <state x="514" y="238" key="Github.ShareDialog" timestamp="1603798201644">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="514" y="238" key="Github.ShareDialog/0.0.1280.680@0.0.1280.680" timestamp="1603798201644" />
+    <state x="488" y="38" key="Github.UntrackedFilesDialog" timestamp="1603798220465">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="488" y="38" key="Github.UntrackedFilesDialog/0.0.1280.680@0.0.1280.680" timestamp="1603798220465" />
+    <state width="845" height="163" key="GridCell.Tab.0.bottom" timestamp="1604406227737">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="845" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1604406227737" />
+    <state width="845" height="163" key="GridCell.Tab.0.center" timestamp="1604406227737">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="845" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1604406227737" />
+    <state width="845" height="163" key="GridCell.Tab.0.left" timestamp="1604406227737">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="845" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1604406227737" />
+    <state width="845" height="163" key="GridCell.Tab.0.right" timestamp="1604406227737">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="845" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1604406227737" />
+    <state x="480" y="42" key="RollbackChangesDialog" timestamp="1603800188991">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="480" y="42" key="RollbackChangesDialog/0.0.1280.680@0.0.1280.680" timestamp="1603800188991" />
+    <state x="121" y="0" key="SettingsEditor" timestamp="1603797877707">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="121" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1603797877707" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1605008612780">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1605008612780" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1603798152052">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1603798152052" />
+  </component>
+</project>
