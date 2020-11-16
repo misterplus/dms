@@ -1,4 +1,4 @@
-package plus.misterplus.dms.entity;
+package plus.misterplus.dms.sql.entity;
 
 public class DormitoryRoom {
     private int dbno, drbd, drbno, dmno;

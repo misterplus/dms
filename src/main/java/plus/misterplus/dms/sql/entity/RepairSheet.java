@@ -1,4 +1,4 @@
-package plus.misterplus.dms.entity;
+package plus.misterplus.dms.sql.entity;
 
 public class RepairSheet {
     private long rsno, reno;

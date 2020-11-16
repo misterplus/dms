@@ -1,4 +1,4 @@
-package plus.misterplus.dms.entity;
+package plus.misterplus.dms.sql.entity;
 
 import java.util.Date;
 
