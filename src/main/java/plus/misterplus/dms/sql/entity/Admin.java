@@ -1,12 +1,12 @@
 package plus.misterplus.dms.sql.entity;
 
-public class Admin {
-    private int adno;
-    private String adpass, adname;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public Admin(int adno, String adpass, String adname) {
-        this.adno = adno;
-        this.adpass = adpass;
-        this.adname = adname;
-    }
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Admin {
+    private String adno, adpass, adname;
 }

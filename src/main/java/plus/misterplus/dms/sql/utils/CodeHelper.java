@@ -1,5 +1,7 @@
 package plus.misterplus.dms.sql.utils;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collections;
 
 public class CodeHelper {
@@ -7,7 +9,11 @@ public class CodeHelper {
         return String.join(",", Collections.nCopies(count,"?"));
     }
 
-    public static String escape(String original) {
-        return original;
+    public static void close(Connection db) {
+        try {
+            db.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

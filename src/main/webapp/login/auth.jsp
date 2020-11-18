@@ -15,9 +15,11 @@
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean register = "register".equals(request.getParameter("register"));
-        boolean isAdmin = "admin".equals(request.getParameter("usertype"));
+        String usertype = request.getParameter("usertype");
         boolean cache = "cache".equals(request.getParameter("cache"));
-        boolean success = UserQuery.login(username, password, register, isAdmin, cache, response);
+        boolean success = UserQuery.login(username, password, register, usertype, cache, response);
+        if (success)
+            out.print("success");
     %>
 </body>
 </html>

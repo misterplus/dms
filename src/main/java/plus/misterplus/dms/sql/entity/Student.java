@@ -1,16 +1,17 @@
 package plus.misterplus.dms.sql.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
+    private String sno, spass, sname, dbno, dbd, drbno;
 
-    private int sno, sbno, sbd, sdno;
-    private String spass, sname;
-
-    public Student(int sno, String spass, String sname) {
+    public Student(String sno, String spass) {
         this.sno = sno;
-        this.sbno = -1;
-        this.sbd = -1;
-        this.sdno = -1;
         this.spass = spass;
-        this.sname = sname;
     }
 }
