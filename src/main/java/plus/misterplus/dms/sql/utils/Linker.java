@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 public class Linker {
 
-    private static final Linker instance = new Linker();
     private Connection db;
 
     private Linker() {
@@ -20,10 +19,6 @@ public class Linker {
     }
 
     public static Connection getDb() {
-        return getInstance().db;
-    }
-
-    public static Linker getInstance() {
-        return instance;
+        return new Linker().db;
     }
 }

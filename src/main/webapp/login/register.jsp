@@ -1,3 +1,4 @@
+<%@ page import="static plus.misterplus.dms.sql.query.advanced.UserQuery.loginWithSavedCredentials" %>
 <!doctype html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
@@ -6,13 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/form.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/page.css">
     <title>学生宿舍管理系统</title>
 </head>
 <body>
     <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/static/js/validation.js"></script>
+    <%!
+        HttpSession savedSession;
+    %>
+    <%
+        savedSession = loginWithSavedCredentials(request, response);
+        if (savedSession != null) {
+            response.sendRedirect("/user/main.jsp");
+        }
+    %>
     <form class="needs-validation" novalidate name="credentials" onsubmit="validateRegister()" action="${pageContext.request.contextPath}/login/auth.jsp" method="post">
         <h1 class="h3 mb-3 font-weight-normal text-center">学生注册</h1>
         <div class="form-group">

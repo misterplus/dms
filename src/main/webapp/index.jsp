@@ -1,3 +1,4 @@
+<%@ page import="static plus.misterplus.dms.sql.query.advanced.UserQuery.loginWithSavedCredentials" %>
 <!doctype html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
@@ -6,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/form.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/page.css">
     <title>学生宿舍管理系统</title>
 </head>
 <body>
@@ -14,7 +14,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/static/js/dynamic.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/validation.js"></script>
-    <form class="needs-validation" novalidate name="credentials" action="${pageContext.request.contextPath}/login/auth.jsp" method="post">
+    <%!
+        HttpSession savedSession;
+    %>
+    <%
+        savedSession = loginWithSavedCredentials(request, response);
+        if (savedSession != null) {
+            response.sendRedirect("/user/main.jsp");
+        }
+    %>
+    <form class="needs-validation" novalidate name="credentials" action="${pageContext.request.contextPath}/login/loginServlet" method="post">
         <h1 class="h3 mb-3 font-weight-normal text-center">学生宿舍管理登录</h1>
         <div class="form-group">
             <input type="text" class="form-control" name="username" id="username" placeholder="请输入学号" required onkeyup="this.value=this.value.replace(/\D/g, '')">
@@ -41,11 +50,11 @@
         <div class="row">
             <div class="form-check mx-auto pb-2">
                 <input type="checkbox" class="form-check-input" name="cache" value="cache" id="cache">
-                <label class="form-check-label" for="cache">记住本次登录(30天)</label>
+                <label class="form-check-label" for="cache">记住本次登录(7天)</label>
             </div>
         </div>
         <input type="checkbox" name="register" value="register" hidden>
-        <a href="${pageContext.request.contextPath}/login/register.jsp">学生注册</a>
+        <a href="${pageContext.request.contextPath}/login/register.jsp" style="float: right;">学生注册</a>
         <button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
     </form>
 </body>

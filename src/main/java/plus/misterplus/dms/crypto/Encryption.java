@@ -25,6 +25,6 @@ public class Encryption {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 }

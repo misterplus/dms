@@ -1,5 +1,7 @@
 package plus.misterplus.dms.sql.dao;
 
+import plus.misterplus.dms.sql.entity.Admin;
+
 public interface AdminDao {
-    public int selectAdmin(String adno);
+    public Admin selectAdmin(String adno);
 }
