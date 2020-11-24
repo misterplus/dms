@@ -35,7 +35,7 @@ public class LoginServlet extends BaseServlet {
 
     protected void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        String password = Encryption.md5(req.getParameter("password"));
         boolean success = LoginQuery.register(username, password);
         if (success) {
             req.setAttribute("message", "注册成功！");
