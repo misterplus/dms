@@ -18,11 +18,21 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">寝室</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user/dormroom.jsp">寝室</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/repair.jsp">报修</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user/fee.jsp">水电费</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user/contest.jsp">卫生评比</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/user/repair.jsp">通知</a>
+                    </li>
+
                 </ul>
             </div>
         </nav>
