@@ -29,7 +29,7 @@
     </div>
     <script type="text/javascript">
         var info = getCredentials(false, true);
-        $("#usertype").innerHTML = info["usertype"];
+        $("#usertype")[0].innerHTML = info["usertype"];
     </script>
 </body>
 </html>

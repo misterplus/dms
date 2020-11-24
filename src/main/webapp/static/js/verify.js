@@ -11,10 +11,11 @@ function getCookieMap(cookie) {
 
 function getCredentials(toMain, toLogin) {
     var cookies = getCookieMap(document.cookie);
+    var content = null;
     if (cookies.has("dms_token")) {
         $.ajax({
             type: "POST",
-            url: "login/loginServlet",
+            url: "/login/loginServlet",
             data: {
                 "action": "verify",
                 "dms_token": cookies.get("dms_token")
@@ -27,16 +28,17 @@ function getCredentials(toMain, toLogin) {
                         window.location.href = "/user/main.jsp";
                     }
                     else {
-                        return response;
+                        content = response;
                     }
                 },
                 510: function() {
                     alert("凭证已过期，请重新登录！");
                 }
             }
-        })
+        });
     }
     else if (toLogin) {
         window.location.href = "/index.jsp";
     }
+    return content;
 }
