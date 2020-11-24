@@ -4,6 +4,8 @@ function getCookieMap(cookie) {
     let cookieMap = new Map();
     for(let item of cookieArray) {
         let resultArray = cookiePattern.exec(item);
+        if (resultArray == null)
+            return cookieMap;
         cookieMap.set(resultArray[1], resultArray[2]);
     }
     return cookieMap;
@@ -33,6 +35,7 @@ function getCredentials(toMain, toLogin) {
                 },
                 510: function() {
                     alert("凭证已过期，请重新登录！");
+                    window.location.href = "/index.jsp";
                 }
             }
         });

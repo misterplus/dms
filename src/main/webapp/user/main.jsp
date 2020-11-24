@@ -14,7 +14,7 @@
     <script src="${pageContext.request.contextPath}/static/js/verify.js"></script>
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #448ef6;">
-            <a class="navbar-brand h1" href="#" id="usertype"></a>
+            <a class="navbar-brand h1" href="#" id="usertype">用户类别</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
