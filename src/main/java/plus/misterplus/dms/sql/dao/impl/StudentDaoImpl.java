@@ -22,4 +22,22 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
         String sql = "select * from student where sno = ?";
         return select(Student.class, sql, sno);
     }
+
+    @Override
+    public int updateStudentName(String sno, String sname) {
+        String sql = "update student set sname = ? where sno = ?";
+        return update(sql, sname, sno);
+    }
+
+    @Override
+    public int updateStudentPass(String sno, String spass) {
+        String sql = "update student set spass = ? where sno = ?";
+        return update(sql, spass, sno);
+    }
+
+    @Override
+    public int updateStudentDorm(String sno, String dbno, String dbd, String drbno) {
+        String sql = "update student set dbno = ?, set dbd = ?, set drbno = ? where sno = ?";
+        return update(sql, dbno, dbd, drbno, sno);
+    }
 }
