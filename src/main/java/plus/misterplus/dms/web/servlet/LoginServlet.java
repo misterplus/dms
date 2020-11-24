@@ -50,8 +50,8 @@ public class LoginServlet extends BaseServlet {
     protected void verify(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token = req.getParameter("dms_token");
         if (token != null) {
-            boolean success = TokenHelper.verify(token);
-            if (success) {
+            boolean verified = TokenHelper.verify(token);
+            if (verified) {
                 Credentials credentials = TokenHelper.parseToken(token);
                 resp.getWriter().write(GsonHelper.toJson(credentials));//返回凭据json
             }

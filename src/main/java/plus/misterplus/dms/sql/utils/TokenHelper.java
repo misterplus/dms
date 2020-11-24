@@ -42,4 +42,12 @@ public class TokenHelper {
         DecodedJWT jwt = JWT.decode(token);
         return new Credentials(jwt.getClaim("username").asString(), jwt.getClaim("usertype").asString());
     }
+
+    public static boolean verifyAdmin(String token) {
+        if (verify(token)) {
+            Credentials credentials = parseToken(token);
+            return "admin".equals(credentials.getUsertype());
+        }
+        return false;
+    }
 }

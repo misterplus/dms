@@ -72,4 +72,16 @@ public abstract class BaseDao {
         }
         return null;
     }
+
+    public int update(String sql, Object... params) {
+        Connection db = Linker.getDb();
+        try {
+            return queryRunner.update(sql, params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            CodeHelper.close(db);
+        }
+        return 0;
+    }
 }
