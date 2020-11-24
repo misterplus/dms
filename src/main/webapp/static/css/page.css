@@ -5,3 +5,8 @@ body {
     align-items: center;
     background-color: #f5f5f5;
 }
+
+a {
+    color: #fff !important;
+    margin-bottom: 0 !important;
+}

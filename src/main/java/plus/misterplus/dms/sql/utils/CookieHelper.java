@@ -13,32 +13,26 @@ public class CookieHelper {
     public static Map<String, String> loadCookieMap(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         Map<String, String> cookieMap = new HashMap<>();
+        if (cookies == null)
+            return cookieMap;
         for (Cookie c : cookies) {
             cookieMap.put(c.getName(), c.getValue());
         }
         return cookieMap;
     }
 
-    public static String getSessionIdFromCookie(HttpServletRequest request) {
-        Map<String, String> cookieMap = loadCookieMap(request);
-        if (cookieMap.containsKey("dms_session_id")) {
-            return cookieMap.get("dms_session_id");
-        }
-        return null;
-    }
-
-    public static void removeSessionIdFromCookie(HttpServletResponse response) {
-        Cookie cookie = new Cookie("dms_session_id", "");
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-    }
-
-    public static void saveSessionIdToCookie(HttpServletRequest request, HttpServletResponse response, boolean persist) {
-        Cookie cookie = new Cookie("dms_session_id", request.getSession().getId());
+    public static void saveTokenToCookie(HttpServletResponse resp, String token, boolean persist) {
+        Cookie cookie = new Cookie("dms_token", token);
         if (persist)
             cookie.setMaxAge(EXPIRE_TIME);
         cookie.setPath("/");
-        response.addCookie(cookie);
+        resp.addCookie(cookie);
+    }
+
+    public static void removeInvalidTokenFromCookie(HttpServletResponse resp) {
+        Cookie cookie = new Cookie("dms_token", "");
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        resp.addCookie(cookie);
     }
 }
