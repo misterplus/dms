@@ -48,7 +48,7 @@ public class LoginServlet extends BaseServlet {
     }
 
     protected void verify(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String token = req.getParameter("dms_token");
+        String token = req.getHeader("dms_token");
         Credentials credentials = TokenHelper.parseToken(token);
         resp.getWriter().write(GsonHelper.toJson(credentials));//返回凭据json
     }

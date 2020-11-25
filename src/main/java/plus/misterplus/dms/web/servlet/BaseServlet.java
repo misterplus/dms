@@ -31,7 +31,7 @@ public class BaseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        String token = req.getParameter("token");
+        String token = req.getHeader("dms_token");
         if (access_control.containsKey(action)) {
             Boolean requireAdmin = access_control.get(action);
             if (requireAdmin == null)

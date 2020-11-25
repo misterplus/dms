@@ -13,7 +13,7 @@ import java.io.IOException;
 public class EditServlet extends BaseServlet {
 
     protected void updateStudentName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String token = req.getParameter("dms_token");
+        String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
         String sname = req.getParameter("sname");
         boolean success = EditQuery.updateStudentName(sno, sname);
@@ -24,7 +24,7 @@ public class EditServlet extends BaseServlet {
     }
 
     protected void updateStudentPass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String token = req.getParameter("dms_token");
+        String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
         String spass = req.getParameter("spass");
         boolean success = EditQuery.updateStudentPass(sno, spass);

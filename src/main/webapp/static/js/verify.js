@@ -18,9 +18,11 @@ function getCredentials(toMain, toLogin) {
         $.ajax({
             type: "POST",
             url: "/login/loginServlet",
-            data: {
-                "action": "verify",
+            headers: {
                 "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "verify"
             },
             dataType: "json",
             async: false,
