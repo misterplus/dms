@@ -17,7 +17,7 @@ function getCredentials(toMain, toLogin) {
     if (cookies.has("dms_token")) {
         $.ajax({
             type: "POST",
-            url: "/login/loginServlet",
+            url: "/api/loginServlet",
             headers: {
                 "dms_token": cookies.get("dms_token")
             },

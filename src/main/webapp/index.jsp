@@ -17,7 +17,7 @@
     <script type="text/javascript">
         getCredentials(true, false);
     </script>
-    <form class="needs-validation" novalidate name="credentials" action="${pageContext.request.contextPath}/login/loginServlet" method="post">
+    <form class="needs-validation" novalidate name="credentials" action="${pageContext.request.contextPath}/api/loginServlet" method="post">
         <h1 class="h3 mb-3 font-weight-normal text-center">学生宿舍管理登录</h1>
         <div class="form-group">
             <input type="text" class="form-control" name="username" id="username" placeholder="请输入学号" required onkeyup="this.value=this.value.replace(/\D/g, '')">

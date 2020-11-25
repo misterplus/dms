@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/editServlet")
+@WebServlet("/api/editServlet")
 public class EditServlet extends BaseServlet {
 
     protected void updateStudentName(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

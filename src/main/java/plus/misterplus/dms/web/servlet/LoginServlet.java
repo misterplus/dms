@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/login/loginServlet")
+@WebServlet("/api/loginServlet")
 public class LoginServlet extends BaseServlet {
 
     protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

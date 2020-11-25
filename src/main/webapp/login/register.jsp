@@ -12,7 +12,7 @@
     <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/static/js/validation.js"></script>
-    <form class="needs-validation" novalidate name="credentials" onsubmit="validateRegister()" action="${pageContext.request.contextPath}/login/loginServlet" method="post">
+    <form class="needs-validation" novalidate name="credentials" onsubmit="validateRegister()" action="${pageContext.request.contextPath}/api/loginServlet" method="post">
         <h1 class="h3 mb-3 font-weight-normal text-center">学生注册</h1>
         <div class="form-group">
             <input type="text" class="form-control" name="username" id="username" placeholder="请输入学号" required onkeyup="this.value=this.value.replace(/\D/g, '')">
