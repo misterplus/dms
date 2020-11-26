@@ -1,5 +1,6 @@
 package plus.misterplus.dms.sql.query.advanced;
 
+import plus.misterplus.dms.sql.dao.impl.RepairSheetDaoImpl;
 import plus.misterplus.dms.sql.dao.impl.StudentDaoImpl;
 
 public class EditQuery {
@@ -15,6 +16,11 @@ public class EditQuery {
 
     public static boolean updateStudentDorm(String sno, String dbno, String dbd, String drbno) {
         int affected = StudentDaoImpl.getInstance().updateStudentDorm(sno, dbno, dbd, drbno);
+        return affected != 0;
+    }
+
+    public static boolean insertRepairSheet(String rcon, String rtype, String rprogress, String sno) {
+        int affected = RepairSheetDaoImpl.getInstance().insertRepairSheet(rcon, rtype, rprogress, sno);
         return affected != 0;
     }
 }

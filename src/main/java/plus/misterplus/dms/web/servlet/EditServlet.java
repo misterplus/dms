@@ -20,7 +20,7 @@ public class EditServlet extends BaseServlet {
         if (success)
             resp.setStatus(200);
         else
-            resp.setStatus(521); //更新失败
+            resp.setStatus(621); //更新失败
     }
 
     protected void updateStudentPass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class EditServlet extends BaseServlet {
             resp.setStatus(200);
         }
         else {
-            resp.setStatus(521); //更新失败
+            resp.setStatus(621); //更新失败
         }
     }
 
@@ -46,7 +46,21 @@ public class EditServlet extends BaseServlet {
             resp.setStatus(200);
         }
         else {
-            resp.setStatus(521); //更新失败
+            resp.setStatus(621); //更新失败
+        }
+    }
+
+    protected void insertRepairSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String token = req.getHeader("dms_token");
+        String rtype = req.getParameter("rtype");
+        String rcon = req.getParameter("rcon");
+        String sno = TokenHelper.parseToken(token).getUsername();
+        boolean success = EditQuery.insertRepairSheet(rcon, rtype, "待分配", sno);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(622); //插入失败
         }
     }
 }

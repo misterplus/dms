@@ -76,7 +76,7 @@ public abstract class BaseDao {
     public int update(String sql, Object... params) {
         Connection db = Linker.getDb();
         try {
-            return queryRunner.update(sql, params);
+            return queryRunner.update(db, sql, params);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -1,14 +1,17 @@
 package plus.misterplus.dms.web.servlet;
 
 import plus.misterplus.dms.sql.entity.DormRoom;
+import plus.misterplus.dms.sql.entity.RepairSheet;
 import plus.misterplus.dms.sql.query.advanced.InfoQuery;
 import plus.misterplus.dms.sql.utils.GsonHelper;
+import plus.misterplus.dms.sql.utils.TokenHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/api/infoServlet")
 public class InfoServlet extends BaseServlet {
@@ -20,6 +23,16 @@ public class InfoServlet extends BaseServlet {
         if (dormRoom != null)
             resp.getWriter().write(GsonHelper.toJson(dormRoom));
         else
-            resp.setStatus(520); //查询失败
+            resp.setStatus(620); //查询失败
+    }
+
+    protected void selectRepairSheetsWithSno(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String token = req.getHeader("dms_token");
+        String sno = TokenHelper.parseToken(token).getUsername();
+        List<RepairSheet> sheets = InfoQuery.selectRepairSheetsWithSno(sno);
+        if (sheets != null)
+            resp.getWriter().write(GsonHelper.toJson(sheets));
+        else
+            resp.setStatus(620); //查询失败
     }
 }

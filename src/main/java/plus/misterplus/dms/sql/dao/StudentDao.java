@@ -1,5 +1,6 @@
 package plus.misterplus.dms.sql.dao;
 
+import plus.misterplus.dms.sql.entity.DormRoom;
 import plus.misterplus.dms.sql.entity.Student;
 
 public interface StudentDao {
@@ -8,4 +9,5 @@ public interface StudentDao {
     public int updateStudentName(String sno, String sname);
     public int updateStudentPass(String sno, String spass);
     public int updateStudentDorm(String sno, String dbno, String dbd, String drbno);
+    public DormRoom selectStudentDorm(String sno);
 }

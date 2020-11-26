@@ -1,6 +1,7 @@
 package plus.misterplus.dms.sql.dao.impl;
 
 import plus.misterplus.dms.sql.dao.StudentDao;
+import plus.misterplus.dms.sql.entity.DormRoom;
 import plus.misterplus.dms.sql.entity.Student;
 
 public class StudentDaoImpl extends BaseDao implements StudentDao {
@@ -39,5 +40,11 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
     public int updateStudentDorm(String sno, String dbno, String dbd, String drbno) {
         String sql = "update student set dbno = ?, set dbd = ?, set drbno = ? where sno = ?";
         return update(sql, dbno, dbd, drbno, sno);
+    }
+
+    @Override
+    public DormRoom selectStudentDorm(String sno) {
+        String sql = "select dbd, dbno, drbno from student where sno = ?";
+        return select(DormRoom.class, sql, sno);
     }
 }

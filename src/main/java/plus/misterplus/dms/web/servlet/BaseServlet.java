@@ -26,6 +26,7 @@ public class BaseServlet extends HttpServlet {
         put("updateStudentName", false);
         put("updateStudentPass", false);
         put("updateStudentDorm", true);
+        put("insertRepairSheet", false);
     }};
 
     @Override
@@ -49,7 +50,7 @@ public class BaseServlet extends HttpServlet {
                     invoke(req, resp, action);
                 else {
                     CookieHelper.removeInvalidTokenFromCookie(resp);
-                    resp.setStatus(510); //token无效
+                    resp.setStatus(610); //token无效
                 }
             }
         }
