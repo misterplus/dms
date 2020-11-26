@@ -54,6 +54,9 @@ public class BaseServlet extends HttpServlet {
                 }
             }
         }
+        else {
+            resp.setStatus(405); //无此方法
+        }
     }
 
     private void invoke(HttpServletRequest req, HttpServletResponse resp, String action) {
