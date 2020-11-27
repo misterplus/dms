@@ -15,7 +15,7 @@ public class RepairSheetDaoImpl extends BaseDao implements RepairSheetDao {
 
     @Override
     public int insertRepairSheet(String rcon, String rtype, String rprogress, String sno) {
-        String sql = "insert into rsheet (dbno, dbd, drbno, rcon, rtype, rprogress) select dbno, dbd, drbno, ?, ?, ? from student where sno = ?;";
+        String sql = "insert into rsheet (dbno, dbd, drbno, rcon, rtype, rprogress) select dbno, dbd, drbno, ?, ?, ? from student where sno = ?";
         return insert(sql, rcon, rtype, rprogress, sno);
     }
 

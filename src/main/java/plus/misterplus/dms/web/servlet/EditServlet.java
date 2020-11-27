@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @WebServlet("/api/editServlet")
 public class EditServlet extends BaseServlet {
@@ -61,6 +64,73 @@ public class EditServlet extends BaseServlet {
         }
         else {
             resp.setStatus(622); //插入失败
+        }
+    }
+
+    protected void payFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        double famount = Double.parseDouble(req.getParameter("famount"));
+        boolean ftype = req.getParameter("ftype").equals("water");
+        String token = req.getHeader("dms_token");
+        String sno = TokenHelper.parseToken(token).getUsername();
+        boolean success = EditQuery.insertFee(new Date(), famount, ftype, sno);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(622); //插入失败
+        }
+    }
+
+    protected void useFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        double famount = Double.parseDouble(req.getParameter("famount"));
+        boolean ftype = req.getParameter("ftype").equals("water");
+        String token = req.getHeader("dms_token");
+        String sno = TokenHelper.parseToken(token).getUsername();
+        boolean success = EditQuery.insertFee(new Date(), -famount, ftype, sno);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(622); //插入失败
+        }
+    }
+
+    protected void insertNotice(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String token = req.getHeader("dms_token");
+        String adno = TokenHelper.parseToken(token).getUsername();
+        String ntitle = req.getParameter("ntitle");
+        String ncontent = req.getParameter("ncontent");
+        boolean success = EditQuery.insertNotice(new Date(), adno, ntitle, ncontent);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(622);
+        }
+    }
+
+    protected void insertCleanContest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String token = req.getHeader("dms_token");
+        String adno = TokenHelper.parseToken(token).getUsername();
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        double cscore = Double.parseDouble(req.getParameter("cscore"));
+        String date = req.getParameter("date");
+        String strDateFormat = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        try {
+            Date cdate = sdf.parse(date);
+            boolean success = EditQuery.insertCleanContest(cdate, dbno, dbd, drbno, adno, cscore);
+            if (success) {
+                resp.setStatus(200);
+            }
+            else {
+                resp.setStatus(622);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            resp.setStatus(622);
         }
     }
 }

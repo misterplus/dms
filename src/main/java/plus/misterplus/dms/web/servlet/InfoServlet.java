@@ -1,7 +1,6 @@
 package plus.misterplus.dms.web.servlet;
 
-import plus.misterplus.dms.sql.entity.DormRoom;
-import plus.misterplus.dms.sql.entity.RepairSheet;
+import plus.misterplus.dms.sql.entity.*;
 import plus.misterplus.dms.sql.query.advanced.InfoQuery;
 import plus.misterplus.dms.sql.utils.GsonHelper;
 import plus.misterplus.dms.sql.utils.TokenHelper;
@@ -34,5 +33,33 @@ public class InfoServlet extends BaseServlet {
             resp.getWriter().write(GsonHelper.toJson(sheets));
         else
             resp.setStatus(620); //查询失败
+    }
+
+    protected void selectFeesWithSno(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String token = req.getHeader("dms_token");
+        String sno = TokenHelper.parseToken(token).getUsername();
+        List<Fee> fees = InfoQuery.selectFeesWithSno(sno);
+        if (fees != null)
+            resp.getWriter().write(GsonHelper.toJson(fees));
+        else
+            resp.setStatus(620); //查询失败
+    }
+
+    protected void selectNotices(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Notice> notices = InfoQuery.selectNotices();
+        if (notices != null)
+            resp.getWriter().write(GsonHelper.toJson(notices));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectCleanContestsWithSno(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String token = req.getHeader("dms_token");
+        String sno = TokenHelper.parseToken(token).getUsername();
+        List<CleanContest> cleanContests = InfoQuery.selectCleanContestsWithSno(sno);
+        if (cleanContests != null)
+            resp.getWriter().write(GsonHelper.toJson(cleanContests));
+        else
+            resp.setStatus(620);
     }
 }

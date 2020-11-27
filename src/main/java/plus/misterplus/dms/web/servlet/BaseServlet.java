@@ -27,6 +27,14 @@ public class BaseServlet extends HttpServlet {
         put("updateStudentPass", false);
         put("updateStudentDorm", true);
         put("insertRepairSheet", false);
+        put("selectRepairSheetsWithSno", false);
+        put("payFee", false);
+        put("useFee", true);
+        put("selectFeesWithSno", false);
+        put("selectNotices", false);
+        put("insertNotice", true);
+        put("insertCleanContest", true);
+        put("selectCleanContestsWithSno", false);
     }};
 
     @Override

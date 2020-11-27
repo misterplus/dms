@@ -1,10 +1,7 @@
 package plus.misterplus.dms.sql.query.advanced;
 
-import plus.misterplus.dms.sql.dao.impl.DormRoomDaoImpl;
-import plus.misterplus.dms.sql.dao.impl.RepairSheetDaoImpl;
-import plus.misterplus.dms.sql.dao.impl.StudentDaoImpl;
-import plus.misterplus.dms.sql.entity.DormRoom;
-import plus.misterplus.dms.sql.entity.RepairSheet;
+import plus.misterplus.dms.sql.dao.impl.*;
+import plus.misterplus.dms.sql.entity.*;
 
 import java.util.List;
 
@@ -19,5 +16,17 @@ public class InfoQuery {
 
     public static List<RepairSheet> selectRepairSheetsWithSno(String sno) {
         return RepairSheetDaoImpl.getInstance().selectRepairSheetsWithSno(sno);
+    }
+
+    public static List<Fee> selectFeesWithSno(String sno) {
+        return FeeDaoImpl.getInstance().selectFeesWithSno(sno);
+    }
+
+    public static List<Notice> selectNotices() {
+        return NoticeDaoImpl.getInstance().selectNotices();
+    }
+
+    public static List<CleanContest> selectCleanContestsWithSno(String sno) {
+        return CleanContestDaoImpl.getInstance().selectCleanContestsWithSno(sno);
     }
 }

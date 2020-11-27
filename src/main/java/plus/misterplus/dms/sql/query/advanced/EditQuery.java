@@ -1,7 +1,8 @@
 package plus.misterplus.dms.sql.query.advanced;
 
-import plus.misterplus.dms.sql.dao.impl.RepairSheetDaoImpl;
-import plus.misterplus.dms.sql.dao.impl.StudentDaoImpl;
+import plus.misterplus.dms.sql.dao.impl.*;
+
+import java.util.Date;
 
 public class EditQuery {
     public static boolean updateStudentName(String sno, String sname) {
@@ -21,6 +22,21 @@ public class EditQuery {
 
     public static boolean insertRepairSheet(String rcon, String rtype, String rprogress, String sno) {
         int affected = RepairSheetDaoImpl.getInstance().insertRepairSheet(rcon, rtype, rprogress, sno);
+        return affected != 0;
+    }
+
+    public static boolean insertFee(Date fdate, double famount, boolean ftype, String sno) {
+        int affected = FeeDaoImpl.getInstance().insertFee(fdate, famount, ftype, sno);
+        return affected != 0;
+    }
+
+    public static boolean insertNotice(Date ntime, String adno, String ntitle, String ncontent) {
+        int affected = NoticeDaoImpl.getInstance().insertNotice(ntime, adno, ntitle, ncontent);
+        return affected != 0;
+    }
+
+    public static boolean insertCleanContest(Date cdate, String dbno, String dbd, String drbno, String adno, double cscore) {
+        int affected = CleanContestDaoImpl.getInstance().insertCleanContest(cdate, dbno, dbd, drbno, adno, cscore);
         return affected != 0;
     }
 }
