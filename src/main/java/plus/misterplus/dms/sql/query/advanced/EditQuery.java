@@ -39,4 +39,9 @@ public class EditQuery {
         int affected = CleanContestDaoImpl.getInstance().insertCleanContest(cdate, dbno, dbd, drbno, adno, cscore);
         return affected != 0;
     }
+
+    public static boolean resetStudentPass(String sno) {
+        int affected = StudentDaoImpl.getInstance().updateStudentPass(sno, "");
+        return affected != 0;
+    }
 }

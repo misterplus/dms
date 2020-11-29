@@ -29,7 +29,12 @@ function getCredentials(toMain, toLogin) {
             statusCode: {
                 200: function(response) {
                     if (toMain) {
-                        window.location.href = "/user/main.jsp";
+                        if (response["usertype"] === "user") {
+                            window.location.href = "/user/main.jsp";
+                        }
+                        else if (response["usertype"] === "admin") {
+                            window.location.href = "/admin/main.jsp";
+                        }
                     }
                     else {
                         content = response;
@@ -46,4 +51,12 @@ function getCredentials(toMain, toLogin) {
         window.location.href = "/index.jsp";
     }
     return content;
+}
+
+function logout() {
+    var date = new Date();
+    date.setTime(-1000);
+    document.cookie = "dms_token=''; expires="+ date.toGMTString();
+    alert("已登出！");
+    window.location.href = "/index.jsp";
 }

@@ -4,6 +4,8 @@ import plus.misterplus.dms.sql.dao.StudentDao;
 import plus.misterplus.dms.sql.entity.DormRoom;
 import plus.misterplus.dms.sql.entity.Student;
 
+import java.util.List;
+
 public class StudentDaoImpl extends BaseDao implements StudentDao {
 
     private static final StudentDaoImpl instance = new StudentDaoImpl();
@@ -38,7 +40,7 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
 
     @Override
     public int updateStudentDorm(String sno, String dbno, String dbd, String drbno) {
-        String sql = "update student set dbno = ?, set dbd = ?, set drbno = ? where sno = ?";
+        String sql = "update student set dbno = ?, dbd = ?, drbno = ? where sno = ?";
         return update(sql, dbno, dbd, drbno, sno);
     }
 
@@ -46,5 +48,11 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
     public DormRoom selectStudentDorm(String sno) {
         String sql = "select dbd, dbno, drbno from student where sno = ?";
         return select(DormRoom.class, sql, sno);
+    }
+
+    @Override
+    public List<Student> selectStudents() {
+        String sql = "select * from student order by sno asc";
+        return selectMultiple(Student.class, sql);
     }
 }

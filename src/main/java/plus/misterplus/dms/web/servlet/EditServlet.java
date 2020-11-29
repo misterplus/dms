@@ -1,5 +1,6 @@
 package plus.misterplus.dms.web.servlet;
 
+import plus.misterplus.dms.sql.dao.impl.StudentDaoImpl;
 import plus.misterplus.dms.sql.query.advanced.EditQuery;
 import plus.misterplus.dms.sql.utils.TokenHelper;
 
@@ -130,6 +131,17 @@ public class EditServlet extends BaseServlet {
             }
         } catch (ParseException e) {
             e.printStackTrace();
+            resp.setStatus(622);
+        }
+    }
+
+    protected void resetStudentPass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String sno = req.getParameter("sno");
+        boolean success = EditQuery.resetStudentPass(sno);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
             resp.setStatus(622);
         }
     }

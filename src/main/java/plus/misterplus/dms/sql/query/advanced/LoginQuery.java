@@ -8,8 +8,9 @@ import plus.misterplus.dms.sql.entity.Student;
 public class LoginQuery {
 
     public static boolean register(String username, String password) {
-        Student student = new Student(username, password);
-        int affected = StudentDaoImpl.getInstance().insertStudent(student);
+        if (!StudentDaoImpl.getInstance().selectStudentWithSno(username).getSpass().equals("                "))
+            return false; //已经注册过了
+        int affected = StudentDaoImpl.getInstance().updateStudentPass(username, password);
         return affected != 0;
     }
 
@@ -22,7 +23,7 @@ public class LoginQuery {
         else if (usertype.equals("admin")) {
             Admin admin = AdminDaoImpl.getInstance().selectAdmin(username);
             if (admin != null)
-                return password.equals(admin.getAdno());
+                return password.equals(admin.getAdpass());
         }
         return false;
     }

@@ -35,10 +35,14 @@ public class BaseServlet extends HttpServlet {
         put("insertNotice", true);
         put("insertCleanContest", true);
         put("selectCleanContestsWithSno", false);
+        put("selectStudents", true);
+        put("resetStudentPass", true);
     }};
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/javascript;charset=utf-8");
+        resp.setCharacterEncoding("utf-8");
         String action = req.getParameter("action");
         String token = req.getHeader("dms_token");
         if (access_control.containsKey(action)) {

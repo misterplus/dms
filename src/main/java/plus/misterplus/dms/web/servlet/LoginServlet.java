@@ -25,7 +25,12 @@ public class LoginServlet extends BaseServlet {
         if (success) {
             String token = TokenHelper.createToken(username, usertype);
             CookieHelper.saveTokenToCookie(resp, token, cache);
-            resp.sendRedirect("/user/main.jsp");
+            if (usertype.equals("user")) {
+                resp.sendRedirect("/user/main.jsp");
+            }
+            else if (usertype.equals("admin")) {
+                resp.sendRedirect("/admin/main.jsp");
+            }
         }
         else {
             req.setAttribute("message", "用户名或密码错误！");

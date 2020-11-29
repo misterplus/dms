@@ -29,4 +29,8 @@ public class InfoQuery {
     public static List<CleanContest> selectCleanContestsWithSno(String sno) {
         return CleanContestDaoImpl.getInstance().selectCleanContestsWithSno(sno);
     }
+
+    public static List<Student> selectStudents() {
+        return StudentDaoImpl.getInstance().selectStudents();
+    }
 }
