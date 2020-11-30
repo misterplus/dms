@@ -1,6 +1,7 @@
 package plus.misterplus.dms.sql.query.advanced;
 
 import plus.misterplus.dms.sql.dao.impl.*;
+import plus.misterplus.dms.sql.entity.Student;
 
 import java.util.Date;
 
@@ -42,6 +43,11 @@ public class EditQuery {
 
     public static boolean resetStudentPass(String sno) {
         int affected = StudentDaoImpl.getInstance().updateStudentPass(sno, "");
+        return affected != 0;
+    }
+
+    public static boolean insertStudent(Student student) {
+        int affected = StudentDaoImpl.getInstance().insertStudent(student);
         return affected != 0;
     }
 }

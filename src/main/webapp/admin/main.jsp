@@ -54,12 +54,12 @@
                             导入学生名单
                         </button>
                         <div class="dropdown-menu">
-                            <form name="import" enctype="multipart/form-data">
+                            <form name="import" action="${pageContext.request.contextPath}/api/importServlet" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="file">上传名单</label>
                                     <input type="file" class="form-control" name="list" id="file">
                                 </div>
-                                <button onclick="importList()">导入</button>
+                                <button type="submit">导入</button>
                             </form>
                         </div>
                     </div>
@@ -122,14 +122,22 @@
                     return "3";
                 case "北":
                     return "4";
+                default:
+                    return "";
             }
         }
 
         function changeDorm(tag) {
             var sno = $(tag).parent().siblings()[0].innerHTML;
             var dbno = prompt("请输入新的宿舍楼");
+            if (dbno === "")
+                return;
             var dbd = getNumberDirection(prompt("请输入新的宿舍楼向"));
+            if (dbd === "")
+                return;
             var drbno = prompt("请输入新的宿舍号");
+            if (drbno === "")
+                return;
             $.ajax({
                 type: "POST",
                 url: "/api/editServlet",
@@ -154,10 +162,6 @@
                     }
                 }
             });
-        }
-
-        function importList() {
-
         }
 
         function resetPass(tag) {
