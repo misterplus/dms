@@ -10,6 +10,16 @@
 <body>
 <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/static/js/user/contest.js"></script>
+
+<form class="needs-validation" novalidate name="contestResult" method="post" onload="getContestResult()">
+    <h1 class="h3 mb-3 font-weight-normal text-center">卫生评比结果</h1>
+
+    <button type="button" class="btn btn-primary btn-lg" onclick="">历史结果</button>
+
+
+
+</form>
 
 </body>
 </html>
