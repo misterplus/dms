@@ -12,8 +12,7 @@
     <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/static/js/verify.js"></script>
-
-    <script src="${pageContext.request.contextPath}/static/js/test.js"></script>
+    <script src="${pageContext.request.contextPath}/webjars/vue/2.6.11/vue.js"></script>
 
     <div class="container-fluid">
         <div class="col">
@@ -44,29 +43,28 @@
         </nav>
         </div>
         <div class="row">
-            <div class="col-11">
+            <div class="col-6">
                 <div id="app">
                     <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">学号</th>
-                            <th scope="col">姓名</th>
-                            <th scope="col">宿舍楼</th>
-                            <th scope="col">宿舍楼向</th>
-                            <th scope="col">宿舍号</th>
-                        </tr>
-                        </thead>
                         <tbody>
-                        <tr v-for="student in students">
-                            <td v-text="student.sno" scope="row"></td>
-                            <td v-text="student.sname"></td>
-                            <td v-text="student.dbno"></td>
-                            <td v-text="student.dbd"></td>
-                            <td v-text="student.drbno"></td>
-                        </tr>
+                        <th scope="col">学号</th>
+                        <tr v-text="student.sno" scope="col"></tr>
+                        <th scope="col">姓名</th>
+                        <tr v-text="student.sname"></tr>
+                        <th scope="col">宿舍楼</th>
+                        <tr v-text="student.dbno"></tr>
+                        <th scope="col">宿舍楼向</th>
+                        <tr v-text="student.dbd"></tr>
+                        <th scope="col">宿舍号</th>
+                        <tr v-text="student.drbno"></tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="col-6">
+                <table class="table table-bordered table-striped">
+                    <tr><td ></td></tr>
+                </table>
             </div>
         </div>
     </div>
@@ -74,11 +72,25 @@
         var info = getCredentials(false, true);
         $("#usertype")[0].innerHTML = info["usertype"];
 
+        function getDormDirection(dbd) {
+            switch (dbd) {
+                case "0":
+                    return "无";
+                case "1":
+                    return "东";
+                case "2":
+                    return "南";
+                case "3":
+                    return "西";
+                case "4":
+                    return "北";
+            }
+        }
         var cookies = getCookieMap(document.cookie);
         new Vue({
             el: '#app',
             data: {
-                students: []
+                student: ""
             },
             created: function () {
                 var self = this;
@@ -89,16 +101,14 @@
                         "dms_token": cookies.get("dms_token")
                     },
                     data: {
-                        "action": "selectStudents"
+                        "action": "selectStudentWithSno"
                     },
                     dataType: "json",
                     async: false,
                     statusCode: {
                         200: function(response) {
-                            for (var i in response) {
-                                response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
-                            }
-                            self.students = response;
+                            response["dbd"] = getDormDirection(response["dbd"]);
+                            self.student = response;
                         }
                     }
                 });
