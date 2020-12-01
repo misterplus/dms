@@ -1,5 +1,6 @@
 package plus.misterplus.dms.web.servlet;
 
+import plus.misterplus.dms.crypto.Encryption;
 import plus.misterplus.dms.sql.dao.impl.StudentDaoImpl;
 import plus.misterplus.dms.sql.query.advanced.EditQuery;
 import plus.misterplus.dms.sql.utils.TokenHelper;
@@ -128,7 +129,7 @@ public class EditServlet extends BaseServlet {
         SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
         try {
             Date cdate = sdf.parse(date);
-            boolean success = EditQuery.insertCleanContest(cdate, dbno, dbd, drbno, adno, cscore);
+            boolean success = EditQuery.insertCleanContest(cdate, dbno, dbd, drbno, cscore);
             if (success) {
                 resp.setStatus(200);
             }
@@ -144,6 +145,19 @@ public class EditServlet extends BaseServlet {
     protected void resetStudentPass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sno = req.getParameter("sno");
         boolean success = EditQuery.resetStudentPass(sno);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(622);
+        }
+    }
+
+    protected void insertAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String adno = req.getParameter("adno");
+        String adpass = Encryption.md5(req.getParameter("adpass"));
+        String adname = req.getParameter("adname");
+        boolean success = EditQuery.insertAdmin(adno, adpass, adname);
         if (success) {
             resp.setStatus(200);
         }

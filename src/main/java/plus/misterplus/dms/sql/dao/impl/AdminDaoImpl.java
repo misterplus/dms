@@ -20,7 +20,14 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
     }
 
     @Override
-    public List<Admin> selectAdmins(String adno) {
-        return null;
+    public List<Admin> selectAdmins() {
+        String sql = "select * from admin";
+        return selectMultiple(Admin.class, sql);
+    }
+
+    @Override
+    public int insertAdmin(String adno, String adpass, String adname) {
+        String sql = "insert into admin(adno,adpass,adname) values(?,?,?)";
+        return insert(sql, adno, adpass, adname);
     }
 }

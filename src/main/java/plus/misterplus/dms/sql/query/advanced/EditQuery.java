@@ -1,5 +1,6 @@
 package plus.misterplus.dms.sql.query.advanced;
 
+import plus.misterplus.dms.sql.dao.AdminDao;
 import plus.misterplus.dms.sql.dao.impl.*;
 import plus.misterplus.dms.sql.entity.Student;
 
@@ -36,8 +37,8 @@ public class EditQuery {
         return affected != 0;
     }
 
-    public static boolean insertCleanContest(Date cdate, String dbno, String dbd, String drbno, String adno, double cscore) {
-        int affected = CleanContestDaoImpl.getInstance().insertCleanContest(cdate, dbno, dbd, drbno, adno, cscore);
+    public static boolean insertCleanContest(Date cdate, String dbno, String dbd, String drbno, double cscore) {
+        int affected = CleanContestDaoImpl.getInstance().insertCleanContest(cdate, dbno, dbd, drbno, cscore);
         return affected != 0;
     }
 
@@ -53,6 +54,11 @@ public class EditQuery {
 
     public static boolean updateFee(Date fdate, String sno, boolean fpaid) {
         int affected = FeeDaoImpl.getInstance().updateFee(fdate, sno, fpaid);
+        return affected != 0;
+    }
+
+    public static boolean insertAdmin(String adno, String adpass, String adname) {
+        int affected = AdminDaoImpl.getInstance().insertAdmin(adno, adpass, adname);
         return affected != 0;
     }
 }

@@ -91,4 +91,28 @@ public class InfoServlet extends BaseServlet {
         else
             resp.setStatus(620);
     }
+
+    protected void selectAdmins(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Admin> admins = InfoQuery.selectAdmins();
+        if (admins != null)
+            resp.getWriter().write(GsonHelper.toJson(admins));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectContests(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<CleanContest> contests = InfoQuery.selectContests();
+        if (contests != null)
+            resp.getWriter().write(GsonHelper.toJson(contests));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectDRooms(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<DormRoom> drooms = InfoQuery.selectDRooms();
+        if (drooms != null)
+            resp.getWriter().write(GsonHelper.toJson(drooms));
+        else
+            resp.setStatus(620);
+    }
 }

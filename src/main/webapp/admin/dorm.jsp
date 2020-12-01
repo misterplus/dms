@@ -27,10 +27,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">用户</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/main.jsp">用户</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍</a>
+                            <a class="nav-link" href="#">宿舍</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/fee.jsp">水电</a>
@@ -49,11 +49,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-light" onclick="newAdmin()">
-                        新增管理
-                    </button>
-                </div>
                 <button class="btn btn-danger my-2 my-sm-0" type="button" onclick="logout()">登出</button>
             </nav>
         </div>
@@ -63,10 +58,10 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/main.jsp">学生名单</a>
+                        <a class="side-link" href="#">宿舍名单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">管理名单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/newDorm.jsp">新增宿舍</a>
                     </li>
                 </ul>
             </div>
@@ -76,15 +71,20 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">工号</th>
-                        <th scope="col">姓名</th>
+                        <th scope="col">宿舍楼</th>
+                        <th scope="col">宿舍楼向</th>
+                        <th scope="col">宿舍号</th>
+                        <th scope="col">宿舍长</th>
+                        <th scope="col">宿舍容量</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="content in contents">
-                        <td v-text="content.adno" scope="row"></td>
-                        <td v-text="content.adname"></td>
-                        <td><a href="#" onclick="deleteAdmin(this)">删除账号</a></td>
+                        <td v-text="content.dbno" scope="row"></td>
+                        <td v-text="content.dbd"></td>
+                        <td v-text="content.drbno"></td>
+                        <td v-text="content.dmno"></td>
+                        <td v-text="content.dcap"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -94,43 +94,20 @@
 </div>
 <script type="text/javascript">
 
-    function newAdmin() {
-        var username = prompt("请输入新的管理员工号！");
-        if (username === "")
-            return;
-        var adminName = prompt("请输入新的管理员名称！");
-        if (adminName === "")
-            return;
-        var password = prompt("请输入新的管理员密码！");
-        if (password === "")
-            return;
-        var cookies = getCookieMap(document.cookie);
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "insertAdmin",
-                "adno": username,
-                "adpass": password,
-                "adname": adminName
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("新增成功！");
-                    location.reload();
-                },
-                622: function () {
-                    alert("新增失败！");
-                }
-            }
-        });
+    function getDormDirection(dbd) {
+        switch (dbd) {
+            case "0":
+                return "无";
+            case "1":
+                return "东";
+            case "2":
+                return "南";
+            case "3":
+                return "西";
+            case "4":
+                return "北";
+        }
     }
-
     var cookies = getCookieMap(document.cookie);
     new Vue({
         el: '#app',
@@ -146,12 +123,15 @@
                     "dms_token": cookies.get("dms_token")
                 },
                 data: {
-                    "action": "selectAdmins"
+                    "action": "selectDRooms"
                 },
                 dataType: "json",
                 async: false,
                 statusCode: {
                     200: function(response) {
+                        for (var i in response) {
+                            response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                        }
                         self.contents = response;
                     }
                 }
