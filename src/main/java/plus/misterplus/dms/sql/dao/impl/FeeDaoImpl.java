@@ -14,14 +14,20 @@ public class FeeDaoImpl extends BaseDao implements FeeDao {
     }
 
     @Override
-    public int insertFee(Date fdate, double famount, boolean ftype, String sno) {
-        String sql = "insert into fees (dbno, dbd, drbno, fdate, famount, ftype) select dbno, dbd, drbno, ?, ?, ? from student where sno = ?";
-        return insert(sql, fdate, famount, ftype, sno);
+    public int insertFee(Date fdate, double famount, String ftype, boolean fpaid, String sno) {
+        String sql = "insert into fees (dbno, dbd, drbno, fdate, famount, ftype, fpaid) select dbno, dbd, drbno, ?, ?, ? from student where sno = ?";
+        return insert(sql, fdate, famount, ftype, fpaid, sno);
     }
 
     @Override
     public List<Fee> selectFeesWithSno(String sno) {
         String sql = "select f.* from fees f, student s where s.sno = ? and f.dbno = s.dbno and f.dbd = s.dbd and f.drbno = s.drbno";
         return selectMultiple(Fee.class, sql, sno);
+    }
+
+    @Override
+    public int updateFee(Date fdate, String sno, boolean fpaid) {
+        String sql = "update f set f.fpaid = ? from (select f.* from fees f, student s where f.fdate = ? and s.sno = ? and f.dbno = s.dbno and f.dbd = s.dbd and f.drbno = s.drbno) as f";
+        return update(sql, fpaid, fdate, sno);
     }
 }

@@ -69,25 +69,31 @@ public class EditServlet extends BaseServlet {
     }
 
     protected void payFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        double famount = Double.parseDouble(req.getParameter("famount"));
-        boolean ftype = req.getParameter("ftype").equals("water");
         String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
-        boolean success = EditQuery.insertFee(new Date(), famount, ftype, sno);
-        if (success) {
-            resp.setStatus(200);
-        }
-        else {
-            resp.setStatus(622); //插入失败
+        String date = req.getParameter("date");
+        String strDateFormat = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        try {
+            Date cdate = sdf.parse(date);
+            boolean success = EditQuery.updateFee(cdate, sno, true);
+            if (success) {
+                resp.setStatus(200);
+            }
+            else {
+                resp.setStatus(621); //更新失败
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
-    protected void useFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void newFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         double famount = Double.parseDouble(req.getParameter("famount"));
-        boolean ftype = req.getParameter("ftype").equals("water");
+        String ftype = req.getParameter("ftype");
         String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
-        boolean success = EditQuery.insertFee(new Date(), -famount, ftype, sno);
+        boolean success = EditQuery.insertFee(new Date(), famount, ftype, false, sno);
         if (success) {
             resp.setStatus(200);
         }

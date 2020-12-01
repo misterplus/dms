@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Fee {
     private Date fdate;
-    private String dbno, dbd, drbno;
+    private String dbno, dbd, drbno, ftype;
     private double famount;
-    private boolean ftype; //true 水费 false 电费
+    private boolean fpaid;
 }

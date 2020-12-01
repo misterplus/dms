@@ -26,8 +26,8 @@ public class EditQuery {
         return affected != 0;
     }
 
-    public static boolean insertFee(Date fdate, double famount, boolean ftype, String sno) {
-        int affected = FeeDaoImpl.getInstance().insertFee(fdate, famount, ftype, sno);
+    public static boolean insertFee(Date fdate, double famount, String ftype, boolean fpaid, String sno) {
+        int affected = FeeDaoImpl.getInstance().insertFee(fdate, famount, ftype, fpaid, sno);
         return affected != 0;
     }
 
@@ -48,6 +48,11 @@ public class EditQuery {
 
     public static boolean insertStudent(Student student) {
         int affected = StudentDaoImpl.getInstance().insertStudent(student);
+        return affected != 0;
+    }
+
+    public static boolean updateFee(Date fdate, String sno, boolean fpaid) {
+        int affected = FeeDaoImpl.getInstance().updateFee(fdate, sno, fpaid);
         return affected != 0;
     }
 }
