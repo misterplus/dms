@@ -33,4 +33,8 @@ public class InfoQuery {
     public static List<Student> selectStudents() {
         return StudentDaoImpl.getInstance().selectStudents();
     }
+
+    public static Student selectStudentWithSno(String sno) {
+        return StudentDaoImpl.getInstance().selectStudentWithSno(sno);
+    }
 }

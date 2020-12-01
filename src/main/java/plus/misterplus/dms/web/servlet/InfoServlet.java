@@ -81,4 +81,14 @@ public class InfoServlet extends BaseServlet {
         else
             resp.setStatus(620);
     }
+
+    protected void selectStudentWithSno(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String token = req.getHeader("dms_token");
+        String sno = TokenHelper.parseToken(token).getUsername();
+        Student student = InfoQuery.selectStudentWithSno(sno);
+        if (student != null)
+            resp.getWriter().write(GsonHelper.toJson(student));
+        else
+            resp.setStatus(620);
+    }
 }
