@@ -11,6 +11,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class CleanContest {
     private Date cdate;
-    private String dbno, dbd, drbno, adno;
+    private String dbno, dbd, drbno;
     private double cscore;
 }

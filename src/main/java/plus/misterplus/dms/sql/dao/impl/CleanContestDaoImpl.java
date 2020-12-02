@@ -21,8 +21,14 @@ public class CleanContestDaoImpl extends BaseDao implements CleanContestDao {
     }
 
     @Override
-    public int insertCleanContest(Date cdate, String dbno, String dbd, String drbno, String adno, double cscore) {
-        String sql = "insert into ccontest(cdate, dbno, dbd, drbno, adno, cscore) values(?,?,?,?,?,?)";
-        return insert(sql, cdate, dbno, dbd, drbno, adno, cscore);
+    public int insertCleanContest(Date cdate, String dbno, String dbd, String drbno, double cscore) {
+        String sql = "insert into ccontest(cdate, dbno, dbd, drbno, cscore) values(?,?,?,?,?)";
+        return insert(sql, cdate, dbno, dbd, drbno, cscore);
+    }
+
+    @Override
+    public List<CleanContest> selectContests() {
+        String sql = "select * from ccontest";
+        return selectMultiple(CleanContest.class, sql);
     }
 }

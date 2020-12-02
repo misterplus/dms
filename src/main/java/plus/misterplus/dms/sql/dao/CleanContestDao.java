@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface CleanContestDao {
     public List<CleanContest> selectCleanContestsWithSno(String sno);
-    public int insertCleanContest(Date cdate, String dbno, String dbd, String drbno, String adno, double cscore);
+    public int insertCleanContest(Date cdate, String dbno, String dbd, String drbno, double cscore);
+    public List<CleanContest> selectContests();
 }

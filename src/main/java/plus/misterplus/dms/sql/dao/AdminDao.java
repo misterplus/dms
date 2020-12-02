@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface AdminDao {
     public Admin selectAdmin(String adno);
-    public List<Admin> selectAdmins(String adno);
+    public List<Admin> selectAdmins();
+    public int insertAdmin(String adno, String adpass, String adname);
 }

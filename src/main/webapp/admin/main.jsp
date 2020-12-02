@@ -156,6 +156,7 @@
                 statusCode: {
                     200: function(response) {
                         alert("更改成功！");
+                        location.reload();
                     },
                     621: function () {
                         alert("更改失败！");
@@ -181,6 +182,7 @@
                 statusCode: {
                     200: function(response) {
                         alert("重置成功！");
+                        location.reload();
                     },
                     621: function () {
                         alert("重置失败！");

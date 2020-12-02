@@ -37,4 +37,16 @@ public class InfoQuery {
     public static Student selectStudentWithSno(String sno) {
         return StudentDaoImpl.getInstance().selectStudentWithSno(sno);
     }
+
+    public static List<Admin> selectAdmins() {
+        return AdminDaoImpl.getInstance().selectAdmins();
+    }
+
+    public static List<CleanContest> selectContests() {
+        return CleanContestDaoImpl.getInstance().selectContests();
+    }
+
+    public static List<DormRoom> selectDRooms() {
+        return DormRoomDaoImpl.getInstance().selectDRooms();
+    }
 }
