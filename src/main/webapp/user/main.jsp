@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <div class="col">
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #448ef6;">
-            <a class="navbar-brand h1" href="#" id="usertype">用户类别</a>
+            <a class="navbar-brand h1" href="./main.jsp" id="usertype">首页</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -43,6 +43,15 @@
         </nav>
         </div>
         <div class="row">
+            <nav class="col-1 d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column text-center" style="font-size: 13px;">
+                        <li class="nav-item mt-1 mb-1">
+                            <a class="side-link" href="#" onclick="">更改密码</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
             <div class="col-6">
                 <div id="app">
                     <table class="table table-bordered table-striped">
@@ -61,16 +70,10 @@
                     </table>
                 </div>
             </div>
-            <div class="col-6">
-                <table class="table table-bordered table-striped">
-                    <tr><td ></td></tr>
-                </table>
-            </div>
         </div>
     </div>
     <script type="text/javascript">
         var info = getCredentials(false, true);
-        $("#usertype")[0].innerHTML = info["usertype"];
 
         function getDormDirection(dbd) {
             switch (dbd) {
