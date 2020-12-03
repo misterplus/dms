@@ -31,7 +31,7 @@ public class EditServlet extends BaseServlet {
     protected void updateStudentPass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
-        String spass = req.getParameter("spass");
+        String spass = Encryption.md5(req.getParameter("spass"));
         boolean success = EditQuery.updateStudentPass(sno, spass);
         if (success) {
             resp.setStatus(200);

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/page.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/dashboard.css">
     <title>水电费</title>
 </head>
 <body>
@@ -19,9 +19,6 @@
             <a class="navbar-brand h1" href="./main.jsp" id="usertype">首页</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/user/dorm.jsp">寝室</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/repair.jsp">报修</a>
                     </li>
@@ -33,9 +30,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/notice.jsp">通知</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/user/setting.jsp">设置</a>
                     </li>
                 </ul>
             </div>
@@ -69,6 +63,7 @@
                         <td v-text="fee.famount"></td>
                         <td v-text="fee.ftype"></td>
                         <td v-text="fee.fpaid"></td>
+                        <td><input name="pay" type="button" value="缴纳" onclick="getDate(this)"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -81,9 +76,9 @@
 
     function getFpaid(fpaid) {
         if(fpaid)
-            return '是';
+            return '已缴纳';
         else
-            return '否';
+            return '未缴纳';
     }
     var cookies = getCookieMap(document.cookie);
     new Vue({
@@ -115,6 +110,10 @@
             });
         }
     })
+    function getDate(tag) {
+        var fdate = $(tag).parent().siblings()[0].innerHTML;
+        alert(fdate);
+    }
 </script>
 
 </body>

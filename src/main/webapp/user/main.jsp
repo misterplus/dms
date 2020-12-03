@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/page.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/dashboard.css">
     <title>学生宿舍管理系统</title>
 </head>
 <body>
@@ -20,10 +20,6 @@
             <a class="navbar-brand h1" href="./main.jsp" id="usertype">首页</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/user/dorm.jsp">寝室</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/repair.jsp">报修</a>
                     </li>
                     <li class="nav-item">
@@ -35,9 +31,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/user/notice.jsp">通知</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/user/setting.jsp">设置</a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -47,7 +40,7 @@
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column text-center" style="font-size: 13px;">
                         <li class="nav-item mt-1 mb-1">
-                            <a class="side-link" href="#" onclick="">更改密码</a>
+                            <a href="#" onclick="resetPass(this)">更改密码</a>
                         </li>
                     </ul>
                 </div>
@@ -117,6 +110,38 @@
                 });
             }
         })
+
+        function resetPass() {
+            var newpass = prompt("请输入新密码");
+            var passagain = prompt("请再次输入密码");
+            if(newpass != passagain)
+                alert("两次输入不一致，请重试");
+            else{
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editServlet",
+                    headers: {
+                        "dms_token": cookies.get("dms_token")
+                    },
+                    data: {
+                        "action": "updateStudentPass",
+                        "spass": newpass
+                    },
+                    dataType: "json",
+                    async: false,
+                    statusCode: {
+                        200: function(response) {
+                            alert("更改成功！");
+                            location.reload();
+                        },
+                        621: function () {
+                            alert("更改失败！");
+                        }
+                    }
+                });
+            }
+
+        }
     </script>
 
 </body>
