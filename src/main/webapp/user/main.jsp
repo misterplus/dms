@@ -112,33 +112,39 @@
         })
 
         function resetPass() {
-            var newpass = prompt("请输入新密码");
-            var passagain = prompt("请再次输入密码");
-            if(newpass != passagain)
-                alert("两次输入不一致，请重试");
-            else{
-                $.ajax({
-                    type: "POST",
-                    url: "/api/editServlet",
-                    headers: {
-                        "dms_token": cookies.get("dms_token")
-                    },
-                    data: {
-                        "action": "updateStudentPass",
-                        "spass": newpass
-                    },
-                    dataType: "json",
-                    async: false,
-                    statusCode: {
-                        200: function(response) {
-                            alert("更改成功！");
-                            location.reload();
-                        },
-                        621: function () {
-                            alert("更改失败！");
-                        }
+            var newpass = prompt("请输入新密码","");
+            if(newpass != null){
+                if(newpass !== ""){
+                    var passagain = prompt("请再次输入密码");
+                    if(newpass !== passagain)
+                        alert("两次输入不一致，请重试");
+                    else{
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/editServlet",
+                            headers: {
+                                "dms_token": cookies.get("dms_token")
+                            },
+                            data: {
+                                "action": "updateStudentPass",
+                                "spass": newpass
+                            },
+                            dataType: "json",
+                            async: false,
+                            statusCode: {
+                                200: function(response) {
+                                    alert("更改成功！");
+                                    location.reload();
+                                },
+                                621: function () {
+                                    alert("更改失败！");
+                                }
+                            }
+                        });
                     }
-                });
+                }
+                else
+                    alert("密码不能为空");
             }
 
         }

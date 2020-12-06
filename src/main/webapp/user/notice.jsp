@@ -37,7 +37,6 @@
             </div>
         </nav>
     </div>
-    <h1 class="h3 mb-3 font-weight-normal text-center">通知</h1>
     <div class="row">
         <nav class="col-1 d-md-block bg-light sidebar collapse">
             <div class="sidebar-sticky pt-3">
@@ -50,6 +49,7 @@
             </div>
         </nav>
         <div class="col-11">
+            <h1 class="h3 mb-3 font-weight-normal text-center">通知</h1>
             <div id="n">
                 <table class="table table-bordered table-striped">
                     <thead>
