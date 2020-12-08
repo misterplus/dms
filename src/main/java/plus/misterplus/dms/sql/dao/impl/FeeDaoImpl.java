@@ -21,7 +21,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao {
 
     @Override
     public List<Fee> selectFeesWithSno(String sno) {
-        String sql = "select f.* from fees f, student s where s.sno = ? and f.dbno = s.dbno and f.dbd = s.dbd and f.drbno = s.drbno";
+        String sql = "exec selectFeesWithSno ?";
         return selectMultiple(Fee.class, sql, sno);
     }
 
