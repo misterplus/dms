@@ -43,7 +43,6 @@
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column text-center" style="font-size: 13px;">
                         <li class="nav-item mt-1 mb-1">
-                            <a class="side-link" href="#" onclick="">更改密码</a>
                         </li>
                     </ul>
                 </div>
