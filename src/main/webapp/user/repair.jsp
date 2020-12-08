@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/user/notice.jsp">通知</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">退出</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -43,7 +46,7 @@
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column text-center" style="font-size: 13px;">
                         <li class="nav-item mt-1 mb-1">
-                            <a class="side-link" href="#">学生名单</a>
+                            <a class="side-link" href="${pageContext.request.contextPath}/user/rprogress.jsp">查看维修进度</a>
                         </li>
                     </ul>
                 </div>
@@ -51,7 +54,7 @@
             <div class="col-11">
                 <form class="needs-validation" novalidate name="repairSheet" onsubmit="getRepairSheet()" method="post">
                 <h1 class="h3 mb-3 font-weight-normal text-center">报修申请</h1>
-                <div class="form-group" align="center">
+                <div class="form-group" align="center" onsubmit="getRepairSheet()">
                     报修种类：
                     <select>
                         <option>----请选择报修类型----</option>
@@ -69,11 +72,12 @@
                 </div>
             </form>
             </div>
-
         </div>
-
     </div>
+<script type="text/javascript">
+    function pushRepairSheet(){
 
-
+    }
+</script>
 </body>
 </html>
