@@ -11,7 +11,6 @@
 <body>
     <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <script src="${pageContext.request.contextPath}/static/js/user/repairSheet.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/verify.js"></script>
     <script src="${pageContext.request.contextPath}/webjars/vue/2.6.11/vue.js"></script>
 
@@ -34,6 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/user/notice.jsp">通知</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">退出</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -43,7 +45,7 @@
                 <div class="sidebar-sticky pt-3">
                     <ul class="nav flex-column text-center" style="font-size: 13px;">
                         <li class="nav-item mt-1 mb-1">
-                            <a class="side-link" href="#">学生名单</a>
+                            <a class="side-link" href="${pageContext.request.contextPath}/user/rprogress.jsp">查看维修进度</a>
                         </li>
                     </ul>
                 </div>
@@ -53,27 +55,63 @@
                 <h1 class="h3 mb-3 font-weight-normal text-center">报修申请</h1>
                 <div class="form-group" align="center">
                     报修种类：
-                    <select>
-                        <option>----请选择报修类型----</option>
-                        <option>水电</option>
-                        <option>木工</option>
-                        <option>水泥工</option>
-                        <option>空调</option>
-                        <option>其他</option>
+                    <select name="rtype">
+                        <option value="">----请选择报修类型----</option>
+                        <option value="水电">水电</option>
+                        <option value="木工">木工</option>
+                        <option value="水泥工">水泥工</option>
+                        <option value="空调">空调</option>
+                        <option value="其他">其他</option>
                     </select><br>
-                    报修内容：<textarea name="rcontent" rows="8" cols="30" placeholder="请输入报修内容"></textarea><br>
-                    <div class="invalid-feedback">
-                        内容不能为空!
-                    </div>
+                    报修内容：<textarea name="rcon" rows="8" cols="30" placeholder="请输入报修内容"></textarea><br>
                     <button type="submit" class="btn btn-primary btn-lg">提交</button>
                 </div>
             </form>
             </div>
-
         </div>
-
     </div>
+    <script type="text/javascript">
+        var info = getCredentials(false, true);
 
+        var cookies = getCookieMap(document.cookie);
+        function getRepairSheet() {
+            var cookies = getCookieMap(document.cookie);
+            var form = document.forms["repairSheet"];
+            if(form["rcon"].value==="")
+                alert("提交失败，内容不能为空");
+            else {
+                if(form["rtype"].value==="")
+                    alert("提交失败，请选择报修类型");
+                else {
+                    if (cookies.has("dms_token")) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/editServlet",
+                            headers: {
+                                "dms_token": cookies.get("dms_token")
+                            },
+                            data: {
+                                "action": "insertRepairSheet",
+                                "rtype":form["rtype"].value,
+                                "rcon":form["rcon"].value,
+                            },
+                            dataType: "json",
+                            async: false,
+                            statusCode: {
+                                200: function() {
+                                    alert("提交成功");
+                                },
+                                622: function() {
+                                    alert("提交失败");
+                                }
+                            }
+                        });
+                    }
+                }
 
+            }
+
+        }
+    </script>
 </body>
 </html>
