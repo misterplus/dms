@@ -66,7 +66,7 @@
                             <td v-text="fee.famount"></td>
                             <td v-text="fee.ftype"></td>
                             <td v-text="fee.fpaid"></td>
-                            <td><input name="pay" type="button" value="缴纳" onclick="getDate(this)"></td>
+                            <td><input name="pay" type="button" value="缴纳" onclick="pay(this)"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -113,14 +113,30 @@
                 });
             }
         })
-        function getDate(tag) {
+        function pay(tag) {
             var fdate = $(tag).parent().siblings()[0].innerHTML;
-            var fpaid = $(tag).parent().siblings()[2].innerHTML;
-            if(fpaid)
-                alert("已缴纳,无需再缴纳");
-            else
-                alert("缴纳成功");
             //alert(fdate);
+            $.ajax({
+                type: "POST",
+                url: "/api/editServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": "payFee",
+                    "date":fdate
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        alert("缴纳成功");
+                    },
+                    621: function() {
+                        alert("缴纳失败");
+                    }
+                }
+            });
         }
     </script>
 
