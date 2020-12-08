@@ -61,4 +61,14 @@ public class EditQuery {
         int affected = AdminDaoImpl.getInstance().insertAdmin(adno, adpass, adname);
         return affected != 0;
     }
+
+    public static boolean insertDormBuilding(String dbno, String dbd) {
+        int affected = DormBuildingImpl.getInstance().insertDormBuilding(dbno, dbd);
+        return affected != 0;
+    }
+
+    public static boolean insertDormRoom(String dbno, String dbd, String drbno) {
+        int affected = DormRoomDaoImpl.getInstance().insertDormRoom(dbno, dbd, drbno);
+        return affected != 0;
+    }
 }

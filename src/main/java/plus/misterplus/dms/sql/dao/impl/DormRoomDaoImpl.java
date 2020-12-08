@@ -24,4 +24,10 @@ public class DormRoomDaoImpl extends BaseDao implements DormRoomDao {
         String sql = "select * from droom";
         return selectMultiple(DormRoom.class, sql);
     }
+
+    @Override
+    public int insertDormRoom(String dbno, String dbd, String drbno) {
+        String sql = "insert into droom(dbno,dbd,drbno) values(?,?,?)";
+        return insert(sql, dbno, dbd, drbno);
+    }
 }

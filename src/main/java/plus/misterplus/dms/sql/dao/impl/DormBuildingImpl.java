@@ -16,4 +16,10 @@ public class DormBuildingImpl extends BaseDao implements DormBuildingDao {
         String sql = "select * from dbuilding where dbno = ? and dbd = ?";
         return select(DormBuilding.class, sql, dbno, dbd);
     }
+
+    @Override
+    public int insertDormBuilding(String dbno, String dbd) {
+        String sql = "insert into dbuilding(dbno,dbd) values(?,?)";
+        return insert(sql, dbno, dbd);
+    }
 }

@@ -69,7 +69,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="col-11">
+        <div class="col-3">
             <form class="needs-validation" novalidate name="dorms">
                 <div class="form-group">
                     <label for="dbno">宿舍楼号</label>
@@ -80,22 +80,37 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="height">楼层数</label>
+                    <input type="text" class="form-control" name="height" id="height" placeholder="请输入宿舍楼层数" required
+                           onkeyup="this.value=this.value.replace(/\D/g, '')">
+                    <div class="invalid-feedback">
+                        楼层数不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="rooms">每层房间数</label>
+                    <input type="text" class="form-control" name="rooms" id="rooms" placeholder="请输入宿舍楼每层房间数" required
+                           onkeyup="this.value=this.value.replace(/\D/g, '')">
+                    <div class="invalid-feedback">
+                        每层房间数不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>分楼模式</label>
                     <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="dbd" id="0" value="0" checked>
+                        <input type="radio" class="form-check-input" name="method" id="0" value="0" checked>
                         <label class="form-check-label" for="0">无分楼</label>
                     </div>
                     <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="dbd" id="12" value="12">
+                        <input type="radio" class="form-check-input" name="method" id="12" value="12">
                         <label class="form-check-label" for="12">东西</label>
                     </div>
                     <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="dbd" id="34" value="34">
+                        <input type="radio" class="form-check-input" name="method" id="34" value="34">
                         <label class="form-check-label" for="34">南北</label>
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+                <button type="submit" class="btn btn-primary">新增</button>
             </form>
         </div>
     </div>

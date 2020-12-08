@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @WebServlet("/api/editServlet")
 public class EditServlet extends BaseServlet {
@@ -73,8 +74,8 @@ public class EditServlet extends BaseServlet {
         String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
         String date = req.getParameter("date");
-        String strDateFormat = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        String strDateFormat = "EEE MMM dd HH:mm:ss zzz yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat, Locale.US);
         try {
             Date cdate = sdf.parse(date);
             boolean success = EditQuery.updateFee(cdate, sno, true);
@@ -163,6 +164,33 @@ public class EditServlet extends BaseServlet {
         }
         else {
             resp.setStatus(622);
+        }
+    }
+
+    protected void newDorm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        int height = Integer.parseInt(req.getParameter("height"));
+        int rooms = Integer.parseInt(req.getParameter("rooms"));
+        String method = req.getParameter("method");
+        switch (method) {
+            case "0": {
+                EditQuery.insertDormBuilding(dbno, "0");
+                break;
+            }
+            case "12": {
+                EditQuery.insertDormBuilding(dbno, "1");
+                EditQuery.insertDormBuilding(dbno, "2");
+                break;
+            }
+            case "34": {
+                EditQuery.insertDormBuilding(dbno, "3");
+                EditQuery.insertDormBuilding(dbno, "4");
+                break;
+            }
+            default: {
+                resp.setStatus(622);
+                return;
+            }
         }
     }
 }
