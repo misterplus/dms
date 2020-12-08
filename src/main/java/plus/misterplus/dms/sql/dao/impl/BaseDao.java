@@ -13,6 +13,18 @@ import java.util.List;
 public abstract class BaseDao {
     private final QueryRunner queryRunner = new QueryRunner();
 
+    public int procedure(String sql, Object... params) {
+        Connection db = Linker.getDb();
+        try {
+            return queryRunner.execute(db, sql, params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            CodeHelper.close(db);
+        }
+        return -1;
+    }
+
     public int insert(String sql, Object... params) {
         Connection db = Linker.getDb();
         try {

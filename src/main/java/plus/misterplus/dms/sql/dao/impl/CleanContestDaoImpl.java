@@ -16,7 +16,7 @@ public class CleanContestDaoImpl extends BaseDao implements CleanContestDao {
 
     @Override
     public List<CleanContest> selectCleanContestsWithSno(String sno) {
-        String sql = "select c.* from ccontest c, student s where s.sno = ? and c.dbno = s.dbno and c.dbd = s.dbd and c.drbno = s.drbno order by c.cdate desc";
+        String sql = "exec selectCleanContestsWithSno ?";
         return selectMultiple(CleanContest.class, sql, sno);
     }
 

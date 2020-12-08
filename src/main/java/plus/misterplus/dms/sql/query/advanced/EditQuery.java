@@ -52,8 +52,8 @@ public class EditQuery {
         return affected != 0;
     }
 
-    public static boolean updateFee(Date fdate, String sno, boolean fpaid) {
-        int affected = FeeDaoImpl.getInstance().updateFee(fdate, sno, fpaid);
+    public static boolean updateFee(String fno, String sno, boolean fpaid) {
+        int affected = FeeDaoImpl.getInstance().updateFee(fno, sno, fpaid);
         return affected != 0;
     }
 
@@ -67,8 +67,23 @@ public class EditQuery {
         return affected != 0;
     }
 
-    public static boolean insertDormRoom(String dbno, String dbd, String drbno) {
-        int affected = DormRoomDaoImpl.getInstance().insertDormRoom(dbno, dbd, drbno);
+    public static boolean insertDormRoom(String dbno, String dbd, String drbno, int dcap) {
+        int affected = DormRoomDaoImpl.getInstance().insertDormRoom(dbno, dbd, drbno, dcap);
+        return affected != 0;
+    }
+
+    public static boolean newDorm0(String dbno, int height, int rooms) {
+        int affected = ProcedureImpl.getInstance().newDorm0(dbno, height, rooms);
+        return affected != 0;
+    }
+
+    public static boolean newDorm12(String dbno, int height, int rooms) {
+        int affected = ProcedureImpl.getInstance().newDorm12(dbno, height, rooms);
+        return affected != 0;
+    }
+
+    public static boolean newDorm34(String dbno, int height, int rooms) {
+        int affected = ProcedureImpl.getInstance().newDorm34(dbno, height, rooms);
         return affected != 0;
     }
 }

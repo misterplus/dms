@@ -1,6 +1,7 @@
 package plus.misterplus.dms.web.servlet;
 
 import plus.misterplus.dms.crypto.Encryption;
+import plus.misterplus.dms.sql.dao.impl.ProcedureImpl;
 import plus.misterplus.dms.sql.dao.impl.StudentDaoImpl;
 import plus.misterplus.dms.sql.query.advanced.EditQuery;
 import plus.misterplus.dms.sql.utils.TokenHelper;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -73,20 +75,13 @@ public class EditServlet extends BaseServlet {
     protected void payFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
-        String date = req.getParameter("date");
-        String strDateFormat = "EEE MMM dd HH:mm:ss zzz yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat, Locale.US);
-        try {
-            Date cdate = sdf.parse(date);
-            boolean success = EditQuery.updateFee(cdate, sno, true);
-            if (success) {
-                resp.setStatus(200);
-            }
-            else {
-                resp.setStatus(621); //更新失败
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String fno = req.getParameter("fno");
+        boolean success = EditQuery.updateFee(fno, sno, true);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(621); //更新失败
         }
     }
 
@@ -174,17 +169,15 @@ public class EditServlet extends BaseServlet {
         String method = req.getParameter("method");
         switch (method) {
             case "0": {
-                EditQuery.insertDormBuilding(dbno, "0");
+                EditQuery.newDorm0(dbno, height, rooms);
                 break;
             }
             case "12": {
-                EditQuery.insertDormBuilding(dbno, "1");
-                EditQuery.insertDormBuilding(dbno, "2");
+                EditQuery.newDorm12(dbno, height, rooms);
                 break;
             }
             case "34": {
-                EditQuery.insertDormBuilding(dbno, "3");
-                EditQuery.insertDormBuilding(dbno, "4");
+                EditQuery.newDorm34(dbno, height, rooms);
                 break;
             }
             default: {

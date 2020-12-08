@@ -110,13 +110,37 @@
                         <label class="form-check-label" for="34">南北</label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">新增</button>
+                <button type="button" class="btn btn-primary" onclick="newDorm()">新增</button>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-
+    function newDorm() {
+        var cookies = getCookieMap(document.cookie);
+        var form = document.forms["dorms"];
+        $.ajax({
+            type: "POST",
+            url: "/api/editServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "newDorm",
+                "dbno": form["dbno"].value,
+                "height": form["height"].value,
+                "rooms": form["rooms"].value,
+                "method": form["method"].value
+            },
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    alert("新增成功！");
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

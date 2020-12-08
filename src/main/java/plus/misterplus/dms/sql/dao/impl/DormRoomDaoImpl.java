@@ -26,7 +26,7 @@ public class DormRoomDaoImpl extends BaseDao implements DormRoomDao {
     }
 
     @Override
-    public int insertDormRoom(String dbno, String dbd, String drbno) {
+    public int insertDormRoom(String dbno, String dbd, String drbno, int dcap) {
         String sql = "insert into droom(dbno,dbd,drbno) values(?,?,?)";
         return insert(sql, dbno, dbd, drbno);
     }

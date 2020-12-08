@@ -7,5 +7,5 @@ import java.util.List;
 public interface DormRoomDao {
     public DormRoom selectDormRoom(String dbno, String dbd, String drbno);
     public List<DormRoom> selectDRooms();
-    public int insertDormRoom(String dbno, String dbd, String drbno);
+    public int insertDormRoom(String dbno, String dbd, String drbno, int dcap);
 }
