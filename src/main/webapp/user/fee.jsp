@@ -53,6 +53,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
+                            <th scope="col">序号</th>
                             <th scope="col">时间</th>
                             <th scope="col">金额</th>
                             <th scope="col">种类</th>
@@ -61,6 +62,7 @@
                         </thead>
                         <tbody>
                         <tr v-for="fee in fees">
+                            <td v-text="fee.fno"></td>
                             <td v-text="fee.fdate"></td>
                             <td v-text="fee.famount"></td>
                             <td v-text="fee.ftype"></td>
@@ -113,7 +115,7 @@
             }
         })
         function pay(tag) {
-            var fdate = $(tag).parent().siblings()[0].innerHTML;
+            var fno = $(tag).parent().siblings()[0].innerHTML;
             //alert(fdate);
             $.ajax({
                 type: "POST",
@@ -123,7 +125,7 @@
                 },
                 data: {
                     "action": "payFee",
-                    "date":fdate
+                    "date":fno
                 },
                 dataType: "json",
                 async: false,
