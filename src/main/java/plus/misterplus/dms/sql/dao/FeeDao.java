@@ -8,5 +8,5 @@ import java.util.List;
 public interface FeeDao {
     public int insertFee(Date fdate, double famount, String ftype, boolean fpaid, String sno);
     public List<Fee> selectFeesWithSno(String sno);
-    public int updateFee(String fdate, String sno, boolean fpaid);
+    public int updateFee(long fno, String sno, boolean fpaid);
 }

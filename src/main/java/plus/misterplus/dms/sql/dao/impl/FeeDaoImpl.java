@@ -26,7 +26,7 @@ public class FeeDaoImpl extends BaseDao implements FeeDao {
     }
 
     @Override
-    public int updateFee(String fno, String sno, boolean fpaid) {
+    public int updateFee(long fno, String sno, boolean fpaid) {
         String sql = "update f set f.fpaid = ? from (select f.* from fees f, student s where f.fno = ? and s.sno = ? and f.dbno = s.dbno and f.dbd = s.dbd and f.drbno = s.drbno) as f";
         return update(sql, fpaid, fno, sno);
     }

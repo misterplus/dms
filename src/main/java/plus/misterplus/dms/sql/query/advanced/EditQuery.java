@@ -52,7 +52,7 @@ public class EditQuery {
         return affected != 0;
     }
 
-    public static boolean updateFee(String fno, String sno, boolean fpaid) {
+    public static boolean updateFee(long fno, String sno, boolean fpaid) {
         int affected = FeeDaoImpl.getInstance().updateFee(fno, sno, fpaid);
         return affected != 0;
     }

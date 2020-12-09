@@ -75,7 +75,7 @@ public class EditServlet extends BaseServlet {
     protected void payFee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token = req.getHeader("dms_token");
         String sno = TokenHelper.parseToken(token).getUsername();
-        String fno = req.getParameter("fno");
+        long fno = Long.parseLong(req.getParameter("fno"));
         boolean success = EditQuery.updateFee(fno, sno, true);
         if (success) {
             resp.setStatus(200);
