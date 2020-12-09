@@ -125,7 +125,7 @@
                 },
                 data: {
                     "action": "payFee",
-                    "date":fno
+                    "fno":fno
                 },
                 dataType: "json",
                 async: false,
