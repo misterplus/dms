@@ -113,31 +113,37 @@
                     }
                 });
             }
-        })
+        });
         function pay(tag) {
             var fno = $(tag).parent().siblings()[0].innerHTML;
             //alert(fdate);
-            $.ajax({
-                type: "POST",
-                url: "/api/editServlet",
-                headers: {
-                    "dms_token": cookies.get("dms_token")
-                },
-                data: {
-                    "action": "payFee",
-                    "fno":fno
-                },
-                dataType: "json",
-                async: false,
-                statusCode: {
-                    200: function(response) {
-                        alert("缴纳成功");
+            var fpaid = $(tag).parent().siblings()[4].innerHTML;
+            if(fpaid==="未缴纳"){
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editServlet",
+                    headers: {
+                        "dms_token": cookies.get("dms_token")
                     },
-                    621: function() {
-                        alert("缴纳失败");
+                    data: {
+                        "action": "payFee",
+                        "fno":fno
+                    },
+                    dataType: "json",
+                    async: false,
+                    statusCode: {
+                        200: function(response) {
+                            location.reload();
+                            alert("缴纳成功");
+                        },
+                        621: function() {
+                            alert("缴纳失败");
+                        }
                     }
-                }
-            });
+                });
+            }
+            else
+                alert("已缴纳，无需再缴纳");
         }
     </script>
 

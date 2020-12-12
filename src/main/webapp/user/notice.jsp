@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/dashboard.css">
+
     <title>通知</title>
 </head>
 <body>
@@ -63,10 +64,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="notice in notices">
+                        <tr v-for="(notice,index) in notices">
                             <td v-text="notice.ntime"></td>
                             <td v-text="notice.ntitle"></td>
-                            <td v-text="notice.ncontent"></td>
+
+                            <td>
+                                <div id="index">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                                单击查看
+                                            </a>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" data-parent="#index">
+                                            <div class="card-body" v-text="notice.ncontent">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
                         </tr>
                         </tbody>
                     </table>
@@ -80,8 +97,14 @@
         var cookies = getCookieMap(document.cookie);
         new Vue({
             el: '#n',
-            data: {
-                notices: []
+            data() {
+                var notices = [];
+                for (var i=0,len=100;i<len;i++){
+                    notices.push(String.fromCharCode(67 + i));
+                }
+                return {
+                    notices:notices
+                }
             },
             created: function () {
                 var self = this;
