@@ -64,19 +64,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(notice,index) in notices">
+                        <tr v-for="notice in notices">
                             <td v-text="notice.ntime"></td>
                             <td v-text="notice.ntitle"></td>
 
                             <td>
-                                <div id="index">
+                                <div id="accordion">
                                     <div class="card">
                                         <div class="card-header">
                                             <a class="card-link" data-toggle="collapse" href="#collapseOne">
                                                 单击查看
                                             </a>
                                         </div>
-                                        <div id="collapseOne" class="collapse show" data-parent="#index">
+                                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
                                             <div class="card-body" v-text="notice.ncontent">
                                             </div>
                                         </div>
@@ -97,14 +97,8 @@
         var cookies = getCookieMap(document.cookie);
         new Vue({
             el: '#n',
-            data() {
-                var notices = [];
-                for (var i=0,len=100;i<len;i++){
-                    notices.push(String.fromCharCode(67 + i));
-                }
-                return {
-                    notices:notices
-                }
+            data: {
+                notices: []
             },
             created: function () {
                 var self = this;
