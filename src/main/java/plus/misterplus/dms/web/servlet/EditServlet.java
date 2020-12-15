@@ -200,4 +200,19 @@ public class EditServlet extends BaseServlet {
             resp.setStatus(622);
         }
     }
+
+    protected void insertFeeAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        double famount = Double.parseDouble(req.getParameter("famount"));
+        String ftype = req.getParameter("ftype");
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        boolean success = EditQuery.insertFee(new Date(), famount, ftype, false, dbno, dbd, drbno);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(622); //插入失败
+        }
+    }
 }

@@ -30,4 +30,16 @@ public class FeeDaoImpl extends BaseDao implements FeeDao {
         String sql = "update f set f.fpaid = ? from (select f.* from fees f, student s where f.fno = ? and s.sno = ? and f.dbno = s.dbno and f.dbd = s.dbd and f.drbno = s.drbno) as f";
         return update(sql, fpaid, fno, sno);
     }
+
+    @Override
+    public List<Fee> selectFees() {
+        String sql = "select * from fees order by fdate desc";
+        return selectMultiple(Fee.class, sql);
+    }
+
+    @Override
+    public int insertFee(Date fdate, double famount, String ftype, boolean fpaid, String dbno, String dbd, String drbno) {
+        String sql = "insert into fees(fdate, famount, ftype, fpaid, dbno, dbd, drbno) values(?,?,?,?,?,?,?)";
+        return insert(sql, fdate, famount, ftype, fpaid, dbno, dbd, drbno);
+    }
 }

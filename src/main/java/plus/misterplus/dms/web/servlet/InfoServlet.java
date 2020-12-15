@@ -151,4 +151,12 @@ public class InfoServlet extends BaseServlet {
         else
             resp.setStatus(620);
     }
+
+    protected void selectFees(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Fee> fees = InfoQuery.selectFees();
+        if (fees != null)
+            resp.getWriter().write(GsonHelper.toJson(fees));
+        else
+            resp.setStatus(620);
+    }
 }

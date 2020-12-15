@@ -1,5 +1,6 @@
 package plus.misterplus.dms.sql.query.advanced;
 
+import plus.misterplus.dms.sql.dao.FeeDao;
 import plus.misterplus.dms.sql.dao.impl.*;
 import plus.misterplus.dms.sql.entity.*;
 
@@ -64,5 +65,9 @@ public class InfoQuery {
 
     public static List<Student> selectDormStudents(String dbno, String dbd, String drbno) {
         return StudentDaoImpl.getInstance().selectDormStudents(dbno, dbd, drbno);
+    }
+
+    public static List<Fee> selectFees() {
+        return FeeDaoImpl.getInstance().selectFees();
     }
 }
