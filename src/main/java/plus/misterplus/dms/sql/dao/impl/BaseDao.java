@@ -13,6 +13,42 @@ import java.util.List;
 public abstract class BaseDao {
     private final QueryRunner queryRunner = new QueryRunner();
 
+    public <T> List<T> procedure(Class<T> type, String sql, Object... params) {
+        Connection db = Linker.getDb();
+        try {
+            return queryRunner.execute(db, sql, new BeanHandler<>(type), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            CodeHelper.close(db);
+        }
+        return null;
+    }
+
+    public <T> List<T> procedure(Class<T> type, String sql) {
+        Connection db = Linker.getDb();
+        try {
+            return queryRunner.execute(db, sql, new BeanHandler<>(type));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            CodeHelper.close(db);
+        }
+        return null;
+    }
+
+    public int procedure(String sql) {
+        Connection db = Linker.getDb();
+        try {
+            return queryRunner.execute(db, sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            CodeHelper.close(db);
+        }
+        return -1;
+    }
+
     public int procedure(String sql, Object... params) {
         Connection db = Linker.getDb();
         try {

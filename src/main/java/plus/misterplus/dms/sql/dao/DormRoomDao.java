@@ -8,4 +8,6 @@ public interface DormRoomDao {
     public DormRoom selectDormRoom(String dbno, String dbd, String drbno);
     public List<DormRoom> selectDRooms();
     public int insertDormRoom(String dbno, String dbd, String drbno, int dcap);
+    public int updateDormMonitor(String dbno, String dbd, String drbno, String dmno);
+    public List<DormRoom> selectDRoomNotFull();
 }

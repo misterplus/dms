@@ -55,4 +55,10 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
         String sql = "select * from student order by sno asc";
         return selectMultiple(Student.class, sql);
     }
+
+    @Override
+    public List<Student> selectDormStudents(String dbno, String dbd, String drbno) {
+        String sql = "exec selectDormStudents ?,?,?";
+        return procedure(Student.class, sql, dbno, dbd, drbno);
+    }
 }
