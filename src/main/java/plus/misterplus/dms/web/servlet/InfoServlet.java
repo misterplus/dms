@@ -115,4 +115,20 @@ public class InfoServlet extends BaseServlet {
         else
             resp.setStatus(620);
     }
+
+    protected void selectItems(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Item> items = InfoQuery.selectItems();
+        if (items != null)
+            resp.getWriter().write(GsonHelper.toJson(items));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectGuests(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Guest> guests = InfoQuery.selectGuests();
+        if (guests != null)
+            resp.getWriter().write(GsonHelper.toJson(guests));
+        else
+            resp.setStatus(620);
+    }
 }

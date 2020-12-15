@@ -32,8 +32,7 @@ create procedure newDorm_0
 as
 	declare 
 	@i int,
-	@j int,
-	@temp char(2)
+	@j int
 	set @i = 1;
 	set @j = 1;
 	insert into dbuilding(dbno,dbd) 
@@ -58,8 +57,7 @@ create procedure newDorm_12
 as
 	declare 
 	@i int,
-	@j int,
-	@temp char(2)
+	@j int
 	set @i = 1;
 	set @j = 1;
 	insert into dbuilding(dbno,dbd) 
@@ -87,8 +85,7 @@ create procedure newDorm_34
 as
 	declare 
 	@i int,
-	@j int,
-	@temp char(2)
+	@j int
 	set @i = 1;
 	set @j = 1;
 	insert into dbuilding(dbno,dbd) 

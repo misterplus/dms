@@ -9,4 +9,5 @@ public interface RepairSheetDao {
     public int updateRepairSheetReno(long rsno, long reno);
     public int updateRepairSheetProgress(long rsno, String rprogress);
     public List<RepairSheet> selectRepairSheetsWithSno(String sno);
+    public List<RepairSheet> selectRepairSheetsWithProgress(String rprogress);
 }

@@ -49,4 +49,12 @@ public class InfoQuery {
     public static List<DormRoom> selectDRooms() {
         return DormRoomDaoImpl.getInstance().selectDRooms();
     }
+
+    public static List<Item> selectItems() {
+        return ItemDaoImpl.getInstance().selectItems();
+    }
+
+    public static List<Guest> selectGuests() {
+        return GuestDaoImpl.getInstance().selectGuests();
+    }
 }

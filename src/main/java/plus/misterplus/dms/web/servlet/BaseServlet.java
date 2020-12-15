@@ -43,6 +43,8 @@ public class BaseServlet extends HttpServlet {
         put("selectContests", true);
         put("selectDRooms", true);
         put("newDorm", true);
+        put("selectItems", true);
+        put("selectGuests", true);
     }};
 
     @Override
