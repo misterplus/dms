@@ -72,11 +72,11 @@
                                 <div id="accordion">
                                     <div class="card">
                                         <div class="card-header">
-                                            <a class="card-link" data-toggle="collapse" href="#index">
+                                            <a class="card-link" data-toggle="collapse" :href="'#row' + index">
                                                 单击查看
                                             </a>
                                         </div>
-                                        <div :id="index" class="collapse show" data-parent="#accordion">
+                                        <div :id="'row' + index" class="collapse in" data-parent="#accordion">
                                             <div class="card-body" v-text="notice.ncontent">
                                             </div>
                                         </div>
