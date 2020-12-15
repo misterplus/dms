@@ -128,9 +128,9 @@ as
 	count(sno)<d.dcap
 
 create procedure selectDormStudents
-	@brbno char(3)
-	@dbno char(2)
-	@dbd char(1)
+	@dbno char(2),
+	@dbd char(1),
+    @drbno char(3)
 as
 	select s.*
 	from 
