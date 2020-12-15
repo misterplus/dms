@@ -103,7 +103,7 @@
                 <button type="button" class="btn btn-primary" onclick="searchDorm()">查询</button>
             </form>
         </div>
-        <div class="col-11">
+        <div class="col-8">
             <div id="app">
                 <table class="table table-bordered table-striped">
                     <thead>

@@ -27,7 +27,7 @@
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">用户</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/admin/main.jsp">用户</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍</a>
@@ -36,7 +36,7 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/fee.jsp">水电</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
+                                <a class="nav-link" href="#">维修</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>

@@ -96,4 +96,14 @@ public class EditQuery {
         int affected = FeeDaoImpl.getInstance().insertFee(fdate, famount, ftype, fpaid, dbno, dbd, drbno);
         return affected != 0;
     }
+
+    public static boolean insertItem(String iname, Date itime, String sno, String dbno, String dbd, boolean itype) {
+        int affected = ItemDaoImpl.getInstance().insertItem(iname, itime, sno, dbno, dbd, itype);
+        return affected != 0;
+    }
+
+    public static boolean insertGuest(String gname, Date gdate, String dbno, String dbd, long gphone, boolean gtype) {
+        int affected = GuestDaoImpl.getInstance().insertGuest(gname, gdate, dbno, dbd, gphone, gtype);
+        return affected != 0;
+    }
 }
