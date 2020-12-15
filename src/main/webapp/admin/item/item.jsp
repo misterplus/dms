@@ -16,7 +16,7 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
     if (info["usertype"] !== "admin") {
-        window.location.href = "/user/main.jsp";
+        window.location.href = "../../user/main.jsp";
     }
 </script>
 <div class="container-fluid">
@@ -42,7 +42,7 @@
                             <a class="nav-link" href="#">卫生评比</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/item.jsp">物品存取</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
@@ -58,10 +58,10 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">查看存放物品</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">查看存放物品</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="">添加物品</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/additem.jsp">添加物品</a>
                     </li>
                 </ul>
             </div>
@@ -72,7 +72,7 @@
                     <thead>
                     <tr>
                         <th scope="col">物品名称</th>
-                        <th scope="col">存放时间</th>
+                        <th scope="col">存取时间</th>
                         <th scope="col">学号</th>
                         <th scope="col">宿舍楼号</th>
                         <th scope="col">宿舍楼向</th>
@@ -84,8 +84,9 @@
                         <td v-text="item.iname" scope="row"></td>
                         <td v-text="item.itime"></td>
                         <td v-text="item.sno"></td>
-                        <td v-text="item.drbno"></td>
-                        <td v-text="item.cscore"></td>
+                        <td v-text="item.dbno"></td>
+                        <td v-text="item.dbd"></td>
+                        <td v-text="item.itype"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -108,11 +109,19 @@
                 return "北";
         }
     }
+
+    function getItype(itype) {
+        if(itype)
+            return '未取走';
+        else
+            return '已取走';
+    }
+
     var cookies = getCookieMap(document.cookie);
     new Vue({
         el: '#app',
         data: {
-            contents: []
+            items: []
         },
         created: function () {
             var self = this;
@@ -123,7 +132,7 @@
                     "dms_token": cookies.get("dms_token")
                 },
                 data: {
-                    "action": "selectContests"
+                    "action": "selectItems"
                 },
                 dataType: "json",
                 async: false,
@@ -131,8 +140,9 @@
                     200: function(response) {
                         for (var i in response) {
                             response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                            response[i]["itype"] = getItype(response[i]["itype"]);
                         }
-                        self.contents = response;
+                        self.items = response;
                     }
                 }
             });

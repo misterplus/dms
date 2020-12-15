@@ -16,7 +16,7 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
     if (info["usertype"] !== "admin") {
-        window.location.href = "/user/main.jsp";
+        window.location.href = "../../user/main.jsp";
     }
 </script>
 <div class="container-fluid">
@@ -27,7 +27,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">用户</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/main.jsp">用户</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍</a>
@@ -39,7 +39,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
+                            <a class="nav-link" href="#">卫生评比</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
@@ -48,11 +48,6 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
                         </li>
                     </ul>
-                </div>
-                <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-light" onclick="newAdmin()">
-                        新增管理
-                    </button>
                 </div>
                 <button class="btn btn-danger my-2 my-sm-0" type="button" onclick="logout()">登出</button>
             </nav>
@@ -63,10 +58,10 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/main.jsp">学生名单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">查看访客</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">管理名单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/additem.jsp">添加访客</a>
                     </li>
                 </ul>
             </div>
@@ -76,15 +71,22 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">工号</th>
-                        <th scope="col">姓名</th>
+                        <th scope="col">访客名称</th>
+                        <th scope="col">出入时间</th>
+                        <th scope="col">宿舍楼号</th>
+                        <th scope="col">宿舍楼向</th>
+                        <th scope="col">访客电话</th>
+                        <th scope="col">出入状态</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="content in contents">
-                        <td v-text="content.adno" scope="row"></td>
-                        <td v-text="content.adname"></td>
-                        <td><a href="#" onclick="deleteAdmin(this)">删除账号</a></td>
+                    <tr v-for="guest in guests">
+                        <td v-text="guest.gname" scope="row"></td>
+                        <td v-text="guest.gdate"></td>
+                        <td v-text="guest.dbno"></td>
+                        <td v-text="guest.dbd"></td>
+                        <td v-text="guest.gphone"></td>
+                        <td v-text="guest.gtype"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -93,49 +95,33 @@
     </div>
 </div>
 <script type="text/javascript">
+    function getDormDirection(dbd) {
+        switch (dbd) {
+            case "0":
+                return "无";
+            case "1":
+                return "东";
+            case "2":
+                return "西";
+            case "3":
+                return "南";
+            case "4":
+                return "北";
+        }
+    }
 
-    function newAdmin() {
-        var username = prompt("请输入新的管理员工号！");
-        if (username === "")
-            return;
-        var adminName = prompt("请输入新的管理员名称！");
-        if (adminName === "")
-            return;
-        var password = prompt("请输入新的管理员密码！");
-        if (password === "")
-            return;
-        var cookies = getCookieMap(document.cookie);
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "insertAdmin",
-                "adno": username,
-                "adpass": password,
-                "adname": adminName
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("新增成功！");
-                    location.reload();
-                },
-                622: function () {
-                    alert("新增失败！");
-                }
-            }
-        });
+    function getItype(itype) {
+        if(itype)
+            return '进入';
+        else
+            return '离开';
     }
 
     var cookies = getCookieMap(document.cookie);
     new Vue({
         el: '#app',
         data: {
-            contents: []
+            guests: []
         },
         created: function () {
             var self = this;
@@ -146,13 +132,17 @@
                     "dms_token": cookies.get("dms_token")
                 },
                 data: {
-                    "action": "selectAdmins"
+                    "action": "selectItems"
                 },
                 dataType: "json",
                 async: false,
                 statusCode: {
                     200: function(response) {
-                        self.contents = response;
+                        for (var i in response) {
+                            response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                            response[i]["itype"] = getGtype(response[i]["gtype"]);
+                        }
+                        self.guests = response;
                     }
                 }
             });
