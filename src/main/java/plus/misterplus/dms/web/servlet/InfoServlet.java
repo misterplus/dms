@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.sampled.Line;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -128,6 +129,25 @@ public class InfoServlet extends BaseServlet {
         List<Guest> guests = InfoQuery.selectGuests();
         if (guests != null)
             resp.getWriter().write(GsonHelper.toJson(guests));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectDRoomNotFull(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<DormRoom> rooms = InfoQuery.selectDRoomNotFull();
+        if (rooms != null)
+            resp.getWriter().write(GsonHelper.toJson(rooms));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectDormStudents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        List<Student> students = InfoQuery.selectDormStudents(dbno, dbd, drbno);
+        if (students != null)
+            resp.getWriter().write(GsonHelper.toJson(students));
         else
             resp.setStatus(620);
     }

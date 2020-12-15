@@ -86,4 +86,9 @@ public class EditQuery {
         int affected = ProcedureImpl.getInstance().newDorm34(dbno, height, rooms);
         return affected != 0;
     }
+
+    public static boolean updateDormMonitor(String dbno, String dbd, String drbno, String dmno) {
+        int affected = DormRoomDaoImpl.getInstance().updateDormMonitor(dbno, dbd, drbno, dmno);
+        return affected != 0;
+    }
 }

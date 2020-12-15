@@ -186,4 +186,18 @@ public class EditServlet extends BaseServlet {
             }
         }
     }
+
+    protected void updateDormMonitor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        String dmno = req.getParameter("dmno");
+        boolean success = EditQuery.updateDormMonitor(dbno, dbd, drbno, dmno);
+        if (success) {
+            resp.setStatus(200);
+        }
+        else {
+            resp.setStatus(622);
+        }
+    }
 }

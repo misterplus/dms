@@ -57,4 +57,12 @@ public class InfoQuery {
     public static List<Guest> selectGuests() {
         return GuestDaoImpl.getInstance().selectGuests();
     }
+
+    public static List<DormRoom> selectDRoomNotFull() {
+        return DormRoomDaoImpl.getInstance().selectDRoomNotFull();
+    }
+
+    public static List<Student> selectDormStudents(String dbno, String dbd, String drbno) {
+        return StudentDaoImpl.getInstance().selectDormStudents(dbno, dbd, drbno);
+    }
 }
