@@ -102,9 +102,9 @@
             case "1":
                 return "东";
             case "2":
-                return "南";
-            case "3":
                 return "西";
+            case "3":
+                return "南";
             case "4":
                 return "北";
         }

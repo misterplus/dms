@@ -34,10 +34,10 @@ public class ImportContestServlet extends HttpServlet {
             case "东": {
                 return "1";
             }
-            case "南": {
+            case "西": {
                 return "2";
             }
-            case "西": {
+            case "南": {
                 return "3";
             }
             case "北": {

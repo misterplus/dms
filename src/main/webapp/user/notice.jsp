@@ -64,7 +64,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="notice in notices">
+                        <tr v-for="(notice,index) in notices">
                             <td v-text="notice.ntime"></td>
                             <td v-text="notice.ntitle"></td>
 
@@ -72,11 +72,11 @@
                                 <div id="accordion">
                                     <div class="card">
                                         <div class="card-header">
-                                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                            <a class="card-link" data-toggle="collapse" href="#index">
                                                 单击查看
                                             </a>
                                         </div>
-                                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                        <div :id="index" class="collapse show" data-parent="#accordion">
                                             <div class="card-body" v-text="notice.ncontent">
                                             </div>
                                         </div>

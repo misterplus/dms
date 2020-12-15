@@ -118,7 +118,7 @@
                     return "1";
                 case "西":
                     return "2";
-                case "男":
+                case "南":
                     return "3";
                 case "北":
                     return "4";
@@ -198,9 +198,9 @@
                 case "1":
                     return "东";
                 case "2":
-                    return "南";
-                case "3":
                     return "西";
+                case "3":
+                    return "南";
                 case "4":
                     return "北";
             }
