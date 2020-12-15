@@ -4,16 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/dashboard.css">
     <title>学生宿舍管理系统</title>
 </head>
 <body>
 <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/webjars/vue/2.6.11/vue.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/verify.js"></script>
 <script type="text/javascript">
@@ -29,14 +26,14 @@
                 <a class="navbar-brand h1" href="#">管理面板</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/main.jsp">用户</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">宿舍</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/fee.jsp">水电</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">水电</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
@@ -61,16 +58,10 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍名单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/fee.jsp">缴纳情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">新增宿舍</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/student.jsp">查看宿舍</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/dormNotFull.jsp">未满宿舍</a>
+                        <a class="side-link" href="#">添加信息</a>
                     </li>
                 </ul>
             </div>
@@ -86,43 +77,45 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="height">楼层数</label>
-                    <input type="text" class="form-control" name="height" id="height" placeholder="请输入宿舍楼层数" required
-                           onkeyup="this.value=this.value.replace(/\D/g, '')">
+                    <label for="dbd">宿舍楼向</label>
+                    <input type="text" class="form-control" name="dbd" id="dbd" placeholder="请输入宿舍楼向" required>
                     <div class="invalid-feedback">
-                        楼层数不能为空!
+                        宿舍楼向不能为空!
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="rooms">每层房间数</label>
-                    <input type="text" class="form-control" name="rooms" id="rooms" placeholder="请输入宿舍楼每层房间数" required
+                    <label for="drbno">宿舍号</label>
+                    <input type="text" class="form-control" name="drbno" id="drbno" placeholder="请输入宿舍号" required
                            onkeyup="this.value=this.value.replace(/\D/g, '')">
                     <div class="invalid-feedback">
-                        每层房间数不能为空!
+                        宿舍号不能为空!
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>分楼模式</label>
                     <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="method" id="0" value="0" checked>
-                        <label class="form-check-label" for="0">无分楼</label>
+                        <input type="radio" class="form-check-input" name="ftype" id="水费" value="水费" checked>
+                        <label class="form-check-label" for="水费">水费</label>
                     </div>
                     <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="method" id="12" value="12">
-                        <label class="form-check-label" for="12">东西</label>
-                    </div>
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="method" id="34" value="34">
-                        <label class="form-check-label" for="34">南北</label>
+                        <input type="radio" class="form-check-input" name="ftype" id="电费" value="电费">
+                        <label class="form-check-label" for="电费">电费</label>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="newDorm()">新增</button>
+                <div class="form-group">
+                    <label for="famount">费用</label>
+                    <input type="text" class="form-control" name="famount" id="famount" placeholder="请输入费用" required>
+                    <div class="invalid-feedback">
+                        费用不能为空!
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="newFee()">新增</button>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    function newDorm() {
+
+    function newFee() {
         var cookies = getCookieMap(document.cookie);
         var form = document.forms["dorms"];
         $.ajax({
@@ -132,11 +125,12 @@
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "newDorm",
+                "action": "insertFeeAdmin",
                 "dbno": form["dbno"].value,
-                "height": form["height"].value,
-                "rooms": form["rooms"].value,
-                "method": form["method"].value
+                "dbd": getNumberDirection(form["dbd"].value),
+                "drbno": form["drbno"].value,
+                "ftype": form["ftype"].value,
+                "famount": form["famount"].value
             },
             dataType: "json",
             async: false,
@@ -146,6 +140,23 @@
                 }
             }
         });
+    }
+
+    function getNumberDirection(dir) {
+        switch (dir) {
+            case "无":
+                return "0";
+            case "东":
+                return "1";
+            case "西":
+                return "2";
+            case "南":
+                return "3";
+            case "北":
+                return "4";
+            default:
+                return "";
+        }
     }
 </script>
 </body>

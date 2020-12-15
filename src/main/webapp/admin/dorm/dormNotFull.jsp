@@ -16,7 +16,7 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
     if (info["usertype"] !== "admin") {
-        window.location.href = "/user/main.jsp";
+        window.location.href = "../../user/main.jsp";
     }
 </script>
 <div class="container-fluid">
@@ -67,7 +67,7 @@
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/student.jsp">查看宿舍</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/dormNotFull.jsp">未满宿舍</a>
+                        <a class="side-link" href="#">未满宿舍</a>
                     </li>
                 </ul>
             </div>
@@ -181,7 +181,7 @@
                     "dms_token": cookies.get("dms_token")
                 },
                 data: {
-                    "action": "selectDRooms"
+                    "action": "selectDRoomNotFull"
                 },
                 dataType: "json",
                 async: false,

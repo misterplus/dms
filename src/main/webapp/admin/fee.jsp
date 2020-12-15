@@ -26,14 +26,14 @@
                 <a class="navbar-brand h1" href="#">管理面板</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/main.jsp">用户</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">宿舍</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/fee.jsp">水电</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">水电</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
@@ -58,40 +58,38 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">宿舍名单</a>
+                        <a class="side-link" href="#">缴纳情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/newDorm.jsp">新增宿舍</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/student.jsp">查看宿舍</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/dormNotFull.jsp">未满宿舍</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/fee/new.jsp">添加信息</a>
                     </li>
                 </ul>
             </div>
         </nav>
         <div class="col-11">
-            <div id="app">
+            <h1 class="h3 mb-3 font-weight-normal text-center">水电费缴纳情况</h1>
+            <div id="f">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th scope="col">时间</th>
                         <th scope="col">宿舍楼</th>
                         <th scope="col">宿舍楼向</th>
                         <th scope="col">宿舍号</th>
-                        <th scope="col">宿舍长</th>
-                        <th scope="col">宿舍容量</th>
+                        <th scope="col">金额</th>
+                        <th scope="col">种类</th>
+                        <th scope="col">是否缴纳</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="content in contents">
-                        <td v-text="content.dbno" scope="row"></td>
-                        <td v-text="content.dbd"></td>
-                        <td v-text="content.drbno"></td>
-                        <td v-text="content.dmno"></td>
-                        <td v-text="content.dcap"></td>
-                        <td><a href="#" onclick="setMon(this)">修改宿舍长</a></td>
+                    <tr v-for="fee in fees">
+                        <td v-text="fee.fdate"></td>
+                        <td v-text="fee.dbno"></td>
+                        <td v-text="fee.dbd"></td>
+                        <td v-text="fee.drbno"></td>
+                        <td v-text="fee.famount"></td>
+                        <td v-text="fee.ftype"></td>
+                        <td v-text="fee.fpaid"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -100,6 +98,44 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    function getFpaid(fpaid) {
+        if(fpaid)
+            return '已缴纳';
+        else
+            return '未缴纳';
+    }
+    var cookies = getCookieMap(document.cookie);
+    new Vue({
+        el: '#f',
+        data: {
+            fees: []
+        },
+        created: function () {
+            var self = this;
+            $.ajax({
+                type: "POST",
+                url: "/api/infoServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": "selectFees"
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        for (var i in response) {
+                            response[i]["fpaid"] = getFpaid(response[i]["fpaid"]);
+                            response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                        }
+                        self.fees = response;
+                    }
+                }
+            });
+        }
+    });
 
     function getNumberDirection(dir) {
         switch (dir) {
@@ -118,40 +154,6 @@
         }
     }
 
-    function setMon(tag) {
-        var dbno = $(tag).parent().siblings()[0].innerHTML;
-        var dbd = getNumberDirection($(tag).parent().siblings()[1].innerHTML);
-        var drbno = $(tag).parent().siblings()[2].innerHTML;
-        var dmno = prompt("请输入新的宿舍长学号");
-        if (dmno === "")
-            return;
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "updateDormMonitor",
-                "dbno": dbno,
-                "dbd": dbd,
-                "drbno": drbno,
-                "dmno": dmno
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("更改成功！");
-                    location.reload();
-                },
-                621: function () {
-                    alert("更改失败！");
-                }
-            }
-        });
-    }
-
     function getDormDirection(dbd) {
         switch (dbd) {
             case "0":
@@ -166,36 +168,6 @@
                 return "北";
         }
     }
-    var cookies = getCookieMap(document.cookie);
-    new Vue({
-        el: '#app',
-        data: {
-            contents: []
-        },
-        created: function () {
-            var self = this;
-            $.ajax({
-                type: "POST",
-                url: "/api/infoServlet",
-                headers: {
-                    "dms_token": cookies.get("dms_token")
-                },
-                data: {
-                    "action": "selectDRooms"
-                },
-                dataType: "json",
-                async: false,
-                statusCode: {
-                    200: function(response) {
-                        for (var i in response) {
-                            response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
-                        }
-                        self.contents = response;
-                    }
-                }
-            });
-        }
-    })
 </script>
 </body>
 </html>

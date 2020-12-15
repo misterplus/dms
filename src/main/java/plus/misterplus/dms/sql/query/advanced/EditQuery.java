@@ -91,4 +91,9 @@ public class EditQuery {
         int affected = DormRoomDaoImpl.getInstance().updateDormMonitor(dbno, dbd, drbno, dmno);
         return affected != 0;
     }
+
+    public static boolean insertFee(Date fdate, double famount, String ftype, boolean fpaid, String dbno, String dbd, String drbno) {
+        int affected = FeeDaoImpl.getInstance().insertFee(fdate, famount, ftype, fpaid, dbno, dbd, drbno);
+        return affected != 0;
+    }
 }
