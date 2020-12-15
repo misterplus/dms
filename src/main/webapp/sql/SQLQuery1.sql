@@ -105,3 +105,74 @@ as
 		end
 		set @i = @i + 1;
 	end
+
+create procedure selectDRoomNotFull
+as
+	select?
+	s.drbno,
+	s.dbno,
+	s.dbd
+	from?
+	droom d,
+	student s
+	where
+	d.drbno=s.drbno and
+	d.dbno=s.dbno and
+	d.dbd=s.dbd
+?	group?by?
+	s.drbno,
+	s.dbno,
+	s.dbd,
+	d.dcap
+?	having?
+	count(sno)<d.dcap
+
+create procedure selectDormStudents
+	@brbno char(3)
+	@dbno char(2)
+	@dbd char(1)
+as
+	select s.*
+	from 
+	student s
+	where 
+	@drbno=s.drbno 
+	and
+	@dbno=s.dbno 
+	and
+	@dbd=s.dbd
+create procedure selectDRoomNotFull
+as
+	select 
+	s.drbno,
+	s.dbno,
+	s.dbd
+	from 
+	droom d,
+	student s
+	where
+	d.drbno=s.drbno and
+	d.dbno=s.dbno and
+	d.dbd=s.dbd
+ 	group by 
+	s.drbno,
+	s.dbno,
+	s.dbd,
+	d.dcap
+ 	having 
+	count(sno)<d.dcap
+
+create procedure selectDormStudents
+	@brbno char(3)
+	@dbno char(2)
+	@dbd char(1)
+as
+	select s.*
+	from 
+	student s
+	where 
+	@drbno=s.drbno 
+	and
+	@dbno=s.dbno 
+	and
+	@dbd=s.dbd
