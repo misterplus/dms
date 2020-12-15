@@ -53,10 +53,13 @@ function getCredentials(toMain, toLogin) {
     return content;
 }
 
+function setCookie(c_name, value, expiredays) {
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + expiredays);
+    document.cookie = c_name + "=" + escape(value) + ";expires=" + exdate.toGMTString() + ";path=/";
+}
+
 function logout() {
-    var date = new Date();
-    date.setTime(-1000);
-    document.cookie = "dms_token=''; expires="+ date.toGMTString();
-    alert("已登出！");
+    setCookie("dms_token", "", -1);
     window.location.href = "/index.jsp";
 }
