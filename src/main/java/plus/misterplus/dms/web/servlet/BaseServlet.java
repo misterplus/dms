@@ -50,6 +50,8 @@ public class BaseServlet extends HttpServlet {
         put("updateDormMonitor", true);
         put("selectFees", true);
         put("insertFeeAdmin", true);
+        put("insertItem", true);
+        put("insertGuest", true);
     }};
 
     @Override

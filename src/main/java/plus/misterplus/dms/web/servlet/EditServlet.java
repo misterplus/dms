@@ -215,4 +215,32 @@ public class EditServlet extends BaseServlet {
             resp.setStatus(622); //插入失败
         }
     }
+
+    protected void insertItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String iname = req.getParameter("iname");
+        String sno = req.getParameter("sno");
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        //存入 0 取出 1
+        boolean itype = req.getParameter("itype").equals("取出");
+        boolean success = EditQuery.insertItem(iname, new Date(), sno, dbno, dbd, itype);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
+
+    protected void insertGuest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String gname = req.getParameter("gname");
+        long gphone = Long.parseLong(req.getParameter("gphone"));
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        //来访 0 离开 1
+        boolean gtype = req.getParameter("itype").equals("离开");
+        boolean success = EditQuery.insertGuest(gname, new Date(), dbno, dbd, gphone, gtype);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
 }
