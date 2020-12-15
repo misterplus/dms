@@ -42,7 +42,7 @@
                             <a class="nav-link" href="#">卫生评比</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/item.jsp">物品存取</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
