@@ -16,7 +16,7 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
     if (info["usertype"] !== "admin") {
-        window.location.href = "/user/main.jsp";
+        window.location.href = "../../user/main.jsp";
     }
 </script>
 <div class="container-fluid">
@@ -52,96 +52,27 @@
                         </li>
                     </ul>
                 </div>
-                <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        导入评比结果
-                    </button>
-                    <div class="dropdown-menu">
-                        <form name="import" action="${pageContext.request.contextPath}/api/importContestServlet" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="file">上传表格</label>
-                                <input type="file" class="form-control" name="list" id="file">
-                            </div>
-                            <button type="submit">导入</button>
-                        </form>
-                    </div>
-                </div>
                 <button class="btn btn-danger my-2 my-sm-0" type="button" onclick="logout()">登出</button>
             </nav>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
-            <div id="app">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">日期</th>
-                        <th scope="col">宿舍楼</th>
-                        <th scope="col">宿舍楼向</th>
-                        <th scope="col">宿舍号</th>
-                        <th scope="col">分数</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="content in contents">
-                        <td v-text="content.cdate" scope="row"></td>
-                        <td v-text="content.dbno"></td>
-                        <td v-text="content.dbd"></td>
-                        <td v-text="content.drbno"></td>
-                        <td v-text="content.cscore"></td>
-                    </tr>
-                    </tbody>
-                </table>
+        <nav class="col-1 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column text-center" style="font-size: 13px;">
+                    <li class="nav-item mt-1 mb-1">
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryFee.jsp">查看水电费情况</a>
+                    </li>
+                    <li class="nav-item mt-1 mb-1">
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
+                    </li>
+                    <li class="nav-item mt-1 mb-1">
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </nav>
     </div>
 </div>
-<script type="text/javascript">
-    function getDormDirection(dbd) {
-        switch (dbd) {
-            case "0":
-                return "无";
-            case "1":
-                return "东";
-            case "2":
-                return "西";
-            case "3":
-                return "南";
-            case "4":
-                return "北";
-        }
-    }
-    var cookies = getCookieMap(document.cookie);
-    new Vue({
-        el: '#app',
-        data: {
-            contents: []
-        },
-        created: function () {
-            var self = this;
-            $.ajax({
-                type: "POST",
-                url: "/api/infoServlet",
-                headers: {
-                    "dms_token": cookies.get("dms_token")
-                },
-                data: {
-                    "action": "selectContests"
-                },
-                dataType: "json",
-                async: false,
-                statusCode: {
-                    200: function(response) {
-                        for (var i in response) {
-                            response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
-                        }
-                        self.contents = response;
-                    }
-                }
-            });
-        }
-    })
-</script>
 </body>
 </html>

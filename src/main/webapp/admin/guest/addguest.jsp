@@ -47,6 +47,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/query.jsp">查看统计</a>
+                        </li>
                     </ul>
                 </div>
                 <button class="btn btn-danger my-2 my-sm-0" type="button" onclick="logout()">登出</button>
@@ -99,11 +102,11 @@
                 </div>
                 <div class="form-group">
                     <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="gtype" id="来访" value="0" checked>
+                        <input type="radio" class="form-check-input" name="gtype" id="来访" value="来访" checked>
                         <label class="form-check-label" for="来访">来访</label>
                     </div>
                     <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="gtype" id="离开" value="1">
+                        <input type="radio" class="form-check-input" name="gtype" id="离开" value="离开">
                         <label class="form-check-label" for="离开">离开</label>
                     </div>
                 </div>

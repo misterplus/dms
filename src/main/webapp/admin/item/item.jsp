@@ -47,6 +47,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/query.jsp">查看统计</a>
+                        </li>
                     </ul>
                 </div>
                 <button class="btn btn-danger my-2 my-sm-0" type="button" onclick="logout()">登出</button>
@@ -112,9 +115,9 @@
 
     function getItype(itype) {
         if(itype)
-            return '未取走';
+            return '取走';
         else
-            return '已取走';
+            return '存入';
     }
 
     var cookies = getCookieMap(document.cookie);

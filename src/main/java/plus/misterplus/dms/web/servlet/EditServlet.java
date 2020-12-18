@@ -236,7 +236,7 @@ public class EditServlet extends BaseServlet {
         String dbno = req.getParameter("dbno");
         String dbd = req.getParameter("dbd");
         //来访 0 离开 1
-        boolean gtype = req.getParameter("itype").equals("离开");
+        boolean gtype = req.getParameter("gtype").equals("离开");
         boolean success = EditQuery.insertGuest(gname, new Date(), dbno, dbd, gphone, gtype);
         if (success)
             resp.setStatus(200);

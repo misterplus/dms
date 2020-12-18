@@ -6,21 +6,8 @@ create table log_history
  date datetime
 )
 
---触发器1，删除学生寝室人数自动减1
-create trigger dcap_dec on student
-after delete
-as
-begin
-	declare @sno char(8)
-	select @sno=sno from deleted
-	update droom set dcap=dcap-1 
-	where drbno in(select drbno from deleted where sno=@sno)
-	and dbno in (select dbno from deleted where sno=@sno)
-	and dbd in (select dbd from deleted where sno=@sno)
-	end
-go
 
---触发器2，水电费改动记录
+--触发器1，水电费改动记录
 create trigger fee_log on fees
 after update
 as
@@ -35,7 +22,7 @@ begin
 	end
 go
 
---触发器3，物品存放改动记录   1-有东西  0-没东西
+--触发器2，物品存放改动记录   存入 0 取出 1
 create trigger item_in_log on items
 after insert
 as
@@ -43,8 +30,8 @@ begin
 	declare @olditype bit ,@newitype bit
 	select @newitype=itype from inserted
 	select @olditype=itype from deleted
-	if @newitype=1
-		insert into log_history values('items','空->存放',getdate())
+	if @newitype=0
+		insert into log_history values('items','空->存入',getdate())
 	end
 go
 
@@ -55,7 +42,32 @@ begin
 	declare @olditype bit ,@newitype bit
 	select @newitype=itype from inserted
 	select @olditype=itype from deleted
-	if @newitype=0
+	if @newitype=1
 		insert into log_history values('items','存放->已取走',getdate())
+	end
+go
+
+--触发器3，访客出入记录   进入 0 离开 1
+create trigger guest_in_log on guest
+after insert
+as
+begin
+	declare @oldgtype bit ,@newgtype bit
+	select @newgtype=gtype from inserted
+	select @oldgtype=gtype from deleted
+	if @newgtype=0
+		insert into log_history values('guest','空->进入',getdate())
+	end
+go
+
+create trigger guest_out_log on guest
+after update
+as
+begin
+	declare @oldgtype bit ,@newgtype bit
+	select @newgtype=gtype from inserted
+	select @oldgtype=gtype from deleted
+	if @newgtype=1
+		insert into log_history values('guest','进入->已离开',getdate())
 	end
 go

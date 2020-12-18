@@ -16,7 +16,7 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
     if (info["usertype"] !== "admin") {
-        window.location.href = "/user/main.jsp";
+        window.location.href = "../../user/main.jsp";
     }
 </script>
 <div class="container-fluid">
@@ -30,7 +30,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/main.jsp">用户</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">宿舍</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/fee.jsp">水电</a>
@@ -39,7 +39,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
+                            <a class="nav-link" href="#">卫生评比</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
@@ -61,40 +61,66 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">宿舍名单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryFee.jsp">查看水电费情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/newDorm.jsp">新增宿舍</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/student.jsp">查看宿舍</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/dormNotFull.jsp">未满宿舍</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <div class="col-11">
-            <div id="app">
+        <div class="col-3">
+            <form class="needs-validation" novalidate name="dorms">
+                <div class="form-group">
+                    <label for="dbno">宿舍楼号</label>
+                    <input type="text" class="form-control" name="dbno" id="dbno" placeholder="请输入宿舍楼号" required
+                           onkeyup="this.value=this.value.replace(/\D/g, '')">
+                    <div class="invalid-feedback">
+                        宿舍楼号不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dbd">宿舍楼向</label>
+                    <input type="text" class="form-control" name="dbd" id="dbd" placeholder="请输入宿舍楼向" required>
+                    <div class="invalid-feedback">
+                        宿舍楼向不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="drbno">宿舍号</label>
+                    <input type="text" class="form-control" name="drbno" id="drbno" placeholder="请输入宿舍号" required
+                           onkeyup="this.value=this.value.replace(/\D/g, '')">
+                    <div class="invalid-feedback">
+                        宿舍号不能为空!
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="searchDorm()">查询</button>
+            </form>
+        </div>
+        <div class="col-8">
+            <h1 class="h3 mb-3 font-weight-normal text-center">水电费缴纳情况</h1>
+            <div id="f">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">宿舍楼</th>
-                        <th scope="col">宿舍楼向</th>
-                        <th scope="col">宿舍号</th>
-                        <th scope="col">宿舍长</th>
-                        <th scope="col">宿舍容量</th>
+                        <th scope="col">序号</th>
+                        <th scope="col">时间</th>
+                        <th scope="col">金额</th>
+                        <th scope="col">种类</th>
+                        <th scope="col">是否缴纳</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="content in contents">
-                        <td v-text="content.dbno" scope="row"></td>
-                        <td v-text="content.dbd"></td>
-                        <td v-text="content.drbno"></td>
-                        <td v-text="content.dmno"></td>
-                        <td v-text="content.dcap"></td>
-                        <td><a href="#" onclick="setMon(this)">修改宿舍长</a></td>
+                    <tr v-for="fee in fees">
+                        <td v-text="fee.fno"></td>
+                        <td v-text="fee.fdate"></td>
+                        <td v-text="fee.famount"></td>
+                        <td v-text="fee.ftype"></td>
+                        <td v-text="fee.fpaid"></td>
+                        <td><input name="pay" type="button" value="缴纳" onclick="pay(this)"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -103,77 +129,19 @@
     </div>
 </div>
 <script type="text/javascript">
+    var info = getCredentials(false, true);
 
-    function getNumberDirection(dir) {
-        switch (dir) {
-            case "无":
-                return "0";
-            case "东":
-                return "1";
-            case "西":
-                return "2";
-            case "南":
-                return "3";
-            case "北":
-                return "4";
-            default:
-                return "";
-        }
-    }
-
-    function setMon(tag) {
-        var dbno = $(tag).parent().siblings()[0].innerHTML;
-        var dbd = getNumberDirection($(tag).parent().siblings()[1].innerHTML);
-        var drbno = $(tag).parent().siblings()[2].innerHTML;
-        var dmno = prompt("请输入新的宿舍长学号");
-        if (dmno === "")
-            return;
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "updateDormMonitor",
-                "dbno": dbno,
-                "dbd": dbd,
-                "drbno": drbno,
-                "dmno": dmno
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("更改成功！");
-                    location.reload();
-                },
-                621: function () {
-                    alert("更改失败！");
-                }
-            }
-        });
-    }
-
-    function getDormDirection(dbd) {
-        switch (dbd) {
-            case "0":
-                return "无";
-            case "1":
-                return "东";
-            case "2":
-                return "西";
-            case "3":
-                return "南";
-            case "4":
-                return "北";
-        }
+    function getFpaid(fpaid) {
+        if(fpaid)
+            return '已缴纳';
+        else
+            return '未缴纳';
     }
     var cookies = getCookieMap(document.cookie);
     new Vue({
-        el: '#app',
+        el: '#f',
         data: {
-            contents: []
+            fees: []
         },
         created: function () {
             var self = this;
@@ -184,21 +152,53 @@
                     "dms_token": cookies.get("dms_token")
                 },
                 data: {
-                    "action": "selectDRooms"
+                    "action": "selectFees"
                 },
                 dataType: "json",
                 async: false,
                 statusCode: {
                     200: function(response) {
                         for (var i in response) {
-                            response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                            response[i]["fpaid"] = getFpaid(response[i]["fpaid"]);
                         }
-                        self.contents = response;
+                        self.fees = response;
                     }
                 }
             });
         }
-    })
+    });
+    function pay(tag) {
+        var fno = $(tag).parent().siblings()[0].innerHTML;
+        //alert(fdate);
+        var fpaid = $(tag).parent().siblings()[4].innerHTML;
+        if(fpaid==="未缴纳"){
+            $.ajax({
+                type: "POST",
+                url: "/api/editServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": "payFee",
+                    "fno":fno
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        location.reload();
+                        alert("缴纳成功");
+                    },
+                    621: function() {
+                        alert("缴纳失败");
+                    }
+                }
+            });
+        }
+        else
+            alert("已缴纳，无需再缴纳");
+    }
 </script>
+
 </body>
 </html>
