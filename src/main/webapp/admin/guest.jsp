@@ -58,10 +58,10 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">查看访客</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/guest.jsp">查看访客</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/additem.jsp">添加访客</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/guest/addguest.jsp">添加访客记录</a>
                     </li>
                 </ul>
             </div>
@@ -110,8 +110,8 @@
         }
     }
 
-    function getItype(itype) {
-        if(itype)
+    function getGtype(gtype) {
+        if(gtype)
             return '进入';
         else
             return '离开';
@@ -132,7 +132,7 @@
                     "dms_token": cookies.get("dms_token")
                 },
                 data: {
-                    "action": "selectItems"
+                    "action": "selectGuests"
                 },
                 dataType: "json",
                 async: false,
@@ -140,7 +140,7 @@
                     200: function(response) {
                         for (var i in response) {
                             response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
-                            response[i]["itype"] = getGtype(response[i]["gtype"]);
+                            response[i]["gtype"] = getGtype(response[i]["gtype"]);
                         }
                         self.guests = response;
                     }

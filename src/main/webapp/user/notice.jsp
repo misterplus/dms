@@ -34,11 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/user/notice.jsp">通知</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">退出</a>
-                        </li>
                     </ul>
                 </div>
+                <button class="btn btn-danger my-2 my-sm-0" type="button" onclick="logout()">登出</button>
             </nav>
         </div>
         <div class="row">

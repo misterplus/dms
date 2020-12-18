@@ -58,28 +58,21 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">查看存放物品</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/guest.jsp">查看访客记录</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/additem.jsp">添加物品记录</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/item/additem.jsp">添加访客记录</a>
                     </li>
                 </ul>
             </div>
         </nav>
         <div class="col-3">
-            <form class="needs-validation" novalidate name="items">
+            <form class="needs-validation" novalidate name="guests">
                 <div class="form-group">
-                    <label for="iname">物品名称</label>
-                    <input type="text" class="form-control" name="iname" id="iname" placeholder="请输入物品名称">
+                    <label for="gname">访客姓名</label>
+                    <input type="text" class="form-control" name="gname" id="gname" placeholder="请输入访客姓名">
                     <div class="invalid-feedback">
-                        物品名称不能为空!
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="sno">学号</label>
-                    <input type="text" class="form-control" name="sno" id="sno" placeholder="请输入学号" required>
-                    <div class="invalid-feedback">
-                        学号不能为空!
+                        姓名不能为空!
                     </div>
                 </div>
                 <div class="form-group">
@@ -98,24 +91,31 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="itype" id="存入" value="0" checked>
-                        <label class="form-check-label" for="存入">存入</label>
-                    </div>
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="itype" id="取出" value="1">
-                        <label class="form-check-label" for="取出">取出</label>
+                    <label for="gphone">手机号</label>
+                    <input type="text" class="form-control" name="gphone" id="gphone" placeholder="请输入手机号:">
+                    <div class="invalid-feedback">
+                        手机号不能为空!
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="newItem()">新增</button>
+                <div class="form-group">
+                    <div class="form-check form-check-inline mx-auto pb-2">
+                        <input type="radio" class="form-check-input" name="gtype" id="来访" value="0" checked>
+                        <label class="form-check-label" for="来访">来访</label>
+                    </div>
+                    <div class="form-check form-check-inline mx-auto pb-2">
+                        <input type="radio" class="form-check-input" name="gtype" id="离开" value="1">
+                        <label class="form-check-label" for="离开">离开</label>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="newGuest()">新增</button>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    function newItem() {
+    function newGuest() {
         var cookies = getCookieMap(document.cookie);
-        var form = document.forms["items"];
+        var form = document.forms["guests"];
         $.ajax({
             type: "POST",
             url: "/api/editServlet",
@@ -123,12 +123,12 @@
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "insertItem",
-                "iname": form["iname"].value,
+                "action": "insertGuest",
+                "gname": form["gname"].value,
                 "dbd": getNumberDirection(form["dbd"].value),
                 "dbno": form["dbno"].value,
-                "sno": form["sno"].value,
-                "itype": form["itype"].value,
+                "gphone": form["gphone"].value,
+                "gtype": form["gtype"].value,
             },
             dataType: "json",
             async: false,

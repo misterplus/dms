@@ -38,6 +38,7 @@
                         </li>
                     </ul>
                 </div>
+                <button class="btn btn-danger my-2 my-sm-0" type="button" onclick="logout()">登出</button>
             </nav>
         </div>
         <div class="row">
