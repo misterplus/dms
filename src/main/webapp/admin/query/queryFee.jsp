@@ -39,7 +39,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">卫生评比</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
@@ -97,7 +97,24 @@
                         宿舍号不能为空!
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="queryFees()">查询</button>
+                <button type="button" class="btn btn-primary" onclick="queryFeesbyroom()">查询</button>
+            </form>
+            <form class="needs-validation" novalidate name="time">
+                <div class="form-group">
+                    <label for="start">开始时间</label>
+                    <input type="date" class="form-control" name="start" id="start" placeholder="请输入开始时间">
+                    <div class="invalid-feedback">
+                        开始时间不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="end">截止时间</label>
+                    <input type="date" class="form-control" name="end" id="end" placeholder="请输入截止时间" required>
+                    <div class="invalid-feedback">
+                        截止时间不能为空!
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="queryFeesbytime()">查询</button>
             </form>
         </div>
         <div class="col-8">
@@ -119,7 +136,6 @@
                         <td v-text="fee.famount"></td>
                         <td v-text="fee.ftype"></td>
                         <td v-text="fee.fpaid"></td>
-                        <td><input name="pay" type="button" value="缴纳" onclick="pay(this)"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -130,6 +146,22 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
 
+    function getNumberDirection(dir) {
+        switch (dir) {
+            case "无":
+                return "0";
+            case "东":
+                return "1";
+            case "西":
+                return "2";
+            case "南":
+                return "3";
+            case "北":
+                return "4";
+            default:
+                return "";
+        }
+    }
     function getFpaid(fpaid) {
         if(fpaid)
             return '已缴纳';
@@ -142,7 +174,7 @@
             fees: []
         }
     });
-    function queryFees() {
+    function queryFeesbyroom() {
         var cookies = getCookieMap(document.cookie);
         var form = document.forms["dorms"];
         $.ajax({
@@ -152,52 +184,48 @@
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "",//根据寝室号找水电费
-                "fno": form["fno"].value,
-                "fdate": form['fdate'].value,
-                "famount": form["famount"].value,
-                'ftype': form["ftype"].value,
-                'fpaid': getFpaid(form["fpaid"].value),
+                "action": "selectFeesWithDorm",//根据寝室号找水电费
+                "dbno": form["dbno"].value,
+                "dbd": getNumberDirection(form["dbd"].value),
+                "drbno": form["drbno"].value
             },
             dataType: "json",
             async: false,
             statusCode: {
                 200: function(response) {
+                    for (var i in response) {
+                        response[i]["fpaid"] = getFpaid(response[i]["fpaid"]);
+                    }
                     f.fees = response;
                 }
             }
         });
     }
-    function pay(tag) {
-        var fno = $(tag).parent().siblings()[0].innerHTML;
-        //alert(fdate);
-        var fpaid = $(tag).parent().siblings()[4].innerHTML;
-        if(fpaid==="未缴纳"){
-            $.ajax({
-                type: "POST",
-                url: "/api/editServlet",
-                headers: {
-                    "dms_token": cookies.get("dms_token")
-                },
-                data: {
-                    "action": "payFee",
-                    "fno":fno
-                },
-                dataType: "json",
-                async: false,
-                statusCode: {
-                    200: function(response) {
-                        location.reload();
-                        alert("缴纳成功");
-                    },
-                    621: function() {
-                        alert("缴纳失败");
+    function queryFeesbytime() {
+        var cookies = getCookieMap(document.cookie);
+        var form = document.forms["time"];
+        $.ajax({
+            type: "POST",
+            url: "/api/infoServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "selectFeesWithinTime",//根据时间找水电费
+                "start": form["start"].value,
+                "end": form["end"].value
+            },
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    for (var i in response) {
+                        response[i]["fpaid"] = getFpaid(response[i]["fpaid"]);
                     }
+                    f.fees = response;
                 }
-            });
-        }
-        else
-            alert("已缴纳，无需再缴纳");
+            }
+        });
     }
 </script>
 </body>

@@ -39,13 +39,13 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">卫生评比</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/#">访客</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/query.jsp">查看统计</a>

@@ -48,7 +48,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/#">查看统计</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/query.jsp">查看统计</a>
                         </li>
                     </ul>
                 </div>
@@ -61,17 +61,74 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryFee.jsp">查看水电费情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/queryrepairsheet.jsp">查看报修单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair.jsp">查看维修单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryContest.jsp">查看卫生评比结果</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/#">增加维修单</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <div class="col-3">
+            <form class="needs-validation" novalidate name="dorms">
+                <div class="form-group">
+                    <label for="rsno">报修人学号</label>
+                    <input type="text" class="form-control" name="rsno" id="rsno" placeholder="请输入报修人学号">
+                    <div class="invalid-feedback">
+                        报修人学号不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reman">维修人姓名</label>
+                    <input type="text" class="form-control" name="reman" id="reman" placeholder="请输入维修人姓名">
+                    <div class="invalid-feedback">
+                        维修人姓名不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="remanno">维修工工号</label>
+                    <input type="text" class="form-control" name="remanno" id="remanno" placeholder="请输入维修人姓名">
+                    <div class="invalid-feedback">
+                        维修人姓名不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="rereason">故障原因</label>
+                    <input type="text" class="form-control" name="rereason" id="rereason" placeholder="请输入故障原因">
+                    <div class="invalid-feedback">
+                        故障原因不能为空!
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="recost">维修金额</label>
+                    <input type="text" class="form-control" name="recost" id="recost" placeholder="请输入维修金额">
+                    <div class="invalid-feedback">
+                        维修金额不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>维修进度</label><br>
+                    <div class="form-check form-check-inline mx-auto pb-2">
+                        <input type="radio" class="form-check-input" name="method" id="0" value="待分配" checked>
+                        <label class="form-check-label" for="0">待分配</label>
+                    </div>
+                    <div class="form-check form-check-inline mx-auto pb-2">
+                        <input type="radio" class="form-check-input" name="method" id="12" value="维修中">
+                        <label class="form-check-label" for="12">维修中</label>
+                    </div>
+                    <div class="form-check form-check-inline mx-auto pb-2">
+                        <input type="radio" class="form-check-input" name="method" id="34" value="完成维修">
+                        <label class="form-check-label" for="34">完成维修</label>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="">新增</button>
+
+            </form>
+        </div>
     </div>
 </div>
 </body>

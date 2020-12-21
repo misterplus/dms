@@ -48,7 +48,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/#">查看统计</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/query.jsp">查看统计</a>
                         </li>
                     </ul>
                 </div>
@@ -61,18 +61,75 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryFee.jsp">查看水电费情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/#">查看报修单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair.jsp">查看维修单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryContest.jsp">查看卫生评比结果</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/addsheet.jsp">增加维修单</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <div class="col-11">
+            <div id="r">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">报修种类</th>
+                        <th scope="col">报修内容</th>
+                        <th scope="col">维修进度</th>
+                        <td><input name="distribute" type="button" value="分配" onclick="distribute()"></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="sheet in sheets">
+                        <td v-text="sheet.rtype"></td>
+                        <td v-text="sheet.rcon"></td>
+                        <td v-text="sheet.rprogress"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+<script type="text/javascript">
+    var info = getCredentials(false, true);
+
+    function distribute() {
+
+    }
+
+    var cookies = getCookieMap(document.cookie);
+    new Vue({
+        el: '#r',
+        data: {
+            sheets: []
+        },
+        created: function () {
+            var self = this;
+            $.ajax({
+                type: "POST",
+                url: "/api/infoServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": ""//查看所有报修单
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        self.sheets = response;
+                    }
+                }
+            });
+        }
+    })
+</script>
+
 </body>
 </html>

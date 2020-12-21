@@ -39,7 +39,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">卫生评比</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
@@ -97,7 +97,24 @@
                         宿舍号不能为空!
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="queryContests()q">查询</button>
+                <button type="button" class="btn btn-primary" onclick="queryContestsbyroom()">查询</button>
+            </form>
+            <form class="needs-validation" novalidate name="time">
+                <div class="form-group">
+                    <label for="start">开始时间</label>
+                    <input type="date" class="form-control" name="start" id="start" placeholder="请输入开始时间">
+                    <div class="invalid-feedback">
+                        开始时间不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="end">截止时间</label>
+                    <input type="date" class="form-control" name="end" id="end" placeholder="请输入截止时间" required>
+                    <div class="invalid-feedback">
+                        截止时间不能为空!
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="queryContestsbytime()">查询</button>
             </form>
         </div>
         <div class="col-8">
@@ -113,12 +130,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="ccontent in ccontents">
-                        <td v-text="ccontent.cdate" scope="row"></td>
-                        <td v-text="ccontent.drbno"></td>
-                        <td v-text="ccontent.dbd"></td>
-                        <td v-text="ccontent.dbno"></td>
-                        <td v-text="ccontent.cscore"></td>
+                    <tr v-for="ccontest in ccontests">
+                        <td v-text="ccontest.cdate" scope="row"></td>
+                        <td v-text="ccontest.drbno"></td>
+                        <td v-text="ccontest.dbd"></td>
+                        <td v-text="ccontest.dbno"></td>
+                        <td v-text="ccontest.cscore"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -129,13 +146,44 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
 
+    function getNumberDirection(dir) {
+        switch (dir) {
+            case "无":
+                return "0";
+            case "东":
+                return "1";
+            case "西":
+                return "2";
+            case "南":
+                return "3";
+            case "北":
+                return "4";
+            default:
+                return "";
+        }
+    }
+    function getDormDirection(dbd) {
+        switch (dbd) {
+            case "0":
+                return "无";
+            case "1":
+                return "东";
+            case "2":
+                return "西";
+            case "3":
+                return "南";
+            case "4":
+                return "北";
+        }
+    }
+
     var app = new Vue({
         el: '#app',
         data: {
-            contests: []
+            ccontests: []
         }
     });
-    function queryContests() {
+    function queryContestsbyroom() {
         var cookies = getCookieMap(document.cookie);
         var form = document.forms["dorms"];
         $.ajax({
@@ -145,17 +193,46 @@
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "",//根据寝室号找
-                "cdate": form["cdate"].value,
-                "drbno": form['drbno'].value,
-                "dbd": form["dbd"].value,
-                'dbno': form["dbno"].value,
+                "action": "selectCleanContestsWithDorm",//根据寝室号找
+                "dbno": form["dbno"].value,
+                "dbd": getNumberDirection(form["dbd"].value),
+                "drbno": form["drbno"].value
             },
             dataType: "json",
             async: false,
             statusCode: {
                 200: function(response) {
-                    app.contests = response;
+                    for (var i in response) {
+                        response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                    }
+                    app.ccontests = response;
+                }
+            }
+        });
+    }
+    function queryContestsbytime() {
+        var cookies = getCookieMap(document.cookie);
+        var form = document.forms["time"];
+        $.ajax({
+            type: "POST",
+            url: "/api/infoServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "selectCleanContestsWithinTime",//根据时间找
+                "start": form["start"].value,
+                "end": form["end"].value
+            },
+
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    for (var i in response) {
+                        response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                    }
+                    app.ccontests = response;
                 }
             }
         });
