@@ -109,23 +109,24 @@ as
 create procedure selectDRoomNotFull
 as
 	select
-	s.drbno,
-	s.dbno,
-	s.dbd
+	drbno,dbno,dbd
 	from
-	droom d,
+	droom
+	except
+	select
+	a.drbno,a.dbno,a.dbd
+	from (
+	select
+	s.drbno,s.dbno,s.dbd,count(*) num
+	from 
 	student s
-	where
-	d.drbno=s.drbno and
-	d.dbno=s.dbno and
-	d.dbd=s.dbd
-	group by
-	s.drbno,
-	s.dbno,
-	s.dbd,
-	d.dcap
-	having
-	count(sno)<d.dcap
+	group by 
+	s.drbno,s.dbno,s.dbd
+	)as a , droom d
+	where 
+	d.dcap=num 
+	group by 
+	a.drbno,a.dbno,a.dbd;
 
 create procedure selectDormStudents
 	@dbno char(2),
@@ -140,4 +141,4 @@ as
 	and
 	@dbno=s.dbno 
 	and
-	@dbd=s.dbd
+	@dbd=s.dbd;

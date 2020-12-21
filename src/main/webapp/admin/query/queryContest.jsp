@@ -64,10 +64,10 @@
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryFee.jsp">查看水电费情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/#">查看维修情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryContest.jsp">查看卫生评比结果</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/#">查看卫生评比结果</a>
                     </li>
                 </ul>
             </div>
@@ -97,7 +97,7 @@
                         宿舍号不能为空!
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="queryProgress()">查询</button>
+                <button type="button" class="btn btn-primary" onclick="queryContests()q">查询</button>
             </form>
         </div>
         <div class="col-8">
@@ -105,24 +105,20 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">维修单号</th>
-                        <th scope="col">报修人学号</th>
-                        <th scope="col">维修工姓名</th>
-                        <th scope="col">维修工工号</th>
-                        <th scope="col">故障原因</th>
-                        <th scope="col">维修金额</th>
-                        <th scope="col">维修状态</th>
+                        <th scope="col">日期</th>
+                        <th scope="col">宿舍楼号</th>
+                        <th scope="col">宿舍楼向</th>
+                        <th scope="col">寝室号</th>
+                        <th scope="col">分数</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="resheet in resheets">
-                        <td v-text="resheet.reno" scope="row"></td>
-                        <td v-text="resheet.rsno"></td>
-                        <td v-text="resheet.reman"></td>
-                        <td v-text="resheet.remanno"></td>
-                        <td v-text="resheet.rereason"></td>
-                        <td v-text="resheet.recost"></td>
-                        <td v-text="resheet.restatus"></td>
+                    <tr v-for="ccontent in ccontents">
+                        <td v-text="ccontent.cdate" scope="row"></td>
+                        <td v-text="ccontent.drbno"></td>
+                        <td v-text="ccontent.dbd"></td>
+                        <td v-text="ccontent.dbno"></td>
+                        <td v-text="ccontent.cscore"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -136,10 +132,10 @@
     var app = new Vue({
         el: '#app',
         data: {
-            resheets: []
+            contests: []
         }
     });
-    function queryProgress() {
+    function queryContests() {
         var cookies = getCookieMap(document.cookie);
         var form = document.forms["dorms"];
         $.ajax({
@@ -150,19 +146,16 @@
             },
             data: {
                 "action": "",//根据寝室号找
-                "reno": form["reno"].value,
-                "rsno": form['rsno'].value,
-                "reman": form["reman"].value,
-                'remanno': form["remanno"].value,
-                'rereason': form["rereason"].value,
-                'recost': form["recost"].value,
-                'restatus': form["restatus"].value,
+                "cdate": form["cdate"].value,
+                "drbno": form['drbno'].value,
+                "dbd": form["dbd"].value,
+                'dbno': form["dbno"].value,
             },
             dataType: "json",
             async: false,
             statusCode: {
                 200: function(response) {
-                    app.resheets = response;
+                    app.contests = response;
                 }
             }
         });

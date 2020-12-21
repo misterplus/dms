@@ -61,13 +61,13 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryFee.jsp">查看水电费情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/#">查看水电费情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryContest.jsp">查看卫生评比结果</a>
                     </li>
                 </ul>
             </div>
@@ -97,11 +97,10 @@
                         宿舍号不能为空!
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="searchDorm()">查询</button>
+                <button type="button" class="btn btn-primary" onclick="queryFees()">查询</button>
             </form>
         </div>
         <div class="col-8">
-            <h1 class="h3 mb-3 font-weight-normal text-center">水电费缴纳情况</h1>
             <div id="f">
                 <table class="table table-bordered table-striped">
                     <thead>
@@ -137,36 +136,38 @@
         else
             return '未缴纳';
     }
-    var cookies = getCookieMap(document.cookie);
-    new Vue({
+    var f = new Vue({
         el: '#f',
         data: {
             fees: []
-        },
-        created: function () {
-            var self = this;
-            $.ajax({
-                type: "POST",
-                url: "/api/infoServlet",
-                headers: {
-                    "dms_token": cookies.get("dms_token")
-                },
-                data: {
-                    "action": "selectFees"
-                },
-                dataType: "json",
-                async: false,
-                statusCode: {
-                    200: function(response) {
-                        for (var i in response) {
-                            response[i]["fpaid"] = getFpaid(response[i]["fpaid"]);
-                        }
-                        self.fees = response;
-                    }
-                }
-            });
         }
     });
+    function queryFees() {
+        var cookies = getCookieMap(document.cookie);
+        var form = document.forms["dorms"];
+        $.ajax({
+            type: "POST",
+            url: "/api/infoServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "",//根据寝室号找水电费
+                "fno": form["fno"].value,
+                "fdate": form['fdate'].value,
+                "famount": form["famount"].value,
+                'ftype': form["ftype"].value,
+                'fpaid': getFpaid(form["fpaid"].value),
+            },
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    f.fees = response;
+                }
+            }
+        });
+    }
     function pay(tag) {
         var fno = $(tag).parent().siblings()[0].innerHTML;
         //alert(fdate);
@@ -199,6 +200,5 @@
             alert("已缴纳，无需再缴纳");
     }
 </script>
-
 </body>
 </html>
