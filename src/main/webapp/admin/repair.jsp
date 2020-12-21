@@ -36,10 +36,10 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/fee.jsp">水电</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
+                            <a class="nav-link" href="#">维修</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">卫生评比</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
@@ -61,15 +61,77 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/#">查看维修单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/queryrepairsheet.jsp">查看报修单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/#">增加维修单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair.jsp">查看维修单</a>
+                    </li>
+                    <li class="nav-item mt-1 mb-1">
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/addsheet.jsp">增加维修单</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <div class="col-11">
+            <div id="app">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">维修单号</th>
+                        <th scope="col">报修人学号</th>
+                        <th scope="col">维修工姓名</th>
+                        <th scope="col">维修工工号</th>
+                        <th scope="col">故障原因</th>
+                        <th scope="col">维修金额</th>
+                        <th scope="col">维修进度</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="resheet in resheets">
+                        <td v-text="resheet.reno" scope="row"></td>
+                        <td v-text="resheet.rsno"></td>
+                        <td v-text="resheet.reman"></td>
+                        <td v-text="resheet.remanno"></td>
+                        <td v-text="resheet.rereason"></td>
+                        <td v-text="resheet.recost"></td>
+                        <td v-text="resheet.restatus"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+<script type="text/javascript">
+    var info = getCredentials(false, true);
+
+    var cookies = getCookieMap(document.cookie);
+    new Vue({
+        el: '#app',
+        data: {
+            resheets: []
+        },
+        created: function () {
+            var self = this;
+            $.ajax({
+                type: "POST",
+                url: "/api/infoServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": "selectReplySheets"
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        self.resheets = response;
+                    }
+                }
+            });
+        }
+    })
+</script>
 </body>
 </html>

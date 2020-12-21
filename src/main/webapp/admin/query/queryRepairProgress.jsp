@@ -39,7 +39,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">卫生评比</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
@@ -97,7 +97,24 @@
                         宿舍号不能为空!
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="queryProgress()">查询</button>
+                <button type="button" class="btn btn-primary" onclick="queryProgressbyroom()">查询</button>
+            </form>
+            <form class="needs-validation" novalidate name="time">
+                <div class="form-group">
+                    <label for="start">开始时间</label>
+                    <input type="date" class="form-control" name="start" id="start" placeholder="请输入开始时间">
+                    <div class="invalid-feedback">
+                        开始时间不能为空!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="end">截止时间</label>
+                    <input type="date" class="form-control" name="end" id="end" placeholder="请输入截止时间" required>
+                    <div class="invalid-feedback">
+                        截止时间不能为空!
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="queryProgressbytime()">查询</button>
             </form>
         </div>
         <div class="col-8">
@@ -131,17 +148,41 @@
     </div>
 </div>
 <script type="text/javascript">
-    var info = getCredentials(false, true);
+        var info = getCredentials(false, true);
 
-    var app = new Vue({
-        el: '#app',
-        data: {
-            resheets: []
-        }
-    });
-    function queryProgress() {
+        var app = new Vue({
+            el: '#app',
+            data: {
+                resheets: []
+            }
+        });
+        function queryProgressbyroom() {
+            var cookies = getCookieMap(document.cookie);
+            var form = document.forms["dorms"];
+            $.ajax({
+                type: "POST",
+                url: "/api/infoServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": "selectReplySheetWithDorm",//根据寝室号找
+                    "dbno": form["dbno"].value,
+                    "dbd": getNumberDirection(form["dbd"].value),
+                    "drbno": form["drbno"].value
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        app.resheets = response;
+                    }
+                }
+            });
+    }
+    function queryProgressbytime() {
         var cookies = getCookieMap(document.cookie);
-        var form = document.forms["dorms"];
+        var form = document.forms["time"];
         $.ajax({
             type: "POST",
             url: "/api/infoServlet",
@@ -149,14 +190,9 @@
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "",//根据寝室号找
-                "reno": form["reno"].value,
-                "rsno": form['rsno'].value,
-                "reman": form["reman"].value,
-                'remanno': form["remanno"].value,
-                'rereason': form["rereason"].value,
-                'recost': form["recost"].value,
-                'restatus': form["restatus"].value,
+                "action": "selectReplySheetWithinTime",//根据时间找
+                "start": form["start"].value,
+                "end": form["end"].value
             },
             dataType: "json",
             async: false,
