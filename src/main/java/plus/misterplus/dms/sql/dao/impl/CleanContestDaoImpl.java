@@ -31,4 +31,16 @@ public class CleanContestDaoImpl extends BaseDao implements CleanContestDao {
         String sql = "select * from ccontest";
         return selectMultiple(CleanContest.class, sql);
     }
+
+    @Override
+    public List<CleanContest> selectCleanContestsWithDorm(String dbno, String dbd, String drbno) {
+        String sql = "select * from ccontest where dbno = ? and dbd = ? and drbno = ?";
+        return selectMultiple(CleanContest.class, sql, dbno, dbd, drbno);
+    }
+
+    @Override
+    public List<CleanContest> selectCleanContestsWithinTime(String start, String end) {
+        String sql = "select * from ccontest where cdate >= start and cdate <= end";
+        return selectMultiple(CleanContest.class, sql, start ,end);
+    }
 }

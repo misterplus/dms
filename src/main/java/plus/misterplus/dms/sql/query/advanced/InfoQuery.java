@@ -70,4 +70,32 @@ public class InfoQuery {
     public static List<Fee> selectFees() {
         return FeeDaoImpl.getInstance().selectFees();
     }
+
+    public static List<Fee> selectFeesWithDorm(String dbno, String dbd, String drbno) {
+        return FeeDaoImpl.getInstance().selectFeesWithDorm(dbno, dbd, drbno);
+    }
+
+    public static List<Fee> selectFeesWithinTime(String start, String end) {
+        return FeeDaoImpl.getInstance().selectFeesWithinTime(start, end);
+    }
+
+    public static List<CleanContest> selectCleanContestsWithDorm(String dbno, String dbd, String drbno) {
+        return CleanContestDaoImpl.getInstance().selectCleanContestsWithDorm(dbno, dbd, drbno);
+    }
+
+    public static List<CleanContest> selectCleanContestsWithinTime(String start, String end) {
+        return CleanContestDaoImpl.getInstance().selectCleanContestsWithinTime(start, end);
+    }
+
+    public static List<ReplySheet> selectReplySheets() {
+        return ReplySheetDaoImpl.getInstance().selectReplySheets();
+    }
+
+    public static List<ReplySheet> selectReplySheetWithDorm(String dbno, String dbd, String drbno) {
+        return ReplySheetDaoImpl.getInstance().selectReplySheetWithDorm(dbno, dbd, drbno);
+    }
+
+    public static List<ReplySheet> selectReplySheetWithinTime(String start, String end) {
+        return ReplySheetDaoImpl.getInstance().selectReplySheetWithinTime(start, end);
+    }
 }

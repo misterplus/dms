@@ -52,6 +52,13 @@ public class BaseServlet extends HttpServlet {
         put("insertFeeAdmin", true);
         put("insertItem", true);
         put("insertGuest", true);
+        put("selectFeesWithDorm", true);
+        put("selectFeesWithinTime", true);
+        put("selectCleanContestsWithDorm", true);
+        put("selectCleanContestsWithinTime", true);
+        put("selectReplySheets", true);
+        put("selectReplySheetWithDorm", true);
+        put("selectReplySheetWithinTime", true);
     }};
 
     @Override

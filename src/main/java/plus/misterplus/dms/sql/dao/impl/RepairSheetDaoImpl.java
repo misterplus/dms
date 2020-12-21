@@ -3,6 +3,7 @@ package plus.misterplus.dms.sql.dao.impl;
 import plus.misterplus.dms.sql.dao.RepairSheetDao;
 import plus.misterplus.dms.sql.entity.RepairSheet;
 
+import java.util.Date;
 import java.util.List;
 
 public class RepairSheetDaoImpl extends BaseDao implements RepairSheetDao {
@@ -15,8 +16,8 @@ public class RepairSheetDaoImpl extends BaseDao implements RepairSheetDao {
 
     @Override
     public int insertRepairSheet(String rcon, String rtype, String rprogress, String sno) {
-        String sql = "insert into rsheet (dbno, dbd, drbno, rcon, rtype, rprogress) select dbno, dbd, drbno, ?, ?, ? from student where sno = ?";
-        return insert(sql, rcon, rtype, rprogress, sno);
+        String sql = "insert into rsheet (dbno, dbd, drbno, rcon, rtype, rprogress, rtime) select dbno, dbd, drbno, ?, ?, ?, ? from student where sno = ?";
+        return insert(sql, rcon, rtype, rprogress, new Date(), sno);
     }
 
     @Override

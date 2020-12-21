@@ -159,4 +159,75 @@ public class InfoServlet extends BaseServlet {
         else
             resp.setStatus(620);
     }
+
+    protected void selectFeesWithDorm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        List<Fee> fees = InfoQuery.selectFeesWithDorm(dbno, dbd, drbno);
+        if (fees != null)
+            resp.getWriter().write(GsonHelper.toJson(fees));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectFeesWithinTime(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String start = req.getParameter("start");
+        String end = req.getParameter("end");
+        List<Fee> fees = InfoQuery.selectFeesWithinTime(start, end);
+        if (fees != null)
+            resp.getWriter().write(GsonHelper.toJson(fees));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectCleanContestsWithDorm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        List<CleanContest> cleanContests = InfoQuery.selectCleanContestsWithDorm(dbno, dbd, drbno);
+        if (cleanContests != null)
+            resp.getWriter().write(GsonHelper.toJson(cleanContests));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectCleanContestsWithinTime(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String start = req.getParameter("start");
+        String end = req.getParameter("end");
+        List<CleanContest> cleanContests = InfoQuery.selectCleanContestsWithinTime(start, end);
+        if (cleanContests != null)
+            resp.getWriter().write(GsonHelper.toJson(cleanContests));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectReplySheets(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<ReplySheet> replySheets = InfoQuery.selectReplySheets();
+        if (replySheets != null)
+            resp.getWriter().write(GsonHelper.toJson(replySheets));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectReplySheetWithDorm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        List<ReplySheet> replySheets = InfoQuery.selectReplySheetWithDorm(dbno, dbd, drbno);
+        if (replySheets != null)
+            resp.getWriter().write(GsonHelper.toJson(replySheets));
+        else
+            resp.setStatus(620);
+    }
+
+    protected void selectReplySheetWithinTime(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String start = req.getParameter("start");
+        String end = req.getParameter("end");
+        List<ReplySheet> replySheets = InfoQuery.selectReplySheetWithinTime(start, end);
+        if (replySheets != null)
+            resp.getWriter().write(GsonHelper.toJson(replySheets));
+        else
+            resp.setStatus(620);
+    }
 }
