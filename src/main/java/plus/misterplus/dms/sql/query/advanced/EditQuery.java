@@ -106,4 +106,14 @@ public class EditQuery {
         int affected = GuestDaoImpl.getInstance().insertGuest(gname, gdate, dbno, dbd, gphone, gtype);
         return affected != 0;
     }
+
+    public static boolean insertReplySheet(long rsno, String reman, int remanno, String rereason, double recost, String restatus) {
+        int affected = ReplySheetDaoImpl.getInstance().insertReplySheet(rsno, reman, remanno, rereason, recost, restatus);
+        return affected != 0;
+    }
+
+    public static boolean updateRpSheetStatus(long reno, String rstatus) {
+        int affected = ReplySheetDaoImpl.getInstance().updateRpSheetStatus(reno, rstatus);
+        return affected != 0;
+    }
 }

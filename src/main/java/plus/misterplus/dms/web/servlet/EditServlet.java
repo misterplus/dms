@@ -243,4 +243,28 @@ public class EditServlet extends BaseServlet {
         else
             resp.setStatus(622);
     }
+
+    protected void insertReplySheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long rsno = Long.parseLong(req.getParameter("rsno"));
+        String reman = req.getParameter("reman");
+        int remanno = Integer.parseInt(req.getParameter("remanno"));
+        String rereason = req.getParameter("rereason");
+        double recost = Double.parseDouble(req.getParameter("recost"));
+        String restatus = req.getParameter("restatus");
+        boolean success = EditQuery.insertReplySheet(rsno, reman, remanno, rereason, recost, restatus);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
+
+    protected void updateRpSheetStatus(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long reno = Long.parseLong(req.getParameter("reno"));
+        String restatus = req.getParameter("restatus");
+        boolean success = EditQuery.updateRpSheetStatus(reno, restatus);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
 }

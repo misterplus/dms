@@ -98,4 +98,8 @@ public class InfoQuery {
     public static List<ReplySheet> selectReplySheetWithinTime(String start, String end) {
         return ReplySheetDaoImpl.getInstance().selectReplySheetWithinTime(start, end);
     }
+
+    public static List<RepairSheet> selectRepairSheets() {
+        return RepairSheetDaoImpl.getInstance().selectRepairSheets();
+    }
 }

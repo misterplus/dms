@@ -40,7 +40,7 @@ public class CleanContestDaoImpl extends BaseDao implements CleanContestDao {
 
     @Override
     public List<CleanContest> selectCleanContestsWithinTime(String start, String end) {
-        String sql = "select * from ccontest where cdate >= start and cdate <= end";
+        String sql = "select * from ccontest where cdate >= ? and cdate <= ?";
         return selectMultiple(CleanContest.class, sql, start ,end);
     }
 }

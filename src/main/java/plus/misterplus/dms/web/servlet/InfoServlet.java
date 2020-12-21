@@ -230,4 +230,12 @@ public class InfoServlet extends BaseServlet {
         else
             resp.setStatus(620);
     }
+
+    protected void selectRepairSheets(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<RepairSheet> sheets = InfoQuery.selectRepairSheets();
+        if (sheets != null)
+            resp.getWriter().write(GsonHelper.toJson(sheets));
+        else
+            resp.setStatus(620);
+    }
 }

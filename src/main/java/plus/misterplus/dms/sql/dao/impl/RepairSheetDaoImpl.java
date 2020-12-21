@@ -44,5 +44,11 @@ public class RepairSheetDaoImpl extends BaseDao implements RepairSheetDao {
         return selectMultiple(RepairSheet.class, sql, rprogress);
     }
 
+    @Override
+    public List<RepairSheet> selectRepairSheets() {
+        String sql = "select * from rsheet";
+        return selectMultiple(RepairSheet.class, sql);
+    }
+
 
 }
