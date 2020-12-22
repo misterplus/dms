@@ -71,3 +71,45 @@ begin
 		insert into log_history values('guest','进入->已离开',getdate())
 	end
 go
+--触发器4，维修状态级联
+create trigger update_status on resheet
+after update
+as 
+begin 
+	declare @rsno char(8)
+	declare @restatus varchar(10)
+	select @restatus=restatus from inserted
+	select @rsno=rsno from inserted
+	update rsheet set rprogress=@restatus where rsno=@rsno
+	end
+go
+
+
+create trigger inserted_status on resheet
+after insert
+as 
+begin 
+	declare @rsno char(8)
+	declare @restatus varchar(10)
+	select @restatus=restatus from inserted
+	select @rsno=rsno from inserted
+	update rsheet set rprogress=@restatus where rsno=@rsno
+	end
+go
+
+--触发器5，报修单和维修单单号级联
+create trigger insert_rsno on resheet
+after insert
+as 
+begin 
+	declare @reno char(8)
+	declare @rsno char(8)
+	declare @restatus varchar(10)
+	select @restatus=restatus from inserted
+	select @rsno=rsno from inserted
+	select @reno=reno from inserted
+	update rsheet set rprogress=@restatus where rsno=@rsno
+	update rsheet set reno=@reno where rsno=@rsno
+	end
+go
+

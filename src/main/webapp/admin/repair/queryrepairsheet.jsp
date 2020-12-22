@@ -111,8 +111,11 @@
     var info = getCredentials(false, true);
 
     function distribute() {
-        var reno = $(tag).parent().siblings()[1].innerHTML;
-        //alert(fdate);
+        var rsno = prompt("请输入报修单号");
+        var reman = prompt("请输入维修工姓名");
+        var remanno = prompt("请输入维修工工号");
+        var rereason = prompt("请输入故障原因");
+        var recost = prompt("请输入维修金额");
         var restatus = prompt("请输入状态");
         $.ajax({
             type: "POST",
@@ -121,8 +124,12 @@
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "updateRpSheetStatus",
-                "reno":reno,
+                "action": "insertReplySheet",
+                "rsno":rsno,
+                "reman":reman,
+                "remanno":remanno,
+                "rereason":rereason,
+                "recost":recost,
                 "restatus":restatus,
             },
             dataType: "json",
@@ -130,10 +137,10 @@
             statusCode: {
                 200: function(response) {
                     location.reload();
-                    alert("修改成功");
+                    alert("分配成功");
                 },
                 621: function() {
-                    alert("修改失败");
+                    alert("分配失败");
                 }
             }
         });
