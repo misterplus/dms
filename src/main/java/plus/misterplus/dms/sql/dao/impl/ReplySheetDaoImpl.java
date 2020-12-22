@@ -27,7 +27,7 @@ public class ReplySheetDaoImpl extends BaseDao implements ReplySheetDao {
 
     @Override
     public List<ReplySheet> selectReplySheetWithinTime(String start, String end) {
-        String sql = "select reno from resheet where rdate >= start and rdate <= end";
+        String sql = "select * from resheet where reno in (select reno from rsheet where rdate >= ? and rdate <= ?)";
         return selectMultiple(ReplySheet.class, sql, start, end);
     }
 
