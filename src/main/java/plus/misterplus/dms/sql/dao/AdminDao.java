@@ -8,4 +8,5 @@ public interface AdminDao {
     public Admin selectAdmin(String adno);
     public List<Admin> selectAdmins();
     public int insertAdmin(String adno, String adpass, String adname);
+    public int deleteAdmin(String adno);
 }

@@ -126,4 +126,9 @@ public class EditQuery {
         int affected = DormRoomDaoImpl.getInstance().deleteDormRoom(dbno, dbd, drbno);
         return affected != 0;
     }
+
+    public static boolean deleteAdmin(String adno) {
+        int affected = AdminDaoImpl.getInstance().deleteAdmin(adno);
+        return affected != 0;
+    }
 }
