@@ -30,4 +30,10 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
         String sql = "insert into admin(adno,adpass,adname) values(?,?,?)";
         return insert(sql, adno, adpass, adname);
     }
+
+    @Override
+    public int deleteAdmin(String adno) {
+        String sql = "delete from admin where adno = ?";
+        return update(sql, adno);
+    }
 }

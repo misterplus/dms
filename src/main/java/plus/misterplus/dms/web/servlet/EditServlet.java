@@ -287,4 +287,13 @@ public class EditServlet extends BaseServlet {
         else
             resp.setStatus(622);
     }
+
+    protected void deleteAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String adno = req.getParameter("adno");
+        boolean success = EditQuery.deleteAdmin(adno);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
 }
