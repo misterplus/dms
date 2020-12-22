@@ -181,3 +181,41 @@ as
 	@dbno=s.dbno 
 	and
 	@dbd=s.dbd;
+
+--建立未住满的寝室视图
+create view droom_not_full
+as
+select
+    drbno,dbno,dbd
+from
+    droom
+    except
+select
+    a.drbno,a.dbno,a.dbd
+from (
+         select
+             s.drbno,s.dbno,s.dbd,count(*) num
+         from
+             student s
+         group by
+             s.drbno,s.dbno,s.dbd
+     )as a , droom d
+where
+        d.dcap=num
+group by
+    a.drbno,a.dbno,a.dbd;
+
+--建立平均卫生评比分数高于80的寝室视图
+create view ccontest_80
+as
+    select d.dbno, d.drbno, d.dbd
+    from droom d
+    inner join ccontest c2 on
+    d.dbno = c2.dbno
+    and d.drbno = c2.drbno
+    and d.dbd = c2.dbd
+    group by d.dbno, d.drbno, d.dbd
+    having avg(c2.cscore) > 80
+    with check option;
+
+--
