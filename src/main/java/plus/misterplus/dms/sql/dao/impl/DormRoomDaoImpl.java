@@ -42,4 +42,12 @@ public class DormRoomDaoImpl extends BaseDao implements DormRoomDao {
         String sql = "exec selectDRoomNotFull";
         return procedure(DormRoom.class, sql);
     }
+
+    @Override
+    public int deleteDormRoom(String dbno, String dbd, String drbno) {
+        String sql = "delete from droom where dbno = ? and dbd = ? and drbno = ?";
+        return update(sql, dbno, dbd, drbno);
+    }
+
+
 }

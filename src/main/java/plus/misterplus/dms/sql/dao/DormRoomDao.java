@@ -10,4 +10,5 @@ public interface DormRoomDao {
     public int insertDormRoom(String dbno, String dbd, String drbno, int dcap);
     public int updateDormMonitor(String dbno, String dbd, String drbno, String dmno);
     public List<DormRoom> selectDRoomNotFull();
+    public int deleteDormRoom(String dbno, String dbd, String drbno);
 }
