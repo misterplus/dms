@@ -64,7 +64,7 @@
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryFee.jsp">查看水电费情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/#">查看维修情况</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryRepairProgress.jsp">查看维修情况</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/query/queryContest.jsp">查看卫生评比结果</a>
@@ -148,37 +148,55 @@
     </div>
 </div>
 <script type="text/javascript">
-        var info = getCredentials(false, true);
+    var info = getCredentials(false, true);
 
-        var app = new Vue({
-            el: '#app',
+    var app = new Vue({
+        el: '#app',
+        data: {
+            resheets: []
+        }
+    });
+
+    function getNumberDirection(dir) {
+        switch (dir) {
+            case "无":
+                return "0";
+            case "东":
+                return "1";
+            case "西":
+                return "2";
+            case "南":
+                return "3";
+            case "北":
+                return "4";
+            default:
+                return "";
+        }
+    }
+
+    function queryProgressbyroom() {
+        var cookies = getCookieMap(document.cookie);
+        var form = document.forms["dorms"];
+        $.ajax({
+            type: "POST",
+            url: "/api/infoServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
             data: {
-                resheets: []
+                "action": "selectReplySheetWithDorm",//根据寝室号找
+                "dbno": form["dbno"].value,
+                "dbd": getNumberDirection(form["dbd"].value),
+                "drbno": form["drbno"].value
+            },
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    app.resheets = response;
+                }
             }
         });
-        function queryProgressbyroom() {
-            var cookies = getCookieMap(document.cookie);
-            var form = document.forms["dorms"];
-            $.ajax({
-                type: "POST",
-                url: "/api/infoServlet",
-                headers: {
-                    "dms_token": cookies.get("dms_token")
-                },
-                data: {
-                    "action": "selectReplySheetWithDorm",//根据寝室号找
-                    "dbno": form["dbno"].value,
-                    "dbd": getNumberDirection(form["dbd"].value),
-                    "drbno": form["drbno"].value
-                },
-                dataType: "json",
-                async: false,
-                statusCode: {
-                    200: function(response) {
-                        app.resheets = response;
-                    }
-                }
-            });
     }
     function queryProgressbytime() {
         var cookies = getCookieMap(document.cookie);

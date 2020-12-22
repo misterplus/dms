@@ -61,7 +61,7 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/#">查看报修单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/queryrepairsheet.jsp">查看报修单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/repair.jsp">查看维修单</a>
@@ -73,21 +73,33 @@
             </div>
         </nav>
         <div class="col-11">
-            <div id="r">
+            <div id="app">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th scope="col">报修单号</th>
+                        <th scope="col">维修单号</th>
+                        <th scope="col">宿舍楼号</th>
+                        <th scope="col">宿舍楼向</th>
+                        <th scope="col">寝室号</th>
                         <th scope="col">报修种类</th>
                         <th scope="col">报修内容</th>
                         <th scope="col">维修进度</th>
-                        <td><input name="distribute" type="button" value="分配" onclick="distribute()"></td>
+                        <th scope="col">报修时间</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="sheet in sheets">
-                        <td v-text="sheet.rtype"></td>
-                        <td v-text="sheet.rcon"></td>
-                        <td v-text="sheet.rprogress"></td>
+                    <tr v-for="rsheet in rsheets">
+                        <td v-text="rsheet.rsno"></td>
+                        <td v-text="rsheet.reno"></td>
+                        <td v-text="rsheet.dbno"></td>
+                        <td v-text="rsheet.dbd"></td>
+                        <td v-text="rsheet.drbno"></td>
+                        <td v-text="rsheet.rtype"></td>
+                        <td v-text="rsheet.rcon"></td>
+                        <td v-text="rsheet.rprogress"></td>
+                        <td v-text="rsheet.rtime"></td>
+                        <td><input name="distribute" type="button" value="分配" onclick="distribute()"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -99,14 +111,53 @@
     var info = getCredentials(false, true);
 
     function distribute() {
-
+        var reno = $(tag).parent().siblings()[1].innerHTML;
+        //alert(fdate);
+        var restatus = prompt("请输入状态");
+        $.ajax({
+            type: "POST",
+            url: "/api/editServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "updateRpSheetStatus",
+                "reno":reno,
+                "restatus":restatus,
+            },
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    location.reload();
+                    alert("修改成功");
+                },
+                621: function() {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
+    function getDormDirection(dbd) {
+        switch (dbd) {
+            case "0":
+                return "无";
+            case "1":
+                return "东";
+            case "2":
+                return "西";
+            case "3":
+                return "南";
+            case "4":
+                return "北";
+        }
     }
 
     var cookies = getCookieMap(document.cookie);
     new Vue({
-        el: '#r',
+        el: '#app',
         data: {
-            sheets: []
+            rsheets: []
         },
         created: function () {
             var self = this;
@@ -117,13 +168,16 @@
                     "dms_token": cookies.get("dms_token")
                 },
                 data: {
-                    "action": ""//查看所有报修单
+                    "action": "selectRepairSheets"//查看所有报修单
                 },
                 dataType: "json",
                 async: false,
                 statusCode: {
                     200: function(response) {
-                        self.sheets = response;
+                        for (var i in response) {
+                            response[i]["dbd"] = getDormDirection(response[i]["dbd"]);
+                        }
+                        self.rsheets = response;
                     }
                 }
             });

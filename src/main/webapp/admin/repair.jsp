@@ -78,7 +78,7 @@
                     <thead>
                     <tr>
                         <th scope="col">维修单号</th>
-                        <th scope="col">报修人学号</th>
+                        <th scope="col">报修单号</th>
                         <th scope="col">维修工姓名</th>
                         <th scope="col">维修工工号</th>
                         <th scope="col">故障原因</th>
