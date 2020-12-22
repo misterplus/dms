@@ -296,4 +296,13 @@ public class EditServlet extends BaseServlet {
         else
             resp.setStatus(622);
     }
+
+    protected void deleteDBuilding(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        boolean success = EditQuery.deleteDBuilding(dbno);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
 }
