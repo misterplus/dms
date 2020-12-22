@@ -2,6 +2,7 @@
 create procedure selectCleanContestsWithSno
 	@sno char(8)
 as
+begin
 	select c.* 
 	from 
 		ccontest c, 
@@ -12,11 +13,13 @@ as
 	c.dbd = s.dbd and 
 	c.drbno = s.drbno 
 	order by c.cdate desc;
+end
 
 --select某学生所对应寝室的所有费用记录
 create procedure selectFeesWithSno
 	@sno char(8)
 as
+begin
 	select f.* 
 	from 
 		fees f, 
@@ -26,14 +29,13 @@ as
 	f.dbno = s.dbno and
 	f.dbd = s.dbd and 
 	f.drbno = s.drbno;
-
+end
 	
 --插入无分楼类寝室楼
 create procedure newDorm_0
 	@dbno char(2),
 	@height int,
-	@rooms int,
-	@err varchar(50) output
+	@rooms int
 as
 begin
 	declare 
@@ -60,7 +62,6 @@ begin
 	end try
 	begin catch
 		rollback
-		select @err = ERROR_MESSAGE()
 	end catch
 end
 
@@ -68,8 +69,7 @@ end
 create procedure newDorm_12
 	@dbno char(2),
 	@height int,
-	@rooms int,
-	@err varchar(50) output
+	@rooms int
 as
 begin
 	declare 
@@ -100,15 +100,13 @@ begin
 	end try
 	begin catch
 		rollback
-		select @err = ERROR_MESSAGE()
 	end catch
 end
 --插入南北分类寝室楼
 create procedure newDorm_34
 	@dbno char(2),
 	@height int,
-	@rooms int,
-	@err varchar(50) output
+	@rooms int
 as
 begin
 	declare 
@@ -139,13 +137,13 @@ begin
 	end try
 	begin catch
 		rollback
-		select @err = ERROR_MESSAGE()
 	end catch
 end
 
 --select不满的寝室
 create procedure selectDRoomNotFull
 as
+begin
 	select
 	drbno,dbno,dbd
 	from
@@ -165,6 +163,7 @@ as
 	d.dcap=num 
 	group by 
 	a.drbno,a.dbno,a.dbd;
+end
 
 --select某寝室所有学生
 create procedure selectDormStudents
@@ -172,6 +171,7 @@ create procedure selectDormStudents
 	@dbd char(1),
     @drbno char(3)
 as
+begin
 	select s.*
 	from 
 	student s
@@ -181,6 +181,10 @@ as
 	@dbno=s.dbno 
 	and
 	@dbd=s.dbd;
+end
+
+--删除楼
+
 
 --建立未住满的寝室视图
 create view droom_not_full
