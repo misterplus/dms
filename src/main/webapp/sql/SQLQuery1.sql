@@ -1,3 +1,4 @@
+--select某学生寝室所参加的所有卫生评比记录
 create procedure selectCleanContestsWithSno
 	@sno char(8)
 as
@@ -12,6 +13,7 @@ as
 	c.drbno = s.drbno 
 	order by c.cdate desc;
 
+--select某学生所对应寝室的所有费用记录
 create procedure selectFeesWithSno
 	@sno char(8)
 as
@@ -25,6 +27,8 @@ as
 	f.dbd = s.dbd and 
 	f.drbno = s.drbno;
 
+
+--插入无分楼类寝室楼
 create procedure newDorm_0
 	@dbno char(2),
 	@height int,
@@ -50,6 +54,7 @@ as
 	end
 
 
+--插入东西分类寝室楼
 create procedure newDorm_12
 	@dbno char(2),
 	@height int,
@@ -78,6 +83,7 @@ as
 		set @i = @i + 1;
 	end
 
+--插入南北分类寝室楼
 create procedure newDorm_34
 	@dbno char(2),
 	@height int,
@@ -106,6 +112,7 @@ as
 		set @i = @i + 1;
 	end
 
+--select不满的寝室
 create procedure selectDRoomNotFull
 as
 	select
@@ -128,6 +135,7 @@ as
 	group by 
 	a.drbno,a.dbno,a.dbd;
 
+--select某寝室所有学生
 create procedure selectDormStudents
 	@dbno char(2),
 	@dbd char(1),
