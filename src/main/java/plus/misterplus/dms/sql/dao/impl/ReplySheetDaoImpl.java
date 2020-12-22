@@ -38,8 +38,8 @@ public class ReplySheetDaoImpl extends BaseDao implements ReplySheetDao {
     }
 
     @Override
-    public int updateRpSheetStatus(long reno, String rstatus) {
-        String sql = "update resheet set rstatus = ? where reno = ?";
-        return update(sql, rstatus, reno);
+    public int updateRpSheetStatus(long reno, String restatus) {
+        String sql = "update resheet set restatus = ? where reno = ?";
+        return update(sql, restatus, reno);
     }
 }

@@ -40,7 +40,7 @@ public class DormRoomDaoImpl extends BaseDao implements DormRoomDao {
     @Override
     public List<DormRoom> selectDRoomNotFull() {
         String sql = "exec selectDRoomNotFull";
-        return procedure(DormRoom.class, sql);
+        return selectMultiple(DormRoom.class, sql);
     }
 
     @Override

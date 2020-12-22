@@ -112,8 +112,8 @@ public class EditQuery {
         return affected != 0;
     }
 
-    public static boolean updateRpSheetStatus(long reno, String rstatus) {
-        int affected = ReplySheetDaoImpl.getInstance().updateRpSheetStatus(reno, rstatus);
+    public static boolean updateRpSheetStatus(long reno, String restatus) {
+        int affected = ReplySheetDaoImpl.getInstance().updateRpSheetStatus(reno, restatus);
         return affected != 0;
     }
 

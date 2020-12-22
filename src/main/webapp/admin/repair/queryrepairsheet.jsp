@@ -61,13 +61,7 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/queryrepairsheet.jsp">查看报修单</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/repair.jsp">查看维修单</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/addsheet.jsp">增加维修单</a>
                     </li>
                 </ul>
             </div>

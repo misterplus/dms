@@ -63,12 +63,6 @@
                     <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/queryrepairsheet.jsp">查看报修单</a>
                     </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair.jsp">查看维修单</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/repair/addsheet.jsp">增加维修单</a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -95,6 +89,7 @@
                         <td v-text="resheet.rereason"></td>
                         <td v-text="resheet.recost"></td>
                         <td v-text="resheet.restatus"></td>
+                        <td><input name="change" type="button" value="修改状态" onclick="change(this)"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -104,6 +99,34 @@
 </div>
 <script type="text/javascript">
     var info = getCredentials(false, true);
+
+    function change(tag) {
+        var reno = $(tag).parent().siblings()[0].innerHTML;
+        var restatus = prompt("请输入状态");
+        $.ajax({
+            type: "POST",
+            url: "/api/editServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "updateRpSheetStatus",
+                "reno":reno,
+                "restatus":restatus,
+            },
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    location.reload();
+                    alert("修改成功");
+                },
+                621: function() {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
 
     var cookies = getCookieMap(document.cookie);
     new Vue({
