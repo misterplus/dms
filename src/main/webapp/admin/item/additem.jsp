@@ -42,6 +42,9 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/contest.jsp">卫生评比</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/notice.jsp">通知</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
                         </li>
                         <li class="nav-item">
@@ -137,6 +140,7 @@
             async: false,
             statusCode: {
                 200: function(response) {
+                    location.reload();
                     alert("新增成功！");
                 }
             }
