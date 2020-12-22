@@ -116,4 +116,14 @@ public class EditQuery {
         int affected = ReplySheetDaoImpl.getInstance().updateRpSheetStatus(reno, rstatus);
         return affected != 0;
     }
+
+    public static boolean deleteStudentWithSno(String sno) {
+        int affected = StudentDaoImpl.getInstance().deleteStudentWithSno(sno);
+        return affected != 0;
+    }
+
+    public static boolean deleteDormRoom(String dbno, String dbd, String drbno) {
+        int affected = DormRoomDaoImpl.getInstance().deleteDormRoom(dbno, dbd, drbno);
+        return affected != 0;
+    }
 }

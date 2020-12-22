@@ -267,4 +267,24 @@ public class EditServlet extends BaseServlet {
         else
             resp.setStatus(622);
     }
+
+    protected void deleteStudentWithSno(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String sno = req.getParameter("sno");
+        boolean success = EditQuery.deleteStudentWithSno(sno);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
+
+    protected void deleteDormRoom(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dbno = req.getParameter("dbno");
+        String dbd = req.getParameter("dbd");
+        String drbno = req.getParameter("drbno");
+        boolean success = EditQuery.deleteDormRoom(dbno, dbd, drbno);
+        if (success)
+            resp.setStatus(200);
+        else
+            resp.setStatus(622);
+    }
 }

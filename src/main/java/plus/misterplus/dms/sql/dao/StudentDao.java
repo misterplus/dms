@@ -14,4 +14,5 @@ public interface StudentDao {
     public DormRoom selectStudentDorm(String sno);
     public List<Student> selectStudents();
     public List<Student> selectDormStudents(String dbno, String dbd, String drbno);
+    public int deleteStudentWithSno(String sno);
 }

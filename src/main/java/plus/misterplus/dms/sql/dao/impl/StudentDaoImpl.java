@@ -61,4 +61,10 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
         String sql = "exec selectDormStudents ?,?,?";
         return procedure(Student.class, sql, dbno, dbd, drbno);
     }
+
+    @Override
+    public int deleteStudentWithSno(String sno) {
+        String sql = "delete from student where sno = ?";
+        return update(sql, sno);
+    }
 }
