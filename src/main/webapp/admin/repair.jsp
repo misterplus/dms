@@ -102,30 +102,35 @@
 
     function change(tag) {
         var reno = $(tag).parent().siblings()[0].innerHTML;
-        var restatus = prompt("请输入状态");
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "updateRpSheetStatus",
-                "reno":reno,
-                "restatus":restatus,
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    location.reload();
-                    alert("修改成功");
-                },
-                621: function() {
-                    alert("修改失败");
-                }
-            }
-        });
+        var restatus = prompt("请输入维修状态");
+        if(restatus!=null){
+            if(restatus!==""){
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editServlet",
+                    headers: {
+                        "dms_token": cookies.get("dms_token")
+                    },
+                    data: {
+                        "action": "updateRpSheetStatus",
+                        "reno":reno,
+                        "restatus":restatus,
+                    },
+                    dataType: "json",
+                    async: false,
+                    statusCode: {
+                        200: function(response) {
+                            location.reload();
+                            alert("修改成功");
+                        },
+                        621: function() {
+                            alert("修改失败");
+                        }
+                    }
+                });
+            }else alert("维修状态不能为空！")
+        }
+
     }
 
     var cookies = getCookieMap(document.cookie);

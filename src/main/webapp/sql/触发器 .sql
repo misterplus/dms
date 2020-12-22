@@ -13,12 +13,22 @@ after update
 as
 begin
 	declare @oldfpaid bit ,@newfpaid bit
-	select @newfpaid=fpaid from inserted
-	select @oldfpaid=fpaid from deleted
+	select 
+	@newfpaid=fpaid 
+	from 
+	inserted
+	select 
+	@oldfpaid=fpaid 
+	from 
+	deleted
 	if @newfpaid=1
-		insert into log_history values('fees','未缴纳->未缴纳',getdate())
+		insert into
+		 log_history 
+		 values('fees','未缴纳->未缴纳',getdate())
 	if @newfpaid=0
-		insert into log_history values('fees','已缴纳->未缴纳',getdate())
+		insert into 
+		log_history 
+		values('fees','已缴纳->未缴纳',getdate())
 	end
 go
 
@@ -28,10 +38,18 @@ after insert
 as
 begin
 	declare @olditype bit ,@newitype bit
-	select @newitype=itype from inserted
-	select @olditype=itype from deleted
+	select 
+	@newitype=itype 
+	from 
+	inserted
+	select 
+	@olditype=itype 
+	from 
+	deleted
 	if @newitype=0
-		insert into log_history values('items','空->存入',getdate())
+		insert into
+		log_history 
+		values('items','空->存入',getdate())
 	end
 go
 
@@ -40,10 +58,18 @@ after update
 as
 begin
 	declare @olditype bit ,@newitype bit
-	select @newitype=itype from inserted
-	select @olditype=itype from deleted
+	select 
+	@newitype=itype 
+	from 
+	inserted
+	select 
+	@olditype=itype 
+	from 
+	deleted
 	if @newitype=1
-		insert into log_history values('items','存放->已取走',getdate())
+		insert into 
+		log_history 
+		values('items','存放->已取走',getdate())
 	end
 go
 
@@ -53,10 +79,18 @@ after insert
 as
 begin
 	declare @oldgtype bit ,@newgtype bit
-	select @newgtype=gtype from inserted
-	select @oldgtype=gtype from deleted
+	select 
+	@newgtype=gtype 
+	from 
+	inserted
+	select 
+	@oldgtype=gtype 
+	from 
+	deleted
 	if @newgtype=0
-		insert into log_history values('guest','空->进入',getdate())
+		insert into 
+		log_history 
+		values('guest','空->进入',getdate())
 	end
 go
 
@@ -65,10 +99,18 @@ after update
 as
 begin
 	declare @oldgtype bit ,@newgtype bit
-	select @newgtype=gtype from inserted
-	select @oldgtype=gtype from deleted
+	select 
+	@newgtype=gtype 
+	from 
+	inserted
+	select 
+	@oldgtype=gtype 
+	from 
+	deleted
 	if @newgtype=1
-		insert into log_history values('guest','进入->已离开',getdate())
+		insert into 
+		log_history 
+		values('guest','进入->已离开',getdate())
 	end
 go
 --触发器4，维修状态级联
@@ -78,9 +120,20 @@ as
 begin 
 	declare @rsno char(8)
 	declare @restatus varchar(10)
-	select @restatus=restatus from inserted
-	select @rsno=rsno from inserted
-	update rsheet set rprogress=@restatus where rsno=@rsno
+	select 
+	@restatus=restatus 
+	from 
+	inserted
+	select 
+	@rsno=rsno 
+	from 
+	inserted
+	update 
+	rsheet 
+	set 
+	rprogress=@restatus 
+	where 
+	rsno=@rsno
 	end
 go
 
@@ -91,9 +144,20 @@ as
 begin 
 	declare @rsno char(8)
 	declare @restatus varchar(10)
-	select @restatus=restatus from inserted
-	select @rsno=rsno from inserted
-	update rsheet set rprogress=@restatus where rsno=@rsno
+	select 
+	@restatus=restatus 
+	from 
+	inserted
+	select 
+	@rsno=rsno 
+	from 
+	inserted
+	update 
+	rsheet 
+	set 
+	rprogress=@restatus 
+	where 
+	rsno=@rsno
 	end
 go
 
@@ -105,11 +169,29 @@ begin
 	declare @reno char(8)
 	declare @rsno char(8)
 	declare @restatus varchar(10)
-	select @restatus=restatus from inserted
-	select @rsno=rsno from inserted
-	select @reno=reno from inserted
-	update rsheet set rprogress=@restatus where rsno=@rsno
-	update rsheet set reno=@reno where rsno=@rsno
+	select
+	@restatus=restatus 
+	from inserted
+	select 
+	@rsno=rsno
+	from 
+	inserted
+	select 
+	@reno=reno 
+	from 
+	inserted
+	update 
+	rsheet 
+	set 
+	rprogress=@restatus 
+	where 
+	rsno=@rsno
+	update 
+	rsheet 
+	set 
+	reno=@reno 
+	where 
+	rsno=@rsno
 	end
 go
 
