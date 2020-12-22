@@ -106,38 +106,62 @@
 
     function distribute() {
         var rsno = prompt("请输入报修单号");
-        var reman = prompt("请输入维修工姓名");
-        var remanno = prompt("请输入维修工工号");
-        var rereason = prompt("请输入故障原因");
-        var recost = prompt("请输入维修金额");
-        var restatus = prompt("请输入状态");
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "insertReplySheet",
-                "rsno":rsno,
-                "reman":reman,
-                "remanno":remanno,
-                "rereason":rereason,
-                "recost":recost,
-                "restatus":restatus,
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    location.reload();
-                    alert("分配成功");
-                },
-                621: function() {
-                    alert("分配失败");
+        if(rsno!=null){
+            if(rsno!==""){
+                var reman = prompt("请输入维修工姓名");
+                if(reman!=null){
+                    if(reman!==""){
+                        var remanno = prompt("请输入维修工工号");
+                        if(remanno!=null){
+                            if(remanno!==""){
+                                var rereason = prompt("请输入故障原因");
+                                if(rereason!=null){
+                                    if(rereason!==""){
+                                        var recost = prompt("请输入维修金额");
+                                        if(recost!=null){
+                                            if(recost!==""){
+                                                var restatus = prompt("请输入状态");
+                                                if(restatus!=null){
+                                                    if(restatus!==""){
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "/api/editServlet",
+                                                            headers: {
+                                                                "dms_token": cookies.get("dms_token")
+                                                            },
+                                                            data: {
+                                                                "action": "insertReplySheet",
+                                                                "rsno":rsno,
+                                                                "reman":reman,
+                                                                "remanno":remanno,
+                                                                "rereason":rereason,
+                                                                "recost":recost,
+                                                                "restatus":restatus,
+                                                            },
+                                                            dataType: "json",
+                                                            async: false,
+                                                            statusCode: {
+                                                                200: function(response) {
+                                                                    location.reload();
+                                                                    alert("分配成功");
+                                                                },
+                                                                621: function() {
+                                                                    alert("分配失败");
+                                                                }
+                                                            }
+                                                        });
+                                                    }else alert("维修状态不能为空")
+                                                }
+                                            }else alert("维修金额不能为空")
+                                        }
+                                    }else alert("故障原因不能为空")
+                                }
+                            }else alert("维修工工号不能为空")
+                        }
+                    }else alert("维修工姓名不能为空")
                 }
-            }
-        });
+            } else alert("报修单号不能为空")
+        }
     }
     function getDormDirection(dbd) {
         switch (dbd) {

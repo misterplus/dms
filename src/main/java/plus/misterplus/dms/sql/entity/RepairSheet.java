@@ -12,5 +12,5 @@ import java.util.Date;
 public class RepairSheet {
     private long rsno, reno;
     private String dbno, dbd, drbno, rtype, rcon, rprogress;
-    private Date rdate;
+    private Date rtime;
 }
