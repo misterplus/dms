@@ -131,4 +131,9 @@ public class EditQuery {
         int affected = AdminDaoImpl.getInstance().deleteAdmin(adno);
         return affected != 0;
     }
+
+    public static boolean deleteDBuilding(String dbno) {
+        int affected = ProcedureImpl.getInstance().deleteDBuilding(dbno);
+        return affected != 0;
+    }
 }

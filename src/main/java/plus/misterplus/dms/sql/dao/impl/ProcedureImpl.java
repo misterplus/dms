@@ -22,4 +22,9 @@ public class ProcedureImpl extends BaseDao {
         String sql = "exec newDorm_34 ?,?,?";
         return procedure(sql, dbno, height, rooms);
     }
+
+    public int deleteDBuilding(String dbno) {
+        String sql = "exec deleteDBuilding ?";
+        return procedure(sql, dbno);
+    }
 }
