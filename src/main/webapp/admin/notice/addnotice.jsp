@@ -16,7 +16,7 @@
 <script type="text/javascript">
     var info = getCredentials(false, true);
     if (info["usertype"] !== "admin") {
-        window.location.href = "/user/main.jsp";
+        window.location.href = "../../user/main.jsp";
     }
 </script>
 <div class="container-fluid">
@@ -26,14 +26,14 @@
                 <a class="navbar-brand h1" href="#">管理面板</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/main.jsp">用户</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">水电</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/fee.jsp">水电</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/repair.jsp">维修</a>
@@ -51,7 +51,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/guest.jsp">访客</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/query.jsp">查看统计</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/#">查看统计</a>
                         </li>
                     </ul>
                 </div>
@@ -64,66 +64,36 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/fee.jsp">缴纳情况</a>
-                    </li>
-                    <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">添加信息</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/notice.jsp">查看通知</a>
                     </li>
                 </ul>
             </div>
         </nav>
         <div class="col-3">
-            <form class="needs-validation" novalidate name="dorms">
+            <form class="needs-validation" novalidate name="notices">
                 <div class="form-group">
-                    <label for="dbno">宿舍楼号</label>
-                    <input type="text" class="form-control" name="dbno" id="dbno" placeholder="请输入宿舍楼号" required
-                           onkeyup="this.value=this.value.replace(/\D/g, '')">
+                    <label for="ntitle">标题</label>
+                    <input type="text" class="form-control" name="ntitle" id="ntitle" placeholder="请输入标题">
                     <div class="invalid-feedback">
-                        宿舍楼号不能为空!
+                        标题不能为空!
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="dbd">宿舍楼向</label>
-                    <input type="text" class="form-control" name="dbd" id="dbd" placeholder="请输入宿舍楼向" required>
+                    <label for="ncontent">内容</label>
+                    <input type="text" class="form-control" name="ncontent" id="ncontent" placeholder="请输入内容">
                     <div class="invalid-feedback">
-                        宿舍楼向不能为空!
+                        内容不能为空!
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="drbno">宿舍号</label>
-                    <input type="text" class="form-control" name="drbno" id="drbno" placeholder="请输入宿舍号" required
-                           onkeyup="this.value=this.value.replace(/\D/g, '')">
-                    <div class="invalid-feedback">
-                        宿舍号不能为空!
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="ftype" id="水费" value="水费" checked>
-                        <label class="form-check-label" for="水费">水费</label>
-                    </div>
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="ftype" id="电费" value="电费">
-                        <label class="form-check-label" for="电费">电费</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="famount">费用</label>
-                    <input type="text" class="form-control" name="famount" id="famount" placeholder="请输入费用" required>
-                    <div class="invalid-feedback">
-                        费用不能为空!
-                    </div>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="newFee()">新增</button>
+                <button type="button" class="btn btn-primary" onclick="newNotice()">新增</button>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-
-    function newFee() {
+    function newNotice() {
         var cookies = getCookieMap(document.cookie);
-        var form = document.forms["dorms"];
+        var form = document.forms["notices"];
         $.ajax({
             type: "POST",
             url: "/api/editServlet",
@@ -131,12 +101,9 @@
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "insertFeeAdmin",
-                "dbno": form["dbno"].value,
-                "dbd": getNumberDirection(form["dbd"].value),
-                "drbno": form["drbno"].value,
-                "ftype": form["ftype"].value,
-                "famount": form["famount"].value
+                "action": "insertNotice",
+                "ntitle": form["ntitle"].value,
+                "ncontent": form["ncontent"].value,
             },
             dataType: "json",
             async: false,
@@ -147,23 +114,6 @@
                 }
             }
         });
-    }
-
-    function getNumberDirection(dir) {
-        switch (dir) {
-            case "无":
-                return "0";
-            case "东":
-                return "1";
-            case "西":
-                return "2";
-            case "南":
-                return "3";
-            case "北":
-                return "4";
-            default:
-                return "";
-        }
     }
 </script>
 </body>
