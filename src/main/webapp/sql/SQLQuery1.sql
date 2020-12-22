@@ -27,90 +27,121 @@ as
 	f.dbd = s.dbd and 
 	f.drbno = s.drbno;
 
-
+	
 --插入无分楼类寝室楼
 create procedure newDorm_0
 	@dbno char(2),
 	@height int,
-	@rooms int
+	@rooms int,
+	@err varchar(50) output
 as
+begin
 	declare 
-	@i int,
-	@j int
-	set @i = 1;
-	set @j = 1;
-	insert into dbuilding(dbno,dbd) 
-	values(@dbno, '0');
-	while @i <= @height
-		begin
+		@i		int,
+		@j		int
+	begin try
+	begin tran
+		set @i = 1;
 		set @j = 1;
-		while @j <= @rooms
+		insert into dbuilding(dbno,dbd) 
+			values(@dbno, '0');
+		while @i <= @height
+		begin
+			set @j = 1;
+			while @j <= @rooms
 			begin
-			insert into droom(dbno,dbd,drbno,dcap) 
-			values(@dbno, '0', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
-			set @j = @j + 1;
+				insert into droom(dbno,dbd,drbno,dcap) 
+					values(@dbno, '0', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
+				set @j = @j + 1;
+			end
+			set @i = @i + 1;
 		end
-		set @i = @i + 1;
-	end
-
+		commit
+	end try
+	begin catch
+		rollback
+		select @err = ERROR_MESSAGE()
+	end catch
+end
 
 --插入东西分类寝室楼
 create procedure newDorm_12
 	@dbno char(2),
 	@height int,
-	@rooms int
+	@rooms int,
+	@err varchar(50) output
 as
+begin
 	declare 
 	@i int,
 	@j int
-	set @i = 1;
-	set @j = 1;
-	insert into dbuilding(dbno,dbd) 
-	values(@dbno, '1');
-	insert into dbuilding(dbno,dbd) 
-	values(@dbno, '2');
-	while @i <= @height
-		begin
+	begin try
+	begin tran
+		set @i = 1;
 		set @j = 1;
-		while @j <= @rooms
+		insert into dbuilding(dbno,dbd) 
+		values(@dbno, '1');
+		insert into dbuilding(dbno,dbd) 
+		values(@dbno, '2');
+		while @i <= @height
 			begin
-			insert into droom(dbno,dbd,drbno,dcap) 
-			values(@dbno, '1', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
-			insert into droom(dbno,dbd,drbno,dcap) 
-			values(@dbno, '2', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
-			set @j = @j + 1;
+			set @j = 1;
+			while @j <= @rooms
+				begin
+				insert into droom(dbno,dbd,drbno,dcap) 
+				values(@dbno, '1', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
+				insert into droom(dbno,dbd,drbno,dcap) 
+				values(@dbno, '2', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
+				set @j = @j + 1;
+			end
+			set @i = @i + 1;
 		end
-		set @i = @i + 1;
-	end
-
+		commit
+	end try
+	begin catch
+		rollback
+		select @err = ERROR_MESSAGE()
+	end catch
+end
 --插入南北分类寝室楼
 create procedure newDorm_34
 	@dbno char(2),
 	@height int,
-	@rooms int
+	@rooms int,
+	@err varchar(50) output
 as
+begin
 	declare 
-	@i int,
-	@j int
-	set @i = 1;
-	set @j = 1;
-	insert into dbuilding(dbno,dbd) 
-	values(@dbno, '3');
-	insert into dbuilding(dbno,dbd) 
-	values(@dbno, '4');
-	while @i <= @height
-		begin
+		@i int,
+		@j int
+	begin try
+	begin tran
+		set @i = 1;
 		set @j = 1;
-		while @j <= @rooms
+		insert into dbuilding(dbno,dbd) 
+		values(@dbno, '3');
+		insert into dbuilding(dbno,dbd) 
+		values(@dbno, '4');
+		while @i <= @height
 			begin
-			insert into droom(dbno,dbd,drbno,dcap) 
-			values(@dbno, '3', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
-			insert into droom(dbno,dbd,drbno,dcap) 
-			values(@dbno, '4', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
-			set @j = @j + 1;
+			set @j = 1;
+			while @j <= @rooms
+				begin
+				insert into droom(dbno,dbd,drbno,dcap) 
+				values(@dbno, '3', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
+				insert into droom(dbno,dbd,drbno,dcap) 
+				values(@dbno, '4', str(@i, 1) + replace(str(@j, 2), ' ', '0'), 5);
+				set @j = @j + 1;
+			end
+			set @i = @i + 1;
 		end
-		set @i = @i + 1;
-	end
+		commit
+	end try
+	begin catch
+		rollback
+		select @err = ERROR_MESSAGE()
+	end catch
+end
 
 --select不满的寝室
 create procedure selectDRoomNotFull
