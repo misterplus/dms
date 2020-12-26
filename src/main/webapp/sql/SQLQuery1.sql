@@ -140,29 +140,39 @@ begin
 	end catch
 end
 
+--删除楼
+create procedure deleteDBuilding
+	@dbno	 char(2)
+as
+begin
+	begin try
+	begin tran
+		delete from droom 
+			where dbno = @dbno
+		delete from dbuilding 
+			where dbno = @dbno
+		commit
+	end try
+	begin catch
+		rollback
+	end catch
+end
+
 --select不满的寝室
 create procedure selectDRoomNotFull
 as
 begin
-	select
-	drbno,dbno,dbd
-	from
-	droom
+	select drbno,dbno,dbd
+	from droom
 	except
-	select
-	a.drbno,a.dbno,a.dbd
+	select a.drbno,a.dbno,a.dbd
 	from (
-	select
-	s.drbno,s.dbno,s.dbd,count(*) num
-	from 
-	student s
-	group by 
-	s.drbno,s.dbno,s.dbd
+	select s.drbno,s.dbno,s.dbd,count(*) num
+	from student s
+	group by s.drbno,s.dbno,s.dbd
 	)as a , droom d
-	where 
-	d.dcap=num 
-	group by 
-	a.drbno,a.dbno,a.dbd;
+	where d.dcap=num 
+	group by a.drbno,a.dbno,a.dbd;
 end
 
 --select某寝室所有学生
@@ -173,18 +183,9 @@ create procedure selectDormStudents
 as
 begin
 	select s.*
-	from 
-	student s
-	where 
-	@drbno=s.drbno 
-	and
-	@dbno=s.dbno 
-	and
-	@dbd=s.dbd;
+	from student s
+	where @drbno=s.drbno and @dbno=s.dbno and @dbd=s.dbd;
 end
-
---删除楼
-
 
 --建立未住满的寝室视图
 create view droom_not_full

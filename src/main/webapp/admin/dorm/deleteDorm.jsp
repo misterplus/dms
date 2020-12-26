@@ -73,10 +73,10 @@
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/newDorm.jsp">新增宿舍</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/deleteDorm.jsp">删除寝室</a>
+                        <a class="side-link" href="#">删除寝室</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">查看宿舍</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/student.jsp">查看宿舍</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/dormNotFull.jsp">未满宿舍</a>
@@ -94,177 +94,31 @@
                         宿舍楼号不能为空!
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="dbd">宿舍楼向</label>
-                    <input type="text" class="form-control" name="dbd" id="dbd" placeholder="请输入宿舍楼向" required>
-                    <div class="invalid-feedback">
-                        宿舍楼向不能为空!
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="drbno">宿舍号</label>
-                    <input type="text" class="form-control" name="drbno" id="drbno" placeholder="请输入宿舍号" required
-                           onkeyup="this.value=this.value.replace(/\D/g, '')">
-                    <div class="invalid-feedback">
-                        宿舍号不能为空!
-                    </div>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="searchDorm()">查询</button>
+                <button type="button" class="btn btn-primary" onclick="deleteDorm()">删除</button>
             </form>
-        </div>
-        <div class="col-8">
-            <div id="app">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">学号</th>
-                        <th scope="col">姓名</th>
-                        <th scope="col">宿舍楼</th>
-                        <th scope="col">宿舍楼向</th>
-                        <th scope="col">宿舍号</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="student in students">
-                        <td v-text="student.sno" scope="row"></td>
-                        <td v-text="student.sname"></td>
-                        <td v-text="student.dbno"></td>
-                        <td v-text="student.dbd"></td>
-                        <td v-text="student.drbno"></td>
-                        <td><a href="#" onclick="resetPass(this)">重置密码</a></td>
-                        <td><a href="#" onclick="changeDorm(this)">更改宿舍</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-
-    function getNumberDirection(dir) {
-        switch (dir) {
-            case "无":
-                return "0";
-            case "东":
-                return "1";
-            case "西":
-                return "2";
-            case "南":
-                return "3";
-            case "北":
-                return "4";
-            default:
-                return "";
-        }
-    }
-
-    function changeDorm(tag) {
-        var sno = $(tag).parent().siblings()[0].innerHTML;
-        var dbno = prompt("请输入新的宿舍楼");
-        if (dbno === "")
-            return;
-        var dbd = getNumberDirection(prompt("请输入新的宿舍楼向"));
-        if (dbd === "")
-            return;
-        var drbno = prompt("请输入新的宿舍号");
-        if (drbno === "")
-            return;
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "updateStudentDorm",
-                "sno": sno,
-                "dbno": dbno,
-                "dbd": dbd,
-                "drbno": drbno
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("更改成功！");
-                    location.reload();
-                },
-                621: function () {
-                    alert("更改失败！");
-                }
-            }
-        });
-    }
-
-    function resetPass(tag) {
-        var sno = $(tag).parent().siblings()[0].innerHTML;
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "resetStudentPass",
-                "sno": sno
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("重置成功！");
-                    location.reload();
-                },
-                621: function () {
-                    alert("重置失败！");
-                }
-            }
-        });
-    }
-
-    function getDormDirection(dbd) {
-        switch (dbd) {
-            case "0":
-                return "无";
-            case "1":
-                return "东";
-            case "2":
-                return "西";
-            case "3":
-                return "南";
-            case "4":
-                return "北";
-        }
-    }
-
-    var app = new Vue({
-        el: '#app',
-        data: {
-            students: []
-        }
-    });
-
-    function searchDorm() {
+    function deleteDorm() {
         var cookies = getCookieMap(document.cookie);
         var form = document.forms["dorms"];
         $.ajax({
             type: "POST",
-            url: "/api/infoServlet",
+            url: "/api/editServlet",
             headers: {
                 "dms_token": cookies.get("dms_token")
             },
             data: {
-                "action": "selectDormStudents",
+                "action": "deleteDBuilding",
                 "dbno": form["dbno"].value,
-                "dbd": getNumberDirection(form["dbd"].value),
-                "drbno": form["drbno"].value
             },
             dataType: "json",
             async: false,
             statusCode: {
                 200: function(response) {
-                    app.students = response;
+                    alert("删除成功！");
+                    location.reload();
                 }
             }
         });

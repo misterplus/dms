@@ -65,6 +65,7 @@ public class BaseServlet extends HttpServlet {
         put("insertReplySheet", true);
         put("selectRepairSheets", true);
         put("deleteAdmin", true);
+        put("deleteDBuilding", true);
     }};
 
     @Override

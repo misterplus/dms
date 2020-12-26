@@ -70,6 +70,9 @@
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/newDorm.jsp">新增宿舍</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/deleteDorm.jsp">删除寝室</a>
+                    </li>
+                    <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/student.jsp">查看宿舍</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
