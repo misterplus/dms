@@ -103,22 +103,13 @@
                         宿舍楼朝向不能为空!
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="itype" id="存入" value="0" checked>
-                        <label class="form-check-label" for="存入">存入</label>
-                    </div>
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="itype" id="取出" value="1">
-                        <label class="form-check-label" for="取出">取出</label>
-                    </div>
-                </div>
                 <button type="button" class="btn btn-primary" onclick="newItem()">新增</button>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+
     function newItem() {
         var cookies = getCookieMap(document.cookie);
         var form = document.forms["items"];
@@ -134,7 +125,7 @@
                 "dbd": getNumberDirection(form["dbd"].value),
                 "dbno": form["dbno"].value,
                 "sno": form["sno"].value,
-                "itype": form["itype"].value,
+                "itype": "存入",
             },
             dataType: "json",
             async: false,

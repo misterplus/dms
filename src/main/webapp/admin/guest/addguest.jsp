@@ -103,16 +103,6 @@
                         手机号不能为空!
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="gtype" id="来访" value="来访" checked>
-                        <label class="form-check-label" for="来访">来访</label>
-                    </div>
-                    <div class="form-check form-check-inline mx-auto pb-2">
-                        <input type="radio" class="form-check-input" name="gtype" id="离开" value="离开">
-                        <label class="form-check-label" for="离开">离开</label>
-                    </div>
-                </div>
                 <button type="button" class="btn btn-primary" onclick="newGuest()">新增</button>
             </form>
         </div>
@@ -134,13 +124,14 @@
                 "dbd": getNumberDirection(form["dbd"].value),
                 "dbno": form["dbno"].value,
                 "gphone": form["gphone"].value,
-                "gtype": form["gtype"].value,
+                "gtype": "来访",
             },
             dataType: "json",
             async: false,
             statusCode: {
                 200: function(response) {
                     alert("新增成功！");
+                    location.reload();
                 }
             }
         });

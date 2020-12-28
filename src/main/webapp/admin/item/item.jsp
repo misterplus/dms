@@ -93,6 +93,7 @@
                         <td v-text="item.dbno"></td>
                         <td v-text="item.dbd"></td>
                         <td v-text="item.itype"></td>
+                        <td><input name="change" type="button" value="修改" onclick="change_itype(this)"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -115,10 +116,25 @@
                 return "北";
         }
     }
-
+    function getNumberDirection(dir) {
+        switch (dir) {
+            case "无":
+                return "0";
+            case "东":
+                return "1";
+            case "西":
+                return "2";
+            case "南":
+                return "3";
+            case "北":
+                return "4";
+            default:
+                return "";
+        }
+    }
     function getItype(itype) {
         if(itype)
-            return '取走';
+            return '取出';
         else
             return '存入';
     }
@@ -153,7 +169,45 @@
                 }
             });
         }
-    })
+    });
+    function change_itype(tag) {
+        var iname = $(tag).parent().siblings()[0].innerHTML;
+        var sno = $(tag).parent().siblings()[2].innerHTML;
+        var dbno = $(tag).parent().siblings()[3].innerHTML;
+        var dbd = $(tag).parent().siblings()[4].innerHTML;
+        var itype = $(tag).parent().siblings()[5].innerHTML;
+        var itype1 = "取出";
+        if(itype==="存入"){
+            $.ajax({
+                type: "POST",
+                url: "/api/editServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": "insertItem",
+                    "iname":iname,
+                    "sno":sno,
+                    "dbno":dbno,
+                    "dbd":getNumberDirection(dbd),
+                    "itype":itype1,
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        alert("修改成功");
+                        location.reload();
+                    },
+                    621: function() {
+                        alert("修改失败");
+                    }
+                }
+            });
+        }
+        else
+            alert("已取走，无需修改状态");
+    }
 </script>
 </body>
 </html>

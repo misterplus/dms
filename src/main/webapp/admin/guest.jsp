@@ -48,7 +48,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/item/item.jsp">物品存取</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/#">访客</a>
+                            <a class="nav-link" href="#">访客</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/admin/query.jsp">查看统计</a>
@@ -93,6 +93,7 @@
                         <td v-text="guest.dbd"></td>
                         <td v-text="guest.gphone"></td>
                         <td v-text="guest.gtype"></td>
+                        <td><input name="change" type="button" value="修改" onclick="change_gtype(this)"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -116,11 +117,28 @@
         }
     }
 
+    function getNumberDirection(dir) {
+        switch (dir) {
+            case "无":
+                return "0";
+            case "东":
+                return "1";
+            case "西":
+                return "2";
+            case "南":
+                return "3";
+            case "北":
+                return "4";
+            default:
+                return "";
+        }
+    }
+
     function getGtype(gtype) {
         if(gtype)
-            return '离开 ';
+            return "离开";
         else
-            return '进入';
+            return "来访";
     }
 
     var cookies = getCookieMap(document.cookie);
@@ -153,7 +171,45 @@
                 }
             });
         }
-    })
+    });
+    function change_gtype(tag) {
+        var gname = $(tag).parent().siblings()[0].innerHTML;
+        var dbno = $(tag).parent().siblings()[2].innerHTML;
+        var dbd = $(tag).parent().siblings()[3].innerHTML;
+        var gphone = $(tag).parent().siblings()[4].innerHTML;
+        var gtype = $(tag).parent().siblings()[5].innerHTML;
+        var gtype1 = "离开";
+        if(gtype==="来访"){
+            $.ajax({
+                type: "POST",
+                url: "/api/editServlet",
+                headers: {
+                    "dms_token": cookies.get("dms_token")
+                },
+                data: {
+                    "action": "insertGuest",
+                    "gname":gname,
+                    "dbno":dbno,
+                    "dbd":getNumberDirection(dbd),
+                    "gphone":gphone,
+                    "gtype":gtype1,
+                },
+                dataType: "json",
+                async: false,
+                statusCode: {
+                    200: function(response) {
+                        alert("修改成功");
+                        location.reload();
+                    },
+                    621: function() {
+                        alert("修改失败");
+                    }
+                }
+            });
+        }
+        else
+            alert("已离开，无需修改状态");
+    }
 </script>
 </body>
 </html>
