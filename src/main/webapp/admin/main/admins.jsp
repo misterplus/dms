@@ -72,7 +72,7 @@
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/main.jsp">学生名单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">管理名单</a>
+                        <a class="side-link" href="#">管理员名单</a>
                     </li>
                 </ul>
             </div>
@@ -163,7 +163,32 @@
                 }
             });
         }
-    })
+    });
+    function deleteAdmin(tag) {
+        var adno = $(tag).parent().siblings()[0].innerHTML;
+        $.ajax({
+            type: "POST",
+            url: "/api/editServlet",
+            headers: {
+                "dms_token": cookies.get("dms_token")
+            },
+            data: {
+                "action": "deleteAdmin",
+                "adno":adno
+            },
+            dataType: "json",
+            async: false,
+            statusCode: {
+                200: function(response) {
+                    alert("删除成功");
+                    location.reload();
+                },
+                621: function() {
+                    alert("删除失败");
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

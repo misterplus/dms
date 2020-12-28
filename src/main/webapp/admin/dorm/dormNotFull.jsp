@@ -64,7 +64,7 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column text-center" style="font-size: 13px;">
                     <li class="nav-item mt-1 mb-1">
-                        <a class="side-link" href="#">宿舍名单</a>
+                        <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm.jsp">宿舍名单</a>
                     </li>
                     <li class="nav-item mt-1 mb-1">
                         <a class="side-link" href="${pageContext.request.contextPath}/admin/dorm/newDorm.jsp">新增宿舍</a>
@@ -132,33 +132,37 @@
         var dbd = getNumberDirection($(tag).parent().siblings()[1].innerHTML);
         var drbno = $(tag).parent().siblings()[2].innerHTML;
         var dmno = prompt("请输入新的宿舍长学号");
-        if (dmno === "")
-            return;
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "updateDormMonitor",
-                "dbno": dbno,
-                "dbd": dbd,
-                "drbno": drbno,
-                "dmno": dmno
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("更改成功！");
-                    location.reload();
-                },
-                621: function () {
-                    alert("更改失败！");
-                }
+        if (dmno!=null){
+            if (dmno !== ""){
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editServlet",
+                    headers: {
+                        "dms_token": cookies.get("dms_token")
+                    },
+                    data: {
+                        "action": "updateDormMonitor",
+                        "dbno": dbno,
+                        "dbd": dbd,
+                        "drbno": drbno,
+                        "dmno": dmno
+                    },
+                    dataType: "json",
+                    async: false,
+                    statusCode: {
+                        200: function(response) {
+                            alert("更改成功！");
+                            location.reload();
+                        },
+                        621: function () {
+                            alert("更改失败！");
+                        }
+                    }
+                });
+            }else {
+                alert("宿舍长学号不为空")
             }
-        });
+        }
     }
 
     function getDormDirection(dbd) {

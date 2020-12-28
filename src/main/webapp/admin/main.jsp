@@ -81,7 +81,7 @@
                             <a class="side-link" href="#">学生名单</a>
                         </li>
                         <li class="nav-item mt-1 mb-1">
-                            <a class="side-link" href="${pageContext.request.contextPath}/admin/main/admins.jsp">管理名单</a>
+                            <a class="side-link" href="${pageContext.request.contextPath}/admin/main/admins.jsp">管理员名单</a>
                         </li>
                     </ul>
                 </div>
@@ -136,39 +136,48 @@
         function changeDorm(tag) {
             var sno = $(tag).parent().siblings()[0].innerHTML;
             var dbno = prompt("请输入新的宿舍楼");
-            if (dbno === "")
-                return;
-            var dbd = getNumberDirection(prompt("请输入新的宿舍楼向"));
-            if (dbd === "")
-                return;
-            var drbno = prompt("请输入新的宿舍号");
-            if (drbno === "")
-                return;
-            $.ajax({
-                type: "POST",
-                url: "/api/editServlet",
-                headers: {
-                    "dms_token": cookies.get("dms_token")
-                },
-                data: {
-                    "action": "updateStudentDorm",
-                    "sno": sno,
-                    "dbno": dbno,
-                    "dbd": dbd,
-                    "drbno": drbno
-                },
-                dataType: "json",
-                async: false,
-                statusCode: {
-                    200: function(response) {
-                        alert("更改成功！");
-                        location.reload();
-                    },
-                    621: function () {
-                        alert("更改失败！");
+            if(dbno!=null){
+                if (dbno !== ""){
+                    var dbd = getNumberDirection(prompt("请输入新的宿舍楼向"));
+                    if (dbd!=null){
+                        if (dbd !== ""){
+                            var drbno = prompt("请输入新的宿舍号");
+                            if (drbno!=null){
+                                if (drbno !== ""){
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/api/editServlet",
+                                        headers: {
+                                            "dms_token": cookies.get("dms_token")
+                                        },
+                                        data: {
+                                            "action": "updateStudentDorm",
+                                            "sno": sno,
+                                            "dbno": dbno,
+                                            "dbd": dbd,
+                                            "drbno": drbno
+                                        },
+                                        dataType: "json",
+                                        async: false,
+                                        statusCode: {
+                                            200: function(response) {
+                                                alert("更改成功！");
+                                                location.reload();
+                                            },
+                                            621: function () {
+                                                alert("更改失败！");
+                                            }
+                                        }
+                                    });
+                                }else{
+                                    alert("宿舍号不能为空")}
+                            }
+                        }else{
+                            alert("宿舍楼朝向不能为空")}
                     }
-                }
-            });
+                }else{
+                    alert("宿舍楼朝向不能为空")}
+            }
         }
 
         function resetPass(tag) {

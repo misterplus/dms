@@ -132,33 +132,37 @@
         var dbd = getNumberDirection($(tag).parent().siblings()[1].innerHTML);
         var drbno = $(tag).parent().siblings()[2].innerHTML;
         var dmno = prompt("请输入新的宿舍长学号");
-        if (dmno === "")
-            return;
-        $.ajax({
-            type: "POST",
-            url: "/api/editServlet",
-            headers: {
-                "dms_token": cookies.get("dms_token")
-            },
-            data: {
-                "action": "updateDormMonitor",
-                "dbno": dbno,
-                "dbd": dbd,
-                "drbno": drbno,
-                "dmno": dmno
-            },
-            dataType: "json",
-            async: false,
-            statusCode: {
-                200: function(response) {
-                    alert("更改成功！");
-                    location.reload();
-                },
-                621: function () {
-                    alert("更改失败！");
-                }
+        if (dmno!=null){
+            if (dmno !== ""){
+                $.ajax({
+                    type: "POST",
+                    url: "/api/editServlet",
+                    headers: {
+                        "dms_token": cookies.get("dms_token")
+                    },
+                    data: {
+                        "action": "updateDormMonitor",
+                        "dbno": dbno,
+                        "dbd": dbd,
+                        "drbno": drbno,
+                        "dmno": dmno
+                    },
+                    dataType: "json",
+                    async: false,
+                    statusCode: {
+                        200: function(response) {
+                            alert("更改成功！");
+                            location.reload();
+                        },
+                        621: function () {
+                            alert("更改失败！");
+                        }
+                    }
+                });
+            }else {
+                alert("宿舍长学号不为空")
             }
-        });
+        }
     }
 
     function getDormDirection(dbd) {
